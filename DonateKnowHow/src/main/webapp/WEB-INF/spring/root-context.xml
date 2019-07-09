@@ -16,7 +16,6 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
         <property name="url" value="jdbc:mysql://:3306/Doh?useSSL=false"></property>
         <property name="username" value=""></property> <!-- ##### 아이디와 비밀번호, ip주소는 Github에 올리지않습니다 ##### -->
-        <property name="password" value=""></property>
     </bean>
  
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
