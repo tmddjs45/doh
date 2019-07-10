@@ -1,0 +1,51 @@
+.header-bar{
+    width: 100%;
+    padding: 3px;
+}
+
+.header-bar .name{
+    margin-left: 1%
+}
+.header-bar .member{
+    margin-right: 1%;
+    float: right;
+}
+
+.header-bar .member ul{
+    list-style-type: none;
+    margin: 0;
+}
+
+.header-bar .member li{
+    display: inline;
+}
+
+.header-bar .member a{
+    text-decoration: none;
+    color: black;
+    font-size: 9pt;
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+/* ---------- hover ------------ */
+
+.header-bar .member a:hover{
+    color: darkorange;
+}
+
+
+
+/* ------------------- title ------------------ */
+.title{
+    text-align: center;
+}
+
+.title img{
+    margin-top: 25px;
+}
+
+.title p{
+    padding: 0;
+    margin: 0;
+}
