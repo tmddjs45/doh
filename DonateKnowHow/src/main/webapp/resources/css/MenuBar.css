@@ -1,0 +1,29 @@
+.menuBar{
+    width: 100%;
+    background-color: gold;
+    text-align: center;
+}
+.menuBar ul{
+    display: table; /*가운데정렬에 필요한*/
+    list-style-type: none;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+}
+.menuBar li{
+    display: inline-block;
+    font-size: 17pt;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 7%; 
+    padding-right: 7%;
+}
+
+.menuBar a{
+    text-decoration-line: none;
+    color: black;
+}
+
+.menuBar a:hover{
+    color: darkorange; 
+}
