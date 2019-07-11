@@ -22,19 +22,14 @@ import lombok.NoArgsConstructor;
 @Controller
 @AllArgsConstructor
 @NoArgsConstructor
-@RequestMapping("qqq")
+@RequestMapping("Qboard")
 public class QBoardController {
 	@Resource(name = "dohService")
 	private QBoardService service;
 	
-	@RequestMapping("/list")
-	public ModelAndView list() {
-		List<QBoardVO> listGo = service.listImpl();
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Qboard/list");
-		mv.addObject("list",listGo);
-//		System.out.println("----------------------LIST : " + listGo.get(0));
-		return mv;
+	@GetMapping("/list")
+	public void list(Model model) {
+		model.addAttribute("list", service.listImpl());
 	}
 	
 	@GetMapping("/Qinput")
