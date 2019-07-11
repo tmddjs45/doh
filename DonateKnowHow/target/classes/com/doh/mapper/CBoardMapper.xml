@@ -22,7 +22,7 @@
 	</select>
 	
 	<delete id = "delete" >
-		delete cboard where c_no=#{c_no} 
+		delete from cboard where c_no=#{c_no} 
 	</delete>
 	
 	<update id = "update">
