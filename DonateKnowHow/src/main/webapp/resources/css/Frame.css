@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.content-temp{
+	margin: 0;
+	height:800px;
+	display: grid;
+	grid-template-columns: 1fr 5fr 1fr;
+	text-align: center;
+}
+
+.content-temp .content{
+	border: 1px solid black;
+}

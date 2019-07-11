@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=utf-8" %>
 <html>
 <head>
@@ -5,8 +6,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="resources/css/Main_Header.css"></link>
 	<link rel="stylesheet" type="text/css" href="resources/css/MenuBar.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/Slider.css"></link>
 	<link rel="stylesheet" type="text/css" href="resources/css/Footer.css"></link>
+	<link rel="stylesheet" type="text/css" href="resources/css/Frame.css"></link>
 	<style>
 		html, body{
 			margin: 0;
@@ -14,7 +15,6 @@
 	</style>
 </head>
 <body>
-
 	<div class="header-bar">
 		<span class="name">D'oh</span>
 		<span class="member">
@@ -26,11 +26,12 @@
 	</div>
 		
 	<div class="title">
-		<img src="resources/img/dohmain.png" alt="main title"/>		
+		<img src="resources/img/dohmain.png" alt="main title"/>
 		<p>Donate Know-How</p>
 	</div>
 
-	<div>
+	  
+	<div class="navigation">
 		<nav class='menuBar'>
 			<ul>
 				<li><a href="#">ABOUT</a></li>
@@ -41,42 +42,16 @@
 		</nav>
 	</div>
 	
-	<div style="position: relative;">
-		<div class="slider">
-				<div class="slider_item"><h1>1</h1></div>
-				<div class="slider_item"><h1>2</h1></div>
-				<div class="slider_item"><h1>3</h1></div>
-				<div class="slider_item"><h1>4</h1></div>
-				<div class="slider_item"><h1>5</h1></div>
+	<div class="content-temp">
+		<div></div>
+		<div class="content">
+			Frame .JSP 
 		</div>
+		<div></div>
 	</div>
-	
 	
 	<div class="footer">
-			여긴 FOOTER .
+		
 	</div>
-	
 </body>
-
-<script>
-	const SHOWING_CLASS ="showing";
-	const firstSlide = document.querySelector(".slider_item:first-child");
-	function slide(){
-		const currentSlide = document.querySelector('.showing');
-		if(currentSlide){
-			currentSlide.classList.remove(SHOWING_CLASS);
-			const nextSlide = currentSlide.nextElementSibling;
-			if(nextSlide){
-				nextSlide.classList.add(SHOWING_CLASS);
-			}else{
-				firstSlide.classList.add(SHOWING_CLASS);
-			}
-		}else{
-			firstSlide.classList.add(SHOWING_CLASS);
-		}
-	}
-	slide();
-	setInterval(slide, 2000);
-	
-</script>
 </html>

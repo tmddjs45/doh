@@ -18,5 +18,9 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
+	@RequestMapping("/frame") // 기본프레임으로 접속합니다.
+	public String frame() {
+		return "frame";
+	}
 	
 }
