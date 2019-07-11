@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>index</title>
 </head>
 <body>
 
+		<h1>Index</h1>
+		<br/><br/><br/>
+		
+
+		<a href="doh/list">LIST</a>
+		
 </body>
 </html>
