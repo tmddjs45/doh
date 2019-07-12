@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.doh.mapper.QBoardMapper">
+	<select id="list" resultType="com.doh.domain.QBoardVO">
+		<![CDATA[ select * from QBOARD left join MEMBER on QBOARD.M_NO = MEMBER.M_NO order by q_no ]]>
+	</select>
+	
+	<insert id="insert" parameterType="com.doh.domain.QBoardVO">
+		insert into qboard (q_title, q_content) values (#{q_title}, #{q_content})
+	</insert>
+	
+	<select id="content" resultType="com.doh.domain.QBoardVO">
+		select * from QBOARD left join MEMBER on QBOARD.m_no = MEMBER.m_no where q_no=#{q_no}
+	</select>
+	
+	<delete id="delete">
+		delete from QBOARD where q_no=#{q_no}
+	</delete>
+
+	<select id="updateGet" resultType="com.doh.domain.QBoardVO">
+		select * from QBOARD left join MEMBER on QBOARD.m_no = MEMBER.m_no where q_no=#{q_no}
+	</select>
+
+	<update id="update">
+		update qboard set q_title=#{q_title}, q_content=#{q_content}, q_rdate=now() where q_no=#{q_no}
+	</update>
+	
+	<!-- paging -->
+	<select id='listPaging' resultType="com.doh.domain.QBoardVO">
+		<![CDATA[ select * from QBOARD left join MEMBER on QBOARD.M_NO = MEMBER.M_NO 
+					order by q_no desc limit #{pageStart}, #{pageNum} ]]>
+	</select>
+</mapper>
