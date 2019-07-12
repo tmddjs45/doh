@@ -32,7 +32,7 @@
 
 		  <tr>
 		     <td align="center">CONTENT</td>
-			 <td align="center"><textarea name="q_content" rows="5" cols="53"></textarea></td>
+			 <td align="center"><textarea wrap='hard' name="q_content" rows="5" cols="53"></textarea></td>
 		  </tr>
 		  <tr>
 		     <td colspan="2" align="center">

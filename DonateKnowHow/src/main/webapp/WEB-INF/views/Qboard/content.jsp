@@ -40,12 +40,20 @@
 				</tr>
 				<tr>
 					<td align='center'>CONTENT</td>
-					<td>${content.q_content}</td>
+					<td><pre>${content.q_content}</pre></td>
 				</tr>
 				
 				
 			</table>
 		
+		<hr width='600' size='2' noshade>
+		
+		<table border='1' width='600' align='center' cellpadding='3'>
+			<tr>
+				<td align='center' width='100'>REPLY</td>
+				<td>덧글들어가는공간</td>
+			</tr>
+		</table>
 		<hr width='600' size='2' noshade>
 		<b> 
 			<a href='Qupdate?q_no=${content.q_no}'>UPDATE</a> | <a

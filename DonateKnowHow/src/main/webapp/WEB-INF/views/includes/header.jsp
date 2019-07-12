@@ -23,7 +23,7 @@
 		<nav class='menuBar'>
 			<ul>
 				<li><a href="#">ABOUT</a></li>
-				<li><a href="#">LECTURE</a></li>
+				<li><a href="/cboard/list">LECTURE</a></li>
 				<li><a href="/Qboard/list">Q&A</a></li>
 				<li><a href="#">FREE-BOARD</a></li>
 			</ul>
