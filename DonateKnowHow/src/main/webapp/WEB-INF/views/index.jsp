@@ -3,10 +3,7 @@
 <head>
 	<title>D'oh</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="resources/css/Main_Header.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/MenuBar.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/Slider.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/Footer.css"></link>
+	<link rel="stylesheet" type="text/css" href="resources/css/slider.css"></link>
 	<style>
 		html, body{
 			margin: 0;
@@ -14,47 +11,23 @@
 	</style>
 </head>
 <body>
-
-	<div class="header-bar">
-		<span class="name">D'oh</span>
-		<span class="member">
-			<ul>
-				<li><a href="#">로그인</a></li>|
-				<li><a href="#">회원가입</a></li>
-			</ul>
-		</span>
-	</div>
-		
-	<div class="title">
-		<img src="resources/img/dohmain.png" alt="main title"/>		
-		<p>Donate Know-How</p>
-	</div>
-
-	<div>
-		<nav class='menuBar'>
-			<ul>
-				<li><a href="#">ABOUT</a></li>
-				<li><a href="#">LECTURE</a></li>
-				<li><a href="#">Q&A</a></li>
-				<li><a href="#">FREE-BOARD</a></li>
-			</ul>
-		</nav>
+ 	<%@include file= "includes/header.jsp" %>
+ 	
+	<div class="slider">
+		<div class="slider_item"><h1>1</h1></div>
+		<div class="slider_item"><h1>2</h1></div>
+		<div class="slider_item"><h1>3</h1></div>
+		<div class="slider_item"><h1>4</h1></div>
+	
 	</div>
 	
-	<div style="position: relative;">
-		<div class="slider">
-				<div class="slider_item"><h1>1</h1></div>
-				<div class="slider_item"><h1>2</h1></div>
-				<div class="slider_item"><h1>3</h1></div>
-				<div class="slider_item"><h1>4</h1></div>
-				<div class="slider_item"><h1>5</h1></div>
-		</div>
+	<div style="background-color: gold; margin:0; text-align: center">
+		<h1 style="margin-top:0;">여기기기기기기기기</h1>
+		<h2>gdkljlkasd</h2>
+		<h3 style="margin-bottom:0;">sdoqjsdmlqksmdlk</h3>
 	</div>
 	
-	
-	<div class="footer">
-			여긴 FOOTER .
-	</div>
+	<%@include file="includes/footer.jsp" %>
 	
 </body>
 

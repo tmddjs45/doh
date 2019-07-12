@@ -9,5 +9,13 @@
 }
 
 .content-temp .content{
-	border: 1px solid black;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-left: 1px dotted gray;
+	border-right: 1px dotted gray;
+}
+
+.signup-form{
+	display: grid;
+	width: 100%;
 }
