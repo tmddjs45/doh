@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.content-temp{
+	margin: 0;
+	height:800px;
+	display: grid;
+	grid-template-columns: 1fr 5fr 1fr;
+	text-align: center;
+}
+
+.content-temp .content{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-left: 1px dotted gray;
+	border-right: 1px dotted gray;
+}
+
+.signup-form{
+	display: grid;
+	width: 100%;
+}
