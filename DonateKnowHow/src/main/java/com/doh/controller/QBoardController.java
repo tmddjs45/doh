@@ -40,11 +40,11 @@ public class QBoardController {
 	
 	@GetMapping("/list")
 	public void list(Model model, QCriteria cr) {
-//		model.addAttribute("list", service.listImpl());
+		model.addAttribute("list", service.listImpl());
 		
 		System.out.println("--------------------list :: " + cr);
-		model.addAttribute("list", service.getListImpl(cr));
-		model.addAttribute("pageMaker", new QBoardPageVO(cr, 100));
+//		model.addAttribute("list", service.getListImpl(cr));
+//		model.addAttribute("pageMaker", new QBoardPageVO(cr, 100));
 	}
 	
 

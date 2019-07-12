@@ -49,7 +49,7 @@ public class QBoardServiceImpl implements QBoardService {
 	}
 	
 	//paging
-	public List<QBoardVO> getListImpl(QCriteria cr){
-		return mapper.listPaging(cr);
-	}
+//	public List<QBoardVO> getListImpl(QCriteria cr){
+//		return mapper.listPaging(cr);
+//	}
 }

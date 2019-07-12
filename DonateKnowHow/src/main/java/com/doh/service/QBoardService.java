@@ -16,5 +16,5 @@ public interface QBoardService {
 	void updateImpl(QBoardVO vo);
 	
 	// paging
-	List<QBoardVO> getListImpl(QCriteria cr);
+//	List<QBoardVO> getListImpl(QCriteria cr);
 }
