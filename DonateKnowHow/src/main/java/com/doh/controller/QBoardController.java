@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.doh.domain.QBoardPageVO;
 import com.doh.domain.QBoardVO;
+import com.doh.domain.QCriteria;
 import com.doh.service.QBoardService;
 
 import lombok.AllArgsConstructor;
@@ -21,17 +23,31 @@ import lombok.NoArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-@NoArgsConstructor
 @RequestMapping("Qboard")
 public class QBoardController {
-	@Resource(name = "dohService")
+//	@Resource(name = "dohService")
 	private QBoardService service;
 	
+//	@RequestMapping("/list")
+//	public ModelAndView list() {
+//		List<QBoardVO> listGo = service.listImpl();
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("Qboard/list");
+//		mv.addObject("list",listGo);
+////		System.out.println("----------------------LIST : " + listGo.get(0));
+//		return mv;
+//	}
+	
 	@GetMapping("/list")
-	public void list(Model model) {
-		model.addAttribute("list", service.listImpl());
+	public void list(Model model, QCriteria cr) {
+//		model.addAttribute("list", service.listImpl());
+		
+		System.out.println("--------------------list :: " + cr);
+		model.addAttribute("list", service.getListImpl(cr));
+		model.addAttribute("pageMaker", new QBoardPageVO(cr, 100));
 	}
 	
+
 	@GetMapping("/Qinput")
 	public String input() {
 		return "Qboard/input";
@@ -81,6 +97,5 @@ public class QBoardController {
 		}
 		return "redirect:list";
 	}
-	
 	
 }

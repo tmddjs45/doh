@@ -2,6 +2,7 @@ package com.doh.mapper;
 
 import java.util.List;
 
+import com.doh.domain.QCriteria;
 import com.doh.domain.QBoardVO;
 
 public interface QBoardMapper {
@@ -11,4 +12,7 @@ public interface QBoardMapper {
 	boolean delete(int q_no);
 	QBoardVO updateGet(int q_no);
 	void update(QBoardVO vo);
+	
+	//paging
+	List<QBoardVO> listPaging(QCriteria qpaging);
 }

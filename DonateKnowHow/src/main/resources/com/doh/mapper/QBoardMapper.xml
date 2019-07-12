@@ -9,8 +9,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.doh.domain.QBoardVO">
-		insert into qboard (q_title, q_content) 
-					values (#{q_title}, #{q_content})
+		insert into qboard (q_title, q_content) values (#{q_title}, #{q_content})
 	</insert>
 	
 	<select id="content" resultType="com.doh.domain.QBoardVO">
@@ -26,6 +25,12 @@
 	</select>
 
 	<update id="update">
-		update qboard set q_title=#{q_title}, q_content=#{q_content} where q_no=#{q_no}
+		update qboard set q_title=#{q_title}, q_content=#{q_content}, q_rdate=now() where q_no=#{q_no}
 	</update>
+	
+	<!-- paging -->
+	<select id='listPaging' resultType="com.doh.domain.QBoardVO">
+		<![CDATA[ select * from QBOARD left join MEMBER on QBOARD.M_NO = MEMBER.M_NO 
+					order by q_no desc limit #{pageStart}, #{pageNum} ]]>
+	</select>
 </mapper>

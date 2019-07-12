@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.doh.domain.QBoardVO;
+import com.doh.domain.QCriteria;
 import com.doh.mapper.QBoardMapper;
 
 
@@ -45,5 +46,10 @@ public class QBoardServiceImpl implements QBoardService {
 	@Override
 	public void updateImpl(QBoardVO vo) {
 		mapper.update(vo);
+	}
+	
+	//paging
+	public List<QBoardVO> getListImpl(QCriteria cr){
+		return mapper.listPaging(cr);
 	}
 }
