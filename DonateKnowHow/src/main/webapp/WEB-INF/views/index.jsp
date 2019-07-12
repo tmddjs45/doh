@@ -18,6 +18,7 @@
 		<div class="slider_item"><h1>2</h1></div>
 		<div class="slider_item"><h1>3</h1></div>
 		<div class="slider_item"><h1>4</h1></div>
+
 	
 	</div>
 	
