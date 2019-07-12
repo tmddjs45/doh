@@ -1,6 +1,5 @@
-
-Built-By: 99pc
-Build-Jdk: 1.8.0_202
-
+Manifest-Version: 1.0
+Built-By: Cheon Seung Eon
+Build-Jdk: 1.8.0_201
 Created-By: Maven Integration for Eclipse
 
