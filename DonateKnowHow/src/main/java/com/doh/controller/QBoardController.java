@@ -25,26 +25,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("Qboard")
 public class QBoardController {
-//	@Resource(name = "dohService")
 	private QBoardService service;
-	
-//	@RequestMapping("/list")
-//	public ModelAndView list() {
-//		List<QBoardVO> listGo = service.listImpl();
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("Qboard/list");
-//		mv.addObject("list",listGo);
-////		System.out.println("----------------------LIST : " + listGo.get(0));
-//		return mv;
-//	}
+
 	
 	@GetMapping("/list")
 	public void list(Model model, QCriteria cr) {
-		model.addAttribute("list", service.listImpl());
-		
-		System.out.println("--------------------list :: " + cr);
-//		model.addAttribute("list", service.getListImpl(cr));
-//		model.addAttribute("pageMaker", new QBoardPageVO(cr, 100));
+		model.addAttribute("list", service.getListImpl(cr));
+		model.addAttribute("pageMaker", new QBoardPageVO(cr, service.listCountImpl()));
 	}
 	
 
@@ -55,7 +42,6 @@ public class QBoardController {
 	
 	@PostMapping("/Qinput")
 	public String input(QBoardVO vo, RedirectAttributes rttr) {
-		System.out.println("--------------------inputVO : " + vo);
 		service.insertImpl(vo);
 		rttr.addFlashAttribute("result", vo.getQ_no());
 		return "redirect:list";
@@ -63,8 +49,6 @@ public class QBoardController {
 	
 	@GetMapping("/Qcontent")
 	public ModelAndView content(@RequestParam("q_no") int q_no, Model model) {
-		System.out.println("-------------------contentQno : " + q_no);
-//		model.addAttribute("content", service.contentImpl(qno));
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Qboard/content");
 		mv.addObject("content", service.contentImpl(q_no));
@@ -73,17 +57,12 @@ public class QBoardController {
 	
 	@GetMapping("/Qupdate")
 	public String updateGet(@RequestParam("q_no") Integer q_no, QBoardVO vo, Model model) {
-		System.out.println("--------------------updateGET : " + vo.getQ_no());
 		model.addAttribute("list", service.updateGetImpl(q_no));
 		return "Qboard/update";
 	}
 	
 	@PostMapping("/Qupdate")
 	public String update(QBoardVO vo, RedirectAttributes rttr) {
-		System.out.println("--------------------updateVO : " + vo);
-//		if(service.updateImpl(vo)) {
-//			rttr.addFlashAttribute("result", "SUCCESS");
-//		}
 		service.updateImpl(vo);
 		rttr.addFlashAttribute("result", vo.getQ_no());
 		return "redirect:list";
@@ -91,7 +70,6 @@ public class QBoardController {
 	
 	@GetMapping("/delete")
 	public String delete(@RequestParam("q_no") int q_no, RedirectAttributes rttr) {
-		System.out.println("-------------------deleteQno : " + q_no);
 		if(service.deleteImpl(q_no)) {
 			rttr.addFlashAttribute("result", "SUCCESS");
 		}

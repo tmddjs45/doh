@@ -48,8 +48,14 @@ public class QBoardServiceImpl implements QBoardService {
 		mapper.update(vo);
 	}
 	
-	//paging
-//	public List<QBoardVO> getListImpl(QCriteria cr){
-//		return mapper.listPaging(cr);
-//	}
+	// 페이징
+	@Override
+	public List<QBoardVO> getListImpl(QCriteria cr){
+		return mapper.listPaging(cr);
+	}
+	
+	@Override
+	public int listCountImpl() {
+		return mapper.listCount();
+	}
 }
