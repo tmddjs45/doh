@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 
-<link rel="stylesheet" type="text/css" href="resources/css/main_header.css"></link>
-<link rel="stylesheet" type="text/css" href="resources/css/menubar.css"></link>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/frame.css"></link>
 
 	<div class="header-bar">
 		<span class="name"><a href="/">D'oh</a></span>
@@ -15,7 +17,7 @@
 	</div>
 		
 	<div class="title">
-		<a href="/"><img src="resources/img/dohmain.png" alt="main title"/></a>
+		<a href="/"><img src="${path}/resources/img/dohmain.png" alt="main title"/></a>
 		<p>Donate Know-How</p>
 	</div>
 
@@ -25,7 +27,7 @@
 				<li><a href="#">ABOUT</a></li>
 				<li><a href="#">LECTURE</a></li>
 				<li><a href="#">Q&A</a></li>
-				<li><a href="#">FREE-BOARD</a></li>
+				<li><a href="/fboard/list">FREE-BOARD</a></li>
 			</ul>
 		</nav>
 	</div>

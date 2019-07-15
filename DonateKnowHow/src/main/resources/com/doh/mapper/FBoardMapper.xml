@@ -3,7 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.doh.mapper.FBoardMapper">
-	<select id="getList">
-		select * from freeboard
+
+	<select id="getList" resultType="com.doh.domain.FBoardDTO" parameterType="com.doh.mapper.FBoardPageMaker">
+		select fb.f_no, fb.f_title, fb.f_rdate, fb.f_readnum, m.nickname FROM freeboard as fb JOIN member as m ON fb.m_no = m.m_no 
+		ORDER BY fb.f_no DESC LIMIT #{calcCount}, #{listCount}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM freeboard;
 	</select>
 </mapper>

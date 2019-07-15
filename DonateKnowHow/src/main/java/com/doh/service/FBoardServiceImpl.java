@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.doh.domain.FBoardDTO;
 import com.doh.mapper.FBoardMapper;
+import com.doh.mapper.FBoardPageMaker;
 
 import lombok.extern.java.Log;
 
@@ -18,8 +19,13 @@ public class FBoardServiceImpl implements FBoardService {
 	private FBoardMapper fboardMapper;
 
 	@Override
-	public List<FBoardDTO> getList() {
-		return fboardMapper.getList();
+	public List<FBoardDTO> getList(FBoardPageMaker fpm) {
+		log.info("################### FBoardServiceImpl public List<FBoardDTO> getList(FBoardPageMaker fpm)");
+		return fboardMapper.getList(fpm);
 	}
 
+	@Override
+	public int getTotalCount() {
+		return fboardMapper.getTotalCount();
+	}
 }
