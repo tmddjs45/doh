@@ -4,10 +4,10 @@
 <head>
 	<title>D'oh</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="resources/css/Main_Header.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/MenuBar.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/Footer.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/Frame.css"></link>
+	<link rel="stylesheet" type="text/css" href="resources/css/main_header.css"></link>
+	<link rel="stylesheet" type="text/css" href="resources/css/menubar.css"></link>
+	<link rel="stylesheet" type="text/css" href="resources/css/footer.css"></link>
+	<link rel="stylesheet" type="text/css" href="resources/css/frame.css"></link>
 	<style>
 		html, body{
 			margin: 0;

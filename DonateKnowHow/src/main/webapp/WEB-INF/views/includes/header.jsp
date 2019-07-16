@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 
-<link rel="stylesheet" type="text/css" href="resources/css/main_header.css"></link>
-<link rel="stylesheet" type="text/css" href="resources/css/menubar.css"></link>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/frame.css"></link>
 
 	<div class="header-bar">
 		<span class="name"><a href="/">D'oh</a></span>
@@ -13,9 +15,9 @@
 			</ul>
 		</span>
 	</div>
-		
+
 	<div class="title">
-		<a href="/"><img src="resources/img/dohmain.png" alt="main title"/></a>
+		<a href="/"><img src="${path}/resources/img/dohmain.png" alt="main title"/></a>
 		<p>Donate Know-How</p>
 	</div>
 
@@ -23,14 +25,16 @@
 		<nav class='menuBar'>
 			<ul>
 				<li><a href="#">ABOUT</a></li>
-				<li><a href="/cboard/list">LECTURE</a></li>
-				<li><a href="/Qboard/list">Q&A</a></li>
-				<li><a href="#">FREE-BOARD</a></li>
+
+				<li><a href="#">LECTURE</a></li>
+				<li><a href="#">Q&A</a></li>
+				<li><a href="/fboard/list">FREE-BOARD</a></li>
+.
 			</ul>
 		</nav>
 	</div>
-	
-	
+
+
 	<div class="modal hidden">
 		<div class="modal-overlay"></div>
 		<div class="modal-content">
@@ -50,7 +54,7 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<!-- modal Vanilla JS made by.Nomad Coders-->
 	<script>
 		const openBtn = document.getElementById("loginBtn");
@@ -60,11 +64,11 @@
 		const openModal = () =>{
 			modal.classList.remove("hidden");
 		}
-		
+
 		const closeModal = () =>{
 			modal.classList.add("hidden");
 		}
-		
+
 		overlay.addEventListener("click", closeModal);
 		closeBtn.addEventListener("click", closeModal);
 		openBtn.addEventListener("click", openModal);
