@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.doh.domain.QBoardPageVO;
 import com.doh.domain.QBoardVO;
 import com.doh.domain.QCriteria;
 import com.doh.service.QBoardService;
@@ -29,9 +28,10 @@ public class QBoardController {
 
 	
 	@GetMapping("/list")
-	public void list(Model model, QCriteria cr) {
+	public void list(Model model, int num) {
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
 		model.addAttribute("list", service.getListImpl(cr));
-		model.addAttribute("pageMaker", new QBoardPageVO(cr, service.listCountImpl()));
+		model.addAttribute("paging", cr);
 	}
 	
 

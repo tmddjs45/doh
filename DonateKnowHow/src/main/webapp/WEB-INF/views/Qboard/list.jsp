@@ -61,41 +61,32 @@
 	<!-- 	페이징	 -->
 		<div class='pull-right'>
 			<ul class='pagination'>
-				<c:if test='${pageMaker.prev}'>
-					<li class='paginate_button previous'>
-						<a href='#'>Previus</a>
+				<c:if test=''>
+					<li class='paginate_button next'>
+						<a href='#'>처음</a>
 					</li>
 				</c:if>
-				<c:forEach var='num' begin='${pageMaker.startPage}' end='${pageMaker.endPage}'>
-					<li class="paginate_button ${pageMaker.cr.pageStart == num ? "active":""}">
-						<a href='${num}'>${num}</a>
+			
+				<c:forEach var='num' begin='${paging.pageStart}' end='${paging.pageEnd}'>
+					<li class="paginate_button">
+						<a href="list?num=${num}">${num}</a>
 					</li>
 				</c:forEach>
-				<c:if test='${pageMaker.next}'>
+				
+				<c:if test=''>
 					<li class='paginate_button next'>
-						<a href='${pageMaker.endPage +1}'>NEXT</a>
+						<a href='#'>마지막</a>
 					</li>
 				</c:if>
 			</ul>
-			
 		</div>
-		<form id='actionForm' action='list'>
-				<input type='hidden' name='pageStart' value='${pageMaker.cr.pageStart}'>
-				<input type='hidden' name='pageNum' value='${pageMaker.cr.pageNum}'>
-		</form>
-	<hr width='600' size='2' noshade><hr width='600' size='2' noshade>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		var actionForm = $('#actionForm');
-		$('.paginate_button a').on('click', function(e){
-			e.preventDefault(); 		
-			console.log('click');
-			actionForm.find("input[name='pageStart']").val($(this).attr('href'));
-			actionForm.submit();
-		});
-	});
-</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+			$(document).ready(function(){
+				$('.paginate_button a').on('click', function(e){
+					e.preventDefault();
+				});
+			});
+		</script>
+		
 	</body>
-
 </html>

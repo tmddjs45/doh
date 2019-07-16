@@ -14,6 +14,6 @@ public interface QBoardMapper {
 	void update(QBoardVO vo);
 	
 	//paging
-	List<QBoardVO> listPaging(QCriteria qpaging);
+	List<QBoardVO> paging(QCriteria cr);
 	int listCount();
 }

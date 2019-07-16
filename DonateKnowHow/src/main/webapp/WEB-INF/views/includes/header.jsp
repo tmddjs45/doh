@@ -26,10 +26,10 @@
 			<ul>
 				<li><a href="#">ABOUT</a></li>
 
-				<li><a href="#">LECTURE</a></li>
-				<li><a href="#">Q&A</a></li>
+				<li><a href="/cboard/list">LECTURE</a></li>
+				<li><a href="/Qboard/list?num=1">Q&A</a></li>
 				<li><a href="/fboard/list">FREE-BOARD</a></li>
-.
+
 			</ul>
 		</nav>
 	</div>

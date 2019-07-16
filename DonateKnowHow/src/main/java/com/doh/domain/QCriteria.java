@@ -8,16 +8,20 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QCriteria {
+	private int page = 0;
+	private int pageNum = 10;
 	
-	private int pageStart;
-	private int pageNum;	// 한 페이지에서 몇개의 데이터를 보여줄 지
+	private int pageStart = 1;
+	private int pageEnd;
 	
-	public QCriteria() {
-		this(1,10);
+	private int first;
+	private int last;
+	public QCriteria(int num, int total) {
+		if(num!=1) {
+			page = (10 * num) - pageNum;
+		}
+		pageEnd = ( total / 10 ) + 1;
 	}
 	
-	public QCriteria(int pageStart, int pageNum) {
-		this.pageStart = pageStart;
-		this.pageNum = pageNum;
-	}
+	
 }
