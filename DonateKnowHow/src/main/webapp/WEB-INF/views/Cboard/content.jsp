@@ -31,7 +31,9 @@
 </tr>
 <tr>
 <td align='center'>글내용</td>
+
 <td><c:out value="${list.c_content}"/></td>
+
 
 </tr>
 
