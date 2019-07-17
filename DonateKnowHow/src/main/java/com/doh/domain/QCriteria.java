@@ -8,20 +8,26 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QCriteria {
-	private int page = 0;
+	private int page;
 	private int pageNum = 10;
 	
-	private int pageStart = 1;
+	private int pageStart;
 	private int pageEnd;
+	private float pageReal;
 	
-	private int first;
-	private int last;
+	private int pre;
+	private int next;
+	
+	private int num;
 	public QCriteria(int num, int total) {
-		if(num!=1) {
-			page = (10 * num) - pageNum;
+		if(num != 1) {
+			page = ( pageNum * num ) - pageNum;
 		}
-		pageEnd = ( total / 10 ) + 1;
+		
+		pageEnd = (int) (Math.ceil( pageNum / pageNum )) * pageNum ;
+		pageReal = (float) (Math.ceil( total / pageNum ));	
+		pageStart = (int)pageEnd - 9 ;
+
 	}
-	
 	
 }
