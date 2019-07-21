@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.doh.domain.CCriteria;
+
 import com.doh.domain.CBoardDTO;
 import com.doh.mapper.CBoardMapper;
 
@@ -44,14 +44,9 @@ public class CBoardServiceImpl implements CBoardService {
 	}
 
 	@Override
-	public List<CBoardDTO> getList(CCriteria cri) {
-		log.info("service##getlist--"+cri.getPageNum());
-		return mapper.getList(cri);
-	}
-	@Override
-	public int getTotalCount(CCriteria cri) {
-		return mapper.getTotalCount(cri);
-		
+	public List<CBoardDTO> getList() {
+		log.info("service##getlist--");
+		return mapper.getList();
 	}
 
 }

@@ -1,4 +1,3 @@
-
 <%@page import="java.nio.channels.SeekableByteChannel"%>
 <%@page import="org.springframework.web.bind.annotation.ModelAttribute"%>
 <%@page import="org.springframework.ui.Model"%>
@@ -49,34 +48,27 @@
 	<div class="modal hidden">
 		<div class="modal-overlay"></div>
 		<div class="modal-content">
-			<div class="login-form">
-				<div>
-					<h3>Login text or img</h3>
+			<form class="login-form" name="loginForm" action="/login" method="post">
+				<h1>Login</h1>
+				
+				<div class="txtb">
+					<input type="text" name="email">
+					<span data-placeholder="UserEmail"></span>
 				</div>
-				<form name="loginformtag" method="post" action="/login">
-					<div>
-						<table>
-							<tr>
-								<td><label>Email</label></td>
-								<td><input name="email" type="email" placeholder="example@domain.com"/></td>
-							</tr>
-							<tr>
-								<td><label>Password</label></td>
-								<td><input name="password" type="password"/></td>
-							</tr>
-						</table>
-					</div>
-					<br>
-					<div >
-						<button type="button" onclick="loginSubmitBtn()">Submit</button>
-						<button class="cls" type="button">Close</button>
-					</div>
-				</form>
-			</div>
+				
+				<div class="txtb">
+					<input type="password" name="password">
+					<span data-placeholder="Password"></span>
+				</div>
+				
+				<input class="logbtn" type="button" value="Login" onclick="loginSubmitBtn()">
+				<input class="cls" type="button" value="Close">
+				
+			</form>
 		</div>
 	</div>
 	
-	<!-- modal Vanilla JS made by.Nomad Coders-->
+<!-- modal Vanilla JS made by.Nomad Coders -->
 	<script>
 		const openBtn = document.getElementById("loginBtn");
 		const modal = document.querySelector(".modal");
@@ -96,11 +88,11 @@
 		closeBtn.addEventListener("click", closeModal);
 
 		
-		<!-- my code -->
+		/* ---- # my code # ---- */
 		
 		const loginSubmitBtn = () =>{
-			let email = loginformtag.email.value;
-			let pwd = loginformtag.password.value;
+			let email = loginForm.email.value;
+			let pwd = loginForm.password.value;
 			if(email.length==0){
 				alert("Email를 입력해주세요.");
 				return false;
@@ -109,7 +101,19 @@
 				alert("password를 입력해주세요.");
 				return false;
 			}
-			loginformtag.submit();
+			loginForm.submit();
 		}
-	
+		
+		/* ---- # Login form Css  # ---- */
+		
+		$(".txtb input").on("focus",function(){
+			$(this).addClass("focus");
+		});
+		
+		$(".txtb input").on("blur",function(){
+			if($(this).val()==""){
+				$(this).removeClass("focus");
+			}
+		});
+		
 	</script>

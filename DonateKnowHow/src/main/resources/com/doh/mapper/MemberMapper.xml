@@ -5,7 +5,11 @@
 	
 <mapper namespace="com.doh.mapper.MemberMapper">
 	<select id="searchMember" resultType="com.doh.domain.MemberDTO">
-		select * from member where email=#{email}
+		select * from member where email=#{email} 
+	</select>
+	
+	<select id="checknickname" resultType="com.doh.domain.MemberDTO">
+		select * from member where nickname=#{nickname}
 	</select>
 
 	<insert id="signup"  parameterType="com.doh.domain.MemberDTO">

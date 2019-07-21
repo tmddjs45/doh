@@ -7,4 +7,5 @@ public interface MemberService {
 	MemberDTO login(String email, String pwd);
 	void signup(MemberDTO dto);
 	MemberDTO checkemail(String email);
+	MemberDTO checknickname(String nickname);
 }

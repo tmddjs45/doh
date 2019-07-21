@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO login(String email, String pwd) {	
 			MemberDTO member = mapper.searchMember(email);
-			
+			log.info("## member : "+member);
 			if(member.getPassword().equals(pwd)) {
 				log.info(" # Access ----");
 				member.setPassword("");
@@ -42,5 +42,13 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO member = mapper.searchMember(email);
 		return member;
 	}
+
+	@Override
+	public MemberDTO checknickname(String nickname) {
+		MemberDTO member = mapper.checknickname(nickname);
+		return member;
+	}
+	
+	
 
 }

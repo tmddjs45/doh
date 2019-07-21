@@ -52,15 +52,32 @@ public class IndexController {
 	@PostMapping("/emailcheck")
 	public void emailcheck(String email, HttpServletResponse response){
 		log.info(email);
-		MemberDTO dto = service.checkemail(email);
+		MemberDTO member = service.checkemail(email);
 		try {
 			PrintWriter pw = response.getWriter();
 			
-			if(dto!=null) {
+			if(member!=null) {
 				//null 이 아니면 이미 있어 사용 불가능한 Email.
+				//JSon 파싱
 				pw.print(false);
 			}else {
 				//null 이면 사용 가능한 Email.
+				pw.print(true);
+			}
+		}catch(IOException io) {}
+	}
+	
+	@PostMapping("/nickcheck")
+	public void nicknamecheck(String nickname, HttpServletResponse response) {
+		MemberDTO member = service.checknickname(nickname);
+		try {
+			PrintWriter pw = response.getWriter();
+			
+			if(member!=null) {
+				//null 이 아니면 이미 있어 사용 불가능한 NickName.
+				pw.print(false);
+			}else {
+				//null 이면 사용 가능한 NickName.
 				pw.print(true);
 			}
 		}catch(IOException io) {}

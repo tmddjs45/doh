@@ -3,55 +3,38 @@
 <html>
 <head>
 	<title>D'oh</title>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/frame.css"></link>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="resources/css/Main_Header.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/MenuBar.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/Footer.css"></link>
-	<link rel="stylesheet" type="text/css" href="resources/css/Frame.css"></link>
-	<style>
-		html, body{
-			margin: 0;
-		}	
-	</style>
 </head>
 <body>
-	<div class="header-bar">
-		<span class="name">D'oh</span>
-		<span class="member">
-			<ul>
-				<li><a href="#">로그인</a></li>|
-				<li><a href="#">회원가입</a></li>
-			</ul>
-		</span>
-	</div>
-		
-	<div class="title">
-		<img src="resources/img/dohmain.png" alt="main title"/>
-		<p>Donate Know-How</p>
-	</div>
-
-	  
-	<div class="navigation">
-		<nav class='menuBar'>
-			<ul>
-				<li><a href="#">ABOUT</a></li>
-				<li><a href="#">LECTURE</a></li>
-				<li><a href="#">Q&A</a></li>
-				<li><a href="#">FREE-BOARD</a></li>
-			</ul>
-		</nav>
-	</div>
+	<%@include file= "includes/header.jsp" %>
 	
 	<div class="content-temp">
 		<div></div>
 		<div class="content">
-			Frame .JSP 
+			
+			<div class="list">
+				List
+			</div>
+			
+			<div class="container">
+				<div style="border-right: 2px solid red;">
+					코드를 작성해주세요.<br>
+					<button class="Btn" type="button" onclick="aa()" style="border: none; border-radius: 10px;">버튼입니당!</button>
+				</div>
+				
+				<div style="background-color: purple;">결과값입니다.</div>
+			</div>
 		</div>
 		<div></div>
 	</div>
 	
-	<div class="footer">
-		
-	</div>
+	<%@include file="includes/footer.jsp" %>
 </body>
+<script>
+	function aa(){
+		//document.querySelector('.Btn').innerHTML="버튼아니지롱";
+		$('.Btn').text("하잉");
+	}
+</script>
 </html>
