@@ -42,18 +42,23 @@
 	<table border='1' width='600' align='center' cellpadding='2'/>
 				<!--  페이징  -->
 	<div class='pull-right' align='center'>
+		
 		<li class='paginate_button next'>
-			<a href='list?num=${paging.pageStart -1}'>
-			<span aria-hidden='true'>이전</span>
-			</a>
+			<c:if test='${paging.pre}'>
+				<a href='list?num=${paging.pageStart-1}'>
+					<span aria-hidden='true'>이전</span>
+				</a>
+			</c:if>
 			<c:forEach var='num' begin='${paging.pageStart}' end='${paging.pageEnd}'>
-				<li test="paginate_button ${paging.pageStart == num ? "active":""}">
+				<li test="paginate_button">
 					<a href="list?num=${num}">${num}</a>
 				</li> 		
 			</c:forEach>
-			<a href='list?num=${paging.pageEnd +1}'>
-				<span aria-hidden='true'>다음</span>
-			</a>
+			<c:if test='${paging.next}'>
+				<a href='list?num=${paging.pageEnd+1}'>
+					<span aria-hidden='true'>다음</span>
+				</a>
+			</c:if>
 		</li>
 	</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">

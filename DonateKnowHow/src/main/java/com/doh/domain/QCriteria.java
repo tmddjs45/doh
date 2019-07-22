@@ -12,12 +12,14 @@ import lombok.ToString;
 @ToString
 public class QCriteria {
 	private int page;
-	private int pageNum = 10; 	
+	private int pageView = 5;
 	private int num;
-	private int total;		
-	private int pageStart; 
-	private int pageEnd; 	
-	private int pageTotal;	
+	private int total;
+	private int pageStart;
+	private int pageEnd; 
+	private int pageTotal;
+	private int pageReal;	
+	
 	private boolean pre, next;
 	
 	
@@ -26,26 +28,25 @@ public class QCriteria {
 		this.total = total;
 		
 		if(num != 1) {
-			page = ( pageNum * num ) - pageNum;
+			page = ( pageView * num ) - pageView;
 		}
 		
-		pageTotal = (int) (Math.ceil( total / pageNum )) ;
-		pageStart = (int) ((( num - 1 ) / pageNum ) * pageNum ) + 1 ;
-
-		if( total % pageTotal == 0 ) {
-			pageEnd = pageStart + ( pageTotal - 1);
-		}else {
-			pageEnd = ( pageStart + ( pageTotal - 1)) + 1;
-		}
+		pageTotal = ( total / pageView ) ;
+		pageEnd = (int) (Math.ceil(num / (double) pageView) * pageView);
+		pageReal = (int) (Math.ceil( total / (double) pageView ));
+		pageStart = ( pageEnd - pageView ) + 1 ;
+	    if (pageEnd > pageReal) {
+	    	pageEnd = pageReal;
+	    }
 		
-		this.pre = pageStart > 1 ;
-		this.next = pageEnd > pageTotal;
+		this.pre = num > 5 ;
+		this.next = pageEnd < pageTotal;
 	}
 	
 	public String makeQuery(int num) {
 		UriComponents uri = UriComponentsBuilder.newInstance()
 												.queryParam("page", page)
-												.queryParam("pageNum", this.getPageNum())
+												.queryParam("pageNum", this.getPageView())
 												.build()
 												.encode();
 		return uri.toString();

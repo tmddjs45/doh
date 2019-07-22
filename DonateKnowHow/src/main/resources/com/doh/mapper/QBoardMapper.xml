@@ -31,7 +31,7 @@
 		<!-- 페이징 -->
 	<select id='paging' resultType="com.doh.domain.QBoardVO">
 		<![CDATA[ select * from QBOARD left join MEMBER on QBOARD.M_NO = MEMBER.M_NO 
-					order by q_no desc limit #{pageNum} offset #{page} ]]>
+								order by q_no desc limit #{pageView} offset #{page} ]]>
 	</select>
 	<select id='listCount' resultType='Integer'>
 		<![CDATA[ select count(*) from QBOARD ]]>
