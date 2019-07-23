@@ -55,9 +55,15 @@
 			</tr>
 		</table>
 		<hr width='600' size='2' noshade>
+		
+		<form role="form" method="post">
+			<input type="hidden" name="num" value="${cr.num}">
+			<input type="hidden" name="pageView" value="${cr.pageView}">
+			<input type="hidden" name="q_no" value="${content.q_no}">
+		</form>
 		<b> 
 			<a href='Qupdate?q_no=${content.q_no}'>UPDATE</a> | <a
-			href='delete?q_no=${content.q_no}'>DELETE</a> | <a href='list'>LIST</a>
+			href='delete?q_no=${content.q_no}'>DELETE</a> | <a href='list${cr.makeQuery(cr.num)}&q_no=${content.q_no}'>LIST</a>
 		</b>
 		<hr width='600' size='2' noshade>
 	</center>

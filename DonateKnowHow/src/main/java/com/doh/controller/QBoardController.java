@@ -27,13 +27,13 @@ public class QBoardController {
 	private QBoardService service;
 
 	
-	@GetMapping("/list")
-	public void list(Model model, int num) {
+	@RequestMapping("/list")
+	public String list(Model model, @RequestParam(defaultValue="1") int num) {
 		QCriteria cr = new QCriteria(num, service.listCountImpl());
 		model.addAttribute("list", service.getListImpl(cr));
-		model.addAttribute("paging", cr);
+		model.addAttribute("cr", cr);
+		return "Qboard/list";
 	}
-	
 
 	@GetMapping("/Qinput")
 	public String input() {
@@ -47,12 +47,12 @@ public class QBoardController {
 		return "redirect:list";
 	}	
 	
-	@GetMapping("/Qcontent")
-	public ModelAndView content(@RequestParam("q_no") int q_no, Model model) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Qboard/content");
-		mv.addObject("content", service.contentImpl(q_no));
-		return mv;
+	@GetMapping("/content")
+	public String content(@RequestParam int q_no, Model model, int num) {
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
+		model.addAttribute("content", service.contentImpl(q_no));
+		model.addAttribute("cr", cr);
+		return "Qboard/content";
 	}
 	
 	@GetMapping("/Qupdate")

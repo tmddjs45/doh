@@ -45,10 +45,9 @@ public class QCriteria {
 	
 	public String makeQuery(int num) {
 		UriComponents uri = UriComponentsBuilder.newInstance()
-												.queryParam("page", page)
-												.queryParam("pageNum", this.getPageView())
-												.build()
-												.encode();
+												.queryParam("num", num)
+												.queryParam("pageView", this.getPageView())
+												.build();
 		return uri.toString();
 	}
 }
