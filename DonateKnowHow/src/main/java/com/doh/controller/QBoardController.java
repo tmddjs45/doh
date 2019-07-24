@@ -35,17 +35,23 @@ public class QBoardController {
 		return "Qboard/list";
 	}
 
-	@GetMapping("/Qinput")
-	public String input() {
+	@GetMapping("/input")
+	public String inputGet() {
+		System.out.println("-----input GET");
 		return "Qboard/input";
 	}
 	
-	@PostMapping("/Qinput")
+	@PostMapping("/input")
 	public String input(QBoardVO vo, RedirectAttributes rttr) {
+		System.out.println("--------------------inputVO : " + vo);
 		service.insertImpl(vo);
-		rttr.addFlashAttribute("result", vo.getQ_no());
+		QCriteria cr = new QCriteria(1, service.listCountImpl());
+		rttr.addAttribute("num", 1);
+		rttr.addAttribute("pageView", cr.getPageView());
+		rttr.addAttribute("q_no", vo.getQ_no());
+		rttr.addFlashAttribute("result", "SUCCESS");
 		return "redirect:list";
-	}	
+	}			
 	
 	@GetMapping("/content")
 	public String content(@RequestParam int q_no, Model model, int num) {
@@ -55,23 +61,32 @@ public class QBoardController {
 		return "Qboard/content";
 	}
 	
-	@GetMapping("/Qupdate")
-	public String updateGet(@RequestParam("q_no") Integer q_no, QBoardVO vo, Model model) {
+	@GetMapping("/update")
+	public String updateGet(@RequestParam("q_no") Integer q_no, QBoardVO vo, Model model, int num) {
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
+		model.addAttribute("list", service.getListImpl(cr));
+		model.addAttribute("cr", cr);
 		model.addAttribute("list", service.updateGetImpl(q_no));
 		return "Qboard/update";
 	}
 	
-	@PostMapping("/Qupdate")
-	public String update(QBoardVO vo, RedirectAttributes rttr) {
+	@PostMapping("/update")
+	public String update(QBoardVO vo, RedirectAttributes rttr, int num) {
 		service.updateImpl(vo);
-		rttr.addFlashAttribute("result", vo.getQ_no());
-		return "redirect:list";
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
+		rttr.addAttribute("num", cr.getNum());
+		rttr.addAttribute("pageView", cr.getPageView());
+		rttr.addAttribute("q_no", vo.getQ_no());
+		rttr.addFlashAttribute("result", "SUCCESS");
+		return "redirect:/Qboard/content";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam("q_no") int q_no, RedirectAttributes rttr) {
+	public String delete(@RequestParam("q_no") int q_no, RedirectAttributes rttr, int num) {
 		if(service.deleteImpl(q_no)) {
-			rttr.addFlashAttribute("result", "SUCCESS");
+			QCriteria cr = new QCriteria(num, service.listCountImpl());
+			rttr.addAttribute("num", cr.getNum());
+			rttr.addAttribute("pageView", cr.getPageView());
 		}
 		return "redirect:list";
 	}

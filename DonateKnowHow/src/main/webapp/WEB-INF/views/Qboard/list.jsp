@@ -19,7 +19,11 @@
 </head>
 	<body>
 	<%@include file= "../includes/header.jsp" %>
-
+	<div align='center'>
+		<a>총 질문 N 개</a>
+		<input name="serch" type="text">검색
+		<a href="input"> 글쓰기 </a>
+	</div>
 	<c:forEach items="${list}" var="qboard">	
 		<table id='qtable' border='1' width='600' align='center'>
 			<br/>
