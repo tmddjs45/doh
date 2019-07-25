@@ -1,10 +1,18 @@
 
 package com.doh.controller;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.tagext.PageData;
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
+import com.doh.test.cpTest;
+
+import java.util.*;
 
 
 
@@ -18,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.doh.domain.CBoardDTO;
 import com.doh.domain.CCriteria;
@@ -34,16 +42,17 @@ import lombok.extern.java.Log;
 @RequestMapping("/cboard/*")
 @AllArgsConstructor
 @NoArgsConstructor
+@ServerEndpoint("/conn")
 
 public class CBoardController {
 	@Setter(onMethod_=@Autowired)
 	private CBoardService service;
+	
 
 	
 	@GetMapping("/list")
 	public String list(Model model, CCriteria cri) {
 		log.info("##list-----");
-		log.info("##criiiiiiiiiiiiiiiiiiii"+cri);
 		int total =service.getTotalCount(cri);
 		model.addAttribute("pageMaker", new CPageDTO(cri, total));
 		int critemp=cri.getPageNum();
@@ -109,51 +118,54 @@ public class CBoardController {
 		model.addAttribute("list", service.getList(null));
 		return "/Cboard/list";
 	}
-	@RequestMapping("/stest")
-	public String stest() {
-		System.out.println("드러옴이잉이이");
-		return "/Cboard/stest";
-	}
 	
-	
-	@RequestMapping("/sidcheck")
-	public String sidcheck(HttpSession session) {
-		String sid= (String)session.getAttribute("s_id");
-		System.out.println("sidcheck : "+sid);
+	@PostMapping("/modal")
+	public String modal(@RequestParam("code") String code,@RequestParam("c_no") int c_no, Model model) {
 		
-		return null;
-	}
-	
-	
-	@RequestMapping("/sidtest")
-	public String sidtest(@RequestParam("s_id") String s_id, Model model, HttpSession session) {
-		System.out.println("pre sidtest"+s_id);
-		session.setAttribute("s_id", s_id);
-		String sss=(String)session.getAttribute("s_id");
-		System.out.println(" sidtest : "+sss);
+		cpTest test = new cpTest();
+		 test.saveJava(code);
+		 model.addAttribute("list",service.read(c_no));
 		
-		return "/sibal";
+		model.addAttribute("result", test.saveJava(code));
+		
+		return "/Cboard/content";
+		
 	}
-	
-	@RequestMapping("/sibal")
-	public String si(HttpSession session) {
-		String si = (String)session.getAttribute("s_id");
-		System.out.println("이건안되면 집감"+ si);
-		return null;
+	@RequestMapping("/frame")
+	public String frame(@RequestParam("c_no") int c_no, Model model) {
+		log.info("##frame----");
+		System.out.println("cnoooooooooooooo"+c_no);
+        model.addAttribute("list",service.read(c_no));
+		return "/Cboard/frame";
 	}
-	@RequestMapping("/sremove")
-	public String sremove(HttpSession session) {
-		session.invalidate();
-		return "";
+
+	@RequestMapping("/savejava")
+	public String savejava(@RequestParam("code")String code) {
+		System.out.println(code+"------------------------------------------------");
+		System.out.println("세이브자바들어옴");
+		return code;
 	}
-	
-	
-	@RequestMapping("/conn")
-	public String connect() {
-		return "/Cboard/test";
+	@RequestMapping("/compile")
+	public @ResponseBody String compile(@RequestParam("code")String code) {
+		System.out.println("##compile---- : "+code);
+		cpTest test = new cpTest();
+		String result=test.saveJava(code);
+//		try {
+//			result = new String(result.getBytes("EUC-KR"),"UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+		System.out.println("여기에 들어오는 코드는한글로 표현이되나?"+result);
+		if(result.length()==0) {
+			System.out.println("##compile result is null");
+			result="compile err";
+			return result;
+		}else {
+			System.out.println("##compile result is : "+result);
+			return result;
+		}
+		
 	}
-	
-	
 	
 	
 }

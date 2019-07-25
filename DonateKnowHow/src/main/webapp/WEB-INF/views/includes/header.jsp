@@ -1,13 +1,15 @@
+<%@ page contentType="text/html;charset=utf-8" %>
 <%@page import="java.nio.channels.SeekableByteChannel"%>
 <%@page import="org.springframework.web.bind.annotation.ModelAttribute"%>
 <%@page import="org.springframework.ui.Model"%>
 <%@page import="com.doh.domain.*"%>
-<%@ page contentType="text/html;charset=utf-8" %>
+
 
 <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<div class="header-bar">
 		<span class="name"><a href="/">D'oh</a></span>
