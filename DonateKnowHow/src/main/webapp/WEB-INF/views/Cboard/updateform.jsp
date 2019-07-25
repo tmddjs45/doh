@@ -27,7 +27,8 @@
 </tr>
 <tr>
 <td width='30%' align='center'>글내용</td>
-<td align='center'><input type='text' name='c_content' size='60' value='${list.c_content}'></td>
+<td align='center'><textarea name='c_content' rows='5' cols='53' ><c:out value="${list.c_content}"/></textarea></td>
+
 </tr>
 
 <tr>

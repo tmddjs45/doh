@@ -1,5 +1,4 @@
 
-
 .menuBar{
     width: 100%;
     background-color: gold;
@@ -25,6 +24,8 @@
 .menuBar a{
     text-decoration-line: none;
     color: black;
+    font-family: 'Russo One', sans-serif;
+    font-size: 17pt;
 }
 
 .menuBar a:hover{

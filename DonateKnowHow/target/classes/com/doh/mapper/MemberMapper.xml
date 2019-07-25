@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.doh.mapper.MemberMapper">
+	<select id="searchMember" resultType="com.doh.domain.MemberDTO">
+		select * from member where email=#{email}
+	</select>
+
+	<insert id="signup"  parameterType="com.doh.domain.MemberDTO">
+		insert into member values(null, #{email}, #{nickname}, #{password}, #{authority}, CURRENT_TIMESTAMP())
+	</insert>
+
+</mapper>

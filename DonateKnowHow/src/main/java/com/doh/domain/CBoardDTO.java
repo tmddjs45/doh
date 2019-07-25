@@ -12,5 +12,6 @@ public class CBoardDTO {
 	private String c_title;
 	private String c_content;
 	private Date c_rdate;
+	
 
 }
