@@ -1,20 +1,24 @@
 package com.doh.mapper;
 
 import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
 @Getter
 public class FBoardPageMaker {
 
 	//  <페이징에 필요한 변수>
 	private int totalCount;	//  전체 게시물 갯수
 	private int totalPage;	//	전체 페이지 수
-	private int listCount = 10;	//  한 페이지당 출력되는 게시글 갯수 (일단은 10으로 초기화!)
+	private int listCount = 15;	//  한 페이지당 출력되는 게시글 갯수 (일단은 10으로 초기화!)
 	private int pageNum = 1;	//  현재 페이지 번호 (디폴트 1로 잡는다... 아마 컨트롤러에서 1로 받기 때문에 의미는 없지만)
 	private int pageCount = 10;	//	하단에(한 섹션 당) 보여지는 페이지 번호 갯수 (일단은 10으로 지정)
 	private int startPage;	//  현재 페이지 블록의 시작 페이지
 	private int endPage; 	//  현재 페이지 블록의 마지막 페이지
 	
 	private int calcCount;	//Mysql Limit OffSet에 전달하기 위해 만든 변수(쉽게 말해 즉, Index를 계산합니다)
+	
+	private String search;
 	
 	public FBoardPageMaker(int pageNum, int totalCount) {	//전체 페이지 수를 계산하는 메소드
 		this.totalCount = totalCount;
@@ -41,5 +45,18 @@ public class FBoardPageMaker {
 		//index 개념으로 이해하시면 될거같습니다!
 		//그럼 첫번째 인덱스는 무조건 0부터 시작해서 listCount만큼 증가해야겠죠?
 		calcCount = pageNum*listCount-listCount;
+		
+		log.info("\nFBoardPageMaker의 시작 페이지는 "+startPage+"입니다\n");
+		log.info("\nFBoardPageMaker의 끝 페이지는 "+endPage+"입니다\n");
+		
+		//이 If문은 search로 인해 totalCount가 0일때, 위 로직으로 인해 PageNum이 0이 되므로 calCount가 음수(-10)가 되어버립니다
+		//calcCount가 0보다 이하면 Limit Offset에 음수가 들어가게 되므로 오류 방지 차원에서 넣었습니다
+		if(calcCount<0) {
+			calcCount=0;
+		}
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 }

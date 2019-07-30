@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap&subset=korean');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap&subset=korean');
 
+html, body{
+	margin: 0;
+	font-family: 'Nanum Gothic', sans-serif;
+}
 .container{
 	margin: 0;
 	height:800px;
 	display: grid;
 	grid-template-columns: 1fr 5fr 1fr;
 	text-align: center;
-	font-family: 'Nanum Pen Script', cursive;
 }
 
 .container .content{
@@ -14,23 +17,109 @@
 	margin-bottom: 15px;
 	border-left: 1px dotted gray;
 	border-right: 1px dotted gray;
+	
+}
+a.btn, input,select{
+	font-size: 15px;
+	background-color: #FFFFFF;
+	color: #424242;
+	padding: 1px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border: 5px solid #FFFFFF;
+	border-bottom-color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-radius: 10px;
+	outline: none;
+}
+a.btn:hover{
+	font-size: 20px;
+	color: red;
+	text-decoration: underline;
+	text-underline-position: under;
+}
+a.btn.silver:hover{
+	color: black;
+	text-decoration: none;
+}
+a.write{
+	background-color: white;
+	color: #424242;
+	display: inline-block;
+	padding: 5px 10px;
+	border: 1px solid #D8D8D8;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 900;
+	text-decoration: none;
+	float: right;
+	margin-right: 11%;
+}
+a.write:hover,input[type=submit]:hover,a.btn.silver:hover {
+	background-color: #2E2E2E;
+	color: white;
+}
+form{
+	margin-top: 20px;
+	margin-left: 10%;
+	text-align: left;
+}
+input[type=submit],select,a.btn.silver{
+	font-family: 'Nanum Gothic', sans-serif;
+	cursor: pointer;
+	font-size: 15px;
+	margin-left: 2px;
+	background-color: white;
+	color: #424242;
+	padding: 5px 10px;
+	border: 1px solid #D8D8D8;
+}
+input[type=text]{
+	text-align: left;
+	font-size: 15px;
+	margin-left: 2px;
+	background-color: white;
+	color: #424242;
+	padding: 5px 10px;
+	border: 1px solid #D8D8D8;
+	border-radius: 10px;
+}
+input{
+	font-size: 15px;
+	margin-right: -5px;
+}
+tr:hover{
+	background-color: rgba(224, 224, 224, 0.2);
 }
 
 table{
 	width: 80%;
 	margin: auto;
 	margin-top: 5%;
+	margin-bottom: 1%;
+	border-collapse: collapse;
 }
 tr{
 	text-align: center;
 }
 th, td{
-	border-bottom: 5px solid gold;
-	border-radius: 20%;
+	border-bottom: 1px solid rgb(214, 214, 214);
+	
 }
 th{
-	font-size: 40px;
+	font-size: 20px;
 }
 td{
-	font-size: 25px;
+	font-size: 15px;
 }
+hr{
+	border: 0;
+	height: 0.8px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+}
+
+a.titleLink:link{text-decoration: none; color: black;}
+a.titleLink:visited{color: #BDBDBD;}
+a.titleLink:active{color: blue;}
+a.titleLink:hover{ color: red; text-shadow: 1px 1px 1px #B40431; }

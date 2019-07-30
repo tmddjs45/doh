@@ -27,7 +27,7 @@
 				<li><a href="#">ABOUT</a></li>
 				<li><a href="#">LECTURE</a></li>
 				<li><a href="#">Q&A</a></li>
-				<li><a href="/fboard/list">FREE-BOARD</a></li>
+				<li><a href="/fboard/list?pageNum=1">FREE-BOARD</a></li>
 			</ul>
 		</nav>
 	</div>
