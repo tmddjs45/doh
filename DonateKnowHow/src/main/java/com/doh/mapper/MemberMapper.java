@@ -1,9 +1,15 @@
 package com.doh.mapper;
 
-import com.doh.domain.MemberDTO;
+
+import com.doh.domain.MemberVO;
 
 public interface MemberMapper {
-	MemberDTO searchMember(String email);
-	void signup(MemberDTO dto);
-	MemberDTO checknickname(String nickname);
+
+	MemberVO read(String email); //login
+	
+	void signup(MemberVO vo); //sign up
+	void signup_auth(String email);
+	MemberVO searchMember(String email);
+	MemberVO checknickname(String nickname);
+	
 }

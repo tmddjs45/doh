@@ -3,6 +3,8 @@
 <%@page import="org.springframework.ui.Model"%>
 <%@page import="com.doh.domain.*"%>
 <%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
@@ -13,18 +15,17 @@
 		<span class="name"><a href="/">D'oh</a></span>
 		<span class="member">
 			<ul>			
-				<%
-				MemberDTO member = (MemberDTO)session.getAttribute("member");
-				if(member != null){
-				%>
-					<li><a>안녕하세요 <%=member.getNickname()%>님</a></li>|
+				<sec:authorize access="isAuthenticated()">
+					<sec:authentication property="principal.member.nickname" var="nickname"/>
+					<li><a>안녕하세요. ${nickname}님</a></li>|
 					<li><a href="/logout">로그아웃</a></li>|
 					<li><a href="#">내 정보</a></li>
+				</sec:authorize>
 				
-				<%}else{ %>
+				<sec:authorize access="isAnonymous()">
 					<li><a id="loginBtn">로그인</a></li>|
 					<li><a href="/signup">회원가입</a></li>
-				<%} %>		
+				</sec:authorize>
 			</ul>
 		</span>
 	</div>
@@ -37,7 +38,7 @@
 	<div>
 		<nav class='menuBar'>
 			<ul>
-				<li><a href="#">ABOUT</a></li>
+				<li><a href="/about">ABOUT</a></li>
 				<li><a href="/cboard/list">LECTURE</a></li>
 				<li><a href="/Qboard/list">Q&A</a></li>
 				<li><a href="#">FREE-BOARD</a></li>
@@ -52,18 +53,22 @@
 				<h1>Login</h1>
 				
 				<div class="txtb">
-					<input type="text" name="email">
-					<span data-placeholder="UserEmail"></span>
+					<input type="text" name="username">
+					<span data-placeholder="Email"></span>
 				</div>
 				
 				<div class="txtb">
 					<input type="password" name="password">
 					<span data-placeholder="Password"></span>
 				</div>
-				
+				<div>
+					<label><input type="checkbox" name="remember-me">
+						<span style="font-size:10px; position: relative; top:-3px;">&nbsp;로그인 상태 유지</span>
+					</label>
+				</div>
 				<input class="logbtn" type="button" value="Login" onclick="loginSubmitBtn()">
 				<input class="cls" type="button" value="Close">
-				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</form>
 		</div>
 	</div>
@@ -91,7 +96,7 @@
 		/* ---- # my code # ---- */
 		
 		const loginSubmitBtn = () =>{
-			let email = loginForm.email.value;
+			let email = loginForm.username.value;
 			let pwd = loginForm.password.value;
 			if(email.length==0){
 				alert("Email를 입력해주세요.");

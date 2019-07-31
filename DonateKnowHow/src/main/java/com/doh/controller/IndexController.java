@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.doh.domain.MemberDTO;
+import com.doh.domain.MemberVO;
 import com.doh.service.MemberService;
 
 import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 
-@Log
+@Log4j
 @Controller
 public class IndexController {
 	@Autowired
@@ -49,10 +49,17 @@ public class IndexController {
 		return "/member/signup";
 	}
 	
+	@PostMapping("/signup")
+	public String signup(MemberVO vo) {
+		log.info("Controller VO: " + vo);
+		service.signup(vo);
+		return "redirect:/";
+	}
+	
 	@PostMapping("/emailcheck")
 	public void emailcheck(String email, HttpServletResponse response){
 		log.info(email);
-		MemberDTO member = service.checkemail(email);
+		MemberVO member = service.checkemail(email);
 		try {
 			PrintWriter pw = response.getWriter();
 			
@@ -60,6 +67,7 @@ public class IndexController {
 				//null 이 아니면 이미 있어 사용 불가능한 Email.
 				//JSon 파싱
 				pw.print(false);
+				
 			}else {
 				//null 이면 사용 가능한 Email.
 				pw.print(true);
@@ -69,7 +77,7 @@ public class IndexController {
 	
 	@PostMapping("/nickcheck")
 	public void nicknamecheck(String nickname, HttpServletResponse response) {
-		MemberDTO member = service.checknickname(nickname);
+		MemberVO member = service.checknickname(nickname);
 		try {
 			PrintWriter pw = response.getWriter();
 			
@@ -83,23 +91,8 @@ public class IndexController {
 		}catch(IOException io) {}
 	}
 	
-	@PostMapping("/signup")
-	public String signup(MemberDTO dto) {
-		service.signup(dto);
-		return "redirect:/";
-	}
-	
-	@PostMapping("/login")
-	public String login(MemberDTO dto, HttpSession session){
-		log.info(dto.getEmail()+dto.getPassword());
-		MemberDTO member = service.login(dto.getEmail() , dto.getPassword());
-		session.setAttribute("member", member);
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session){
-		session.invalidate();
-		return "redirect:/";
+	@RequestMapping("/about")
+	public String aboutDoh() {
+		return "member/about";
 	}
 }

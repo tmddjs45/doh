@@ -1,4 +1,4 @@
-d<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=utf-8" %>
 <html>
 <head>
@@ -39,7 +39,7 @@ d<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 							</tr>
 							<tr>
 								<td></td>
-								<td class="access-text">사용 할 비밀번호를 입력해주세요.</td>
+								<td class="access-text">4~16자 이내로 입력해주세요.</td>
 							</tr>
 							<tr>
 								<td><label>Password-check</label></td>
@@ -89,6 +89,9 @@ d<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 				if(pwdcheck.value.length==0){
 					document.getElementById("signup-pwdcheck").innerHTML="빈칸이네요 :( 입력해주세요.";
 					document.getElementById("signup-pwdcheck").style.color="red";				
+				}else if(pwdcheck.value.length > 16 || pwdcheck.value.length < 4){
+					document.getElementById("signup-pwdcheck").innerHTML="길이가 올바르지 않아요. :( ";
+					document.getElementById("signup-pwdcheck").style.color="red";
 				}else{
 					if(pwdcheck.value == password.value){
 						/* ---- # Vanilla Javascript # ---- */
@@ -157,6 +160,9 @@ d<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 				if($('.signup-nickname').val().length==0){
 					$('#nickname-check').text('빈칸이네요 :( 입력해주세요.').css('color','red');
 					emailFlag = false;
+				}else if($('.signup-nickname').val().length > 28){
+					$('#nickname-check').text('너무 길어요 :( 다시 입력해주세요.').css('color','red');
+					emailFlag = false;
 				}else{
 					$.ajax({
 						url: "./nickcheck",
@@ -171,8 +177,7 @@ d<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 								$('#nickname-check').text('중복된 닉네임 입니다.').css('color','red');
 								nicknameFlag = false;
 								console.log("nicknameFlag : "+nicknameFlag);
-							}		
-							
+							}							
 						}
 					});
 				}
@@ -182,7 +187,6 @@ d<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		/* ---- #  Debouncing NickName Check END  # ---- */
 		
 		function memberJoin(){
-			//elementsCheck();
 			if(emailFlag&&passwordFlag&&nicknameFlag){
 				document.signupform.submit();
 				alert(" 환영해요! 우리 함께 Know-How를 기부 해 볼까요? :)");
