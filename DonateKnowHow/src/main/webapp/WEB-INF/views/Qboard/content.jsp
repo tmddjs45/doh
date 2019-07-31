@@ -9,44 +9,30 @@
 <body>
 	<%@include file= "../includes/header.jsp" %>
 	<center>
-		<hr width='600' size='2' noshade>
+		<hr size='2' noshade>
 		<h2>QnA__CONTENT</h2>
-		<hr width='600' size='2' noshade>
+		<hr size='2' noshade>
 		
-		
-			<table border='1' width='600' align='center' cellpadding='3'>
-			
-			
-				<tr>
-					<td width='100' align='center'>QNO</td>
-					<td>${content.q_no}</td>
+			<table border='1' width='80%' align='center'>
+				<tr align="center">
+					<td width="10%">${content.q_no}</td>
+					<td colspan="5">제목 :: ${content.q_title}</td>
+				</tr>
+				<tr align="center">
+					<td colspan="4" width="10%">${content.nickname}</td>
+					<td>view couunt :${content.q_count}</td>
+					<td>${content.q_rdate}</td>
 				</tr>
 				<tr>
-					<td align='center'>NICKNAME</td>
-					<td>${content.nickname}</td>
+					<td colspan="6"><pre>${content.q_content}</pre></td>
 				</tr>
-				<tr>
-					<td align='center'>TITLE</td>
-					<td>${content.q_title}</td>
-				</tr>
-				<tr>
-					<td align='center'>CONTENT</td>
-					<td><pre>${content.q_content}</pre></td>
-				</tr>
-				
-				
-			</table>
-		
-		<hr width='600' size='2' noshade>
-		
-		<table border='1' width='600' align='center' cellpadding='3'>
-			<tr>
+
+
+<!-- 		REPLY -->
+		<tr>
 				<td align='center' width='100'>REPLY</td>
 				<td>덧글들어가는공간</td>
 			</tr>
-		</table>
-		<hr width='600' size='2' noshade>	
-		
 		<form role="form" method="post">
 			<input type="hidden" name="num" value="${cr.num}">
 			<input type="hidden" name="pageView" value="${cr.pageView}">
@@ -57,8 +43,6 @@
 			<a href='delete${cr.makeQuery(cr.num)}&q_no=${content.q_no}'>DELETE</a> | 
 			<a href='list${cr.makeQuery(cr.num)}&q_no=${content.q_no}'>LIST</a>
 		</b>
-
-		<hr width='600' size='2' noshade>
 	</center>
 	<%@include file="../includes/footer.jsp" %>
 </body>
