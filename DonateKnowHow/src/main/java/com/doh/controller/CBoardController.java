@@ -145,17 +145,11 @@ public class CBoardController {
 		System.out.println("세이브자바들어옴");
 		return code;
 	}
-	@RequestMapping("/compile")
+	@RequestMapping(value="/compile", produces = "application/text; charset=utf8")
 	public @ResponseBody String compile(@RequestParam("code")String code) {
 		System.out.println("##compile---- : "+code);
 		cpTest test = new cpTest();
 		String result=test.saveJava(code);
-//		try {
-//			result = new String(result.getBytes("EUC-KR"),"UTF-8");
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-		System.out.println("여기에 들어오는 코드는한글로 표현이되나?"+result);
 		if(result.length()==0) {
 			System.out.println("##compile result is null");
 			result="compile err";
