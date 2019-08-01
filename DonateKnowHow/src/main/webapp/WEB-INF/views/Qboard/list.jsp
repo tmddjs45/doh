@@ -22,36 +22,29 @@ li {
 <body>
 	<%@include file="../includes/header.jsp"%>
 	<div align='center'>
-		<a>총 질문 N 개</a> <input name="serch" type="text">검색 <a
+		<a>질문 ${cr.total} 개</a> <input name="serch" type="text">검색 <a
 			href="input"> 글쓰기 </a>
 	</div>
-	<c:forEach items="${list}" var="qboard">
+	<c:forEach items="${list}" var="list">
 		<table id='qtable' border='1' width='600' align='center'>
 			<br />
 			<tr>
-				<!-- 제목 -->
-				<td colspan='4'><c:out value='${qboard.q_title}' /></a></td>
+				<td rowspan='3' width='20%'>Q_no :: <c:out value='${list.q_no}' /></td>
+			<tr>
+				<td colspan='3'><a href="content${cr.makeQuery(cr.num)}&q_no=${list.q_no}">
+												<c:out value='${list.q_title}' /></a></td>
 			</tr>
 			<tr>
-				<!-- 내용 -->
-				<td colspan='4'><c:out value='${qboard.q_content}' /></td>
+				<td colspan='3'><c:out value='${list.q_content}' /></td>
 			</tr>
 			<tr>
-				<!-- 채택 글씨 비활성화(회색) 되어있다가 채택 시 활성화(노란색?금색?) -->
 				<td rowspan='3' width='20%'>답변유무?</td>
-				<!-- 닉네임 -->
-				<td rowspan='3' width='50%'><c:out value='${qboard.nickname}' /></td>
+				<td rowspan='3' width='50%'><c:out value='${list.nickname}' /></td>
 			<tr>
-				<!-- 날짜 -->
-				<td><c:out value='${qboard.q_rdate}' /></td>
+				<td><c:out value='${list.q_rdate}' /></td>
 			</tr>
 			<tr>
-				<!-- 조회수 -->
-				<td><c:out value='${qboard.q_count}' /></td>
-			</tr>
-			<tr>
-				<td><a href="content${cr.makeQuery(cr.num)}&q_no=${qboard.q_no}">Q_no
-						:: <c:out value='${qboard.q_no}' /></td>
+				<td><c:out value='${list.q_count}' /></td>
 			</tr>
 			</tr>
 		</table>
@@ -62,7 +55,8 @@ li {
 	<!--  페이징  -->
 	<div align='center'>
 		<c:if test='${cr.pre}'>
-			<a href='list${cr.makeQuery(cr.pageStart-1)}'> <span aria-hidden='true'>이전</span>
+			<a href='list${cr.makeQuery(cr.pageStart-1)}'> <span
+				aria-hidden='true'>이전</span>
 			</a>
 		</c:if>
 		<c:forEach var='num' begin='${cr.pageStart}' end='${cr.pageEnd}'>
@@ -77,7 +71,8 @@ li {
 		</c:if>
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 		$(document).ready(function() {
 			$('.paginate_button a').on('click', function(e) {
 				e.preventDefault();

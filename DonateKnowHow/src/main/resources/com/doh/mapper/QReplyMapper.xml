@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.doh.mapper.QReplyMapper">
+	<select id="reply" resultType="com.doh.domain.QReplyVO">
+		select * from answer inner join member on answer.m_no=member.m_no where q_no=#{q_no}
+	</select>
+
+</mapper>

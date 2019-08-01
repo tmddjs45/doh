@@ -27,12 +27,8 @@
 					<td colspan="6"><pre>${content.q_content}</pre></td>
 				</tr>
 
-
 <!-- 		REPLY -->
-		<tr>
-				<td align='center' width='100'>REPLY</td>
-				<td>덧글들어가는공간</td>
-			</tr>
+	<%@include file= "reply.jsp" %>
 		<form role="form" method="post">
 			<input type="hidden" name="num" value="${cr.num}">
 			<input type="hidden" name="pageView" value="${cr.pageView}">
