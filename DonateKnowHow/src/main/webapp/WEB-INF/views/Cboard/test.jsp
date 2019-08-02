@@ -1,32 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<header>
-		머리머리헤더헤더
-	</header>
-	<nav>
-		<ul>
-			<li>내비내비1</li>
-			<li>내비내비2</li>
-		</ul>
-	</nav>
-	<section>
-		내용용ㅇ용용ㅇ용
-	</section>
-	<aside>
-	 <blockquote> side1</blockquote>
-	 <blockquote> side2</blockquote>
-	</aside>
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@page import="java.util.*,java.sql.*"%> 
+<%@page import="java.io.*"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.net.*"%>
+<%@page import="java.lang.*"%> 
+<%@ page import="javax.sql.DataSource" %>
+<%@ page import="java.sql.Connection" %>
+
+<%!
+
+public static void charSet(String str_kr) throws UnsupportedEncodingException{
+  String charset[] = {"euc-kr", "ksc5601", "iso-8859-1", "8859_1", "ascii", "UTF-8"};
+
+  for(int i=0; i<charset.length ; i++){
+    for(int j=0 ; j<charset.length ; j++){
+      if(i==j) continue;
+        System.out.println(charset[i]+" : "+charset[j]+" :"+new String(str_kr.getBytes(charset[i]),charset[j]));
+    }
+  }
+}
+ 
+
+%>
+
+<%  
+String szEmp_Code = request.getParameter("result");
+
+charSet(szEmp_Code );
+
+%> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

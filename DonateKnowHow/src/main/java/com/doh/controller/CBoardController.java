@@ -21,14 +21,17 @@ import lombok.extern.java.Log;
 @Log
 @RequestMapping("/cboard/*")
 @AllArgsConstructor
+
 public class CBoardController {
 	@Setter(onMethod_=@Autowired)
 	private CBoardService service;
-	
+
+
 	@RequestMapping("/list")
 	public String list(Model model) {
 		log.info("##list-----");
 		model.addAttribute("list", service.getList());
+
 		
 		return "/Cboard/list";
 	}
@@ -81,7 +84,4 @@ public class CBoardController {
 		model.addAttribute("list", service.getList());
 		return "/Cboard/list";
 	}
-	
-	
-	
 }
