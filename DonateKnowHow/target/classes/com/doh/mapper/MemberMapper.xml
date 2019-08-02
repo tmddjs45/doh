@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.doh.mapper.MemberMapper">
+
+	<resultMap type="com.doh.domain.MemberVO" id="memberMap">
+		<id property="email" column="email"/>
+		<result property="email" column="email"/>
+		<result property="password" column="password"/> <!-- column : DB컬럼명 / property : DTO/VO 변수값 -->
+		<result property="nickname" column="nickname"/>
+		<result property="enabled" column="enabled"/>
+		<result property="jdate" column="jdate"/>
+		
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="com.doh.domain.AuthVO" id="authMap">
+		<result property="email" column="email"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		select * from member2 LEFT JOIN member_auth on member2.email = member_auth.email
+		where member2.email = #{email}
+	</select>
+	
+	
+	<select id="searchMember" resultType="com.doh.domain.MemberVO">
+		select * from member2 where email=#{email} 
+	</select>
+	
+	<select id="checknickname" resultType="com.doh.domain.MemberVO">
+		select * from member2 where nickname=#{nickname}
+	</select>
+
+	<insert id="signup"  parameterType="com.doh.domain.MemberVO">
+		insert into member2 values(null,#{email},#{password},#{nickname},true,CURRENT_TIMESTAMP())
+	</insert>
+	
+	<insert id="signup_auth" parameterType="String">
+		insert into member_auth values(#{email},'ROLE_MEMBER')
+	</insert>
+	
+
+</mapper>

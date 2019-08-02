@@ -3,7 +3,7 @@
 <head>
 	<title>D'oh</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="resources/css/slider.css"></link>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/slider.css"></link>
 	<style>
 		html, body{
 			margin: 0;
@@ -18,6 +18,7 @@
 		<div class="slider_item"><h1>2</h1></div>
 		<div class="slider_item"><h1>3</h1></div>
 		<div class="slider_item"><h1>4</h1></div>
+
 	
 	</div>
 	

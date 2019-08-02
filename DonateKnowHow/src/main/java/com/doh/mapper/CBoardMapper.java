@@ -8,7 +8,5 @@ public interface CBoardMapper {
 	public CBoardDTO read(int c_no);
 	public int delete(int c_no);
 	public int update(CBoardDTO cbdto);
-	
-	
 
 }
