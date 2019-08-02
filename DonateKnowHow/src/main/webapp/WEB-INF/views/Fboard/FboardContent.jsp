@@ -20,7 +20,7 @@
 		}
 		#btnReply{
 			margin: 0px;
-			height: 10%;
+			height: 80px;
 			width: 8%;
 			float: left;
 			background-color: #2E2E2E;
@@ -29,7 +29,7 @@
 			cursor: pointer;
 		}
 		#replytext{
-			height: 10%;
+			height: 80px;
 			width: 60%;
 			float: left;
 			border: 2px solid #D8D8D8;
@@ -169,7 +169,11 @@
 							</td>
 						</c:when>
 						<c:otherwise>
-							<td style="text-align: left; padding: 0 20 0 20;"><a class="titleLink" href="${path}/fboard/content?f_no=${list.f_no}&search=${search}&select=${select}&pageNum=${pageMaker.pageNum}">${list.f_title}</a></td>
+							<td style="text-align: left; padding: 0 20 0 20;"><a class="titleLink" href="${path}/fboard/content?f_no=${list.f_no}&search=${search}&select=${select}&pageNum=${pageMaker.pageNum}">${list.f_title}</a>
+								<c:if test="${list.fc_count>0}">
+									<span style="color: red;"> (${list.fc_count})</span>
+								</c:if>
+							</td>
 						</c:otherwise>
 					</c:choose>
 					
@@ -264,8 +268,10 @@
 					</c:if>
 				</c:when>
 			</c:choose>
+			
 		</div>
 	</div>
+	
 	<script>
 		$(function(){
 			listReply();
@@ -297,19 +303,20 @@
 					var output;
 					for(var i in replyList){
 						output += "<tr>";
-						output += "<th>"+replyList[i].nickname+"<th>";
+						output += "<th style='font-size:15px;'>"+replyList[i].nickname+"<th>";
 						output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
 						output += "</tr>";
 						output += "<tr>";
-						output += "<td colspan='3' style='border-bottom: none;'><pre>"+replyList[i].fc_content+"</pre></td>";
+						output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
 						output += "</tr>";
-						output += "<tr><td>[답글]</td><td colspan='2' style='text-align: right;'>[수정][삭제]</td></tr>";
+						output += "<tr><td style='font-size:12px; padding:5;'>[답글]</td><td colspan='2' style='text-align: right; font-size:12px; padding:5;'>[수정][삭제]</td></tr>";
 					}
 					$("#replyTable").html(output);
 				}
 			});
 		}
 	</script>
+	<%@include file="../includes/footer.jsp" %>
 </body>
 <script src="${path}/resources/js/fboard/fboard.js"></script>
 <script src="${path}/resources/js/fboard/fboardContent.js"></script>

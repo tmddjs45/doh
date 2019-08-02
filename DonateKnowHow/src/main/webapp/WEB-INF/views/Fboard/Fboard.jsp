@@ -30,13 +30,18 @@
 					<c:choose>
 						<c:when test='${search==null || search.equals("") || select==null || select.equals("")}'>
 							<td style="text-align: left; padding: 0 20 0 20;"><a class="titleLink" href="${path}/fboard/content?f_no=${list.f_no}&pageNum=${pageMaker.pageNum}">${list.f_title}</a>
+								<!-- 댓글 갯수 제목 옆에 붙이기 -->
 								<c:if test="${list.fc_count>0}">
 									<span style="color: red;"> (${list.fc_count})</span>
 								</c:if>
 							</td>
 						</c:when>
 						<c:otherwise>
-							<td style="text-align: left; padding: 0 20 0 20;"><a class="titleLink" href="${path}/fboard/content?f_no=${list.f_no}&search=${search}&select=${select}&pageNum=${pageMaker.pageNum}">${list.f_title}</a></td>
+							<td style="text-align: left; padding: 0 20 0 20;"><a class="titleLink" href="${path}/fboard/content?f_no=${list.f_no}&search=${search}&select=${select}&pageNum=${pageMaker.pageNum}">${list.f_title}</a>
+								<c:if test="${list.fc_count>0}">
+									<span style="color: red;"> (${list.fc_count})</span>
+								</c:if>
+							</td>
 						</c:otherwise>
 					</c:choose>
 					
