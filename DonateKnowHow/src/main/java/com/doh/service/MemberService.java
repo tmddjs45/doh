@@ -1,10 +1,11 @@
 package com.doh.service;
 
-import com.doh.domain.MemberDTO;
+
+import com.doh.domain.MemberVO;
 
 public interface MemberService {
 	
-	MemberDTO login(String email, String pwd);
-	void signup(MemberDTO dto);
-	MemberDTO checkemail(String email);
+	void signup(MemberVO vo);
+	MemberVO checkemail(String email);
+	MemberVO checknickname(String nickname);
 }

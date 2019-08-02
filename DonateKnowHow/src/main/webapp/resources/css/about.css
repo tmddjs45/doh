@@ -1,0 +1,56 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.content-temp{
+   margin: 0;
+   height:800px;
+   display: grid;
+   grid-template-columns: 1fr 5fr 1fr;
+   text-align: center;
+}
+
+.content-temp .content{
+
+   border-left: 1px dotted gray;
+   border-right: 1px dotted gray;
+}
+
+.wrapper{
+    width: 100%;
+    height:100%;
+    align-content: center;
+    text-align: center;
+    background: linear-gradient(to bottom, gold, white);
+
+}
+
+.middle{
+	padding-top:10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.text{
+    font-size: 60px;
+    font-weight: 900;
+    font-family: 'Russo One', sans-serif;
+    cursor: pointer;
+}
+
+.hidde{
+    max-width: 0;
+    opacity: 0;
+    transition: 0.5s ease-in;
+}
+
+.text:hover .hidde{
+    opacity: 1;
+    max-width: 1em;
+}
+
+.text:hover .showing{
+  display: none;
+}
