@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<div class="header-bar">
@@ -33,7 +34,7 @@
 	</div>
 
 	<div class="title">
-		<a href="/"><img src="resources/img/dohmain.png" alt="main title"/></a>
+		<a href="/"><img src="${path}/resources/img/dohmain.png" alt="main title"/></a>
 		<p style="font-family: 'Russo One', sans-serif;">Donate Know-How</p>
 	</div>
 

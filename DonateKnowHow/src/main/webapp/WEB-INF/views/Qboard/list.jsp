@@ -2,25 +2,27 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <html>
 <head>
-<style type="text/css">
-ul {
-	text-align: center;
-}
-
-li {
-	display: inline-block;
-	list-style-type: none;
-	margin: 5px;
-}
-
-#qtable tr {
-	align: center;
-}
-</style>
-<title>LIST</title>
+	<title>Q & A</title>
+	<style type="text/css">
+	ul {
+		text-align: center;
+	}
+	
+	li {
+		display: inline-block;
+		list-style-type: none;
+		margin: 5px;
+	}
+	
+	#qtable tr {
+		align: center;
+	}
+	</style>
 </head>
+
 <body>
 	<%@include file="../includes/header.jsp"%>
+	
 	<div align='center'>
 		<a>질문 ${cr.total} 개</a> <input name="serch" type="text">검색 <a
 			href="input"> 글쓰기 </a>
@@ -49,9 +51,9 @@ li {
 			</tr>
 		</table>
 	</c:forEach>
-	<hr width='600' size='2' noshade>
-	</table>
-	<table border='1' width='600' align='center' cellpadding='2' />
+	
+	<hr width='600' size='2' noshade style="margin-top: 20px;">
+	
 	<!--  페이징  -->
 	<div align='center'>
 		<c:if test='${cr.pre}'>
@@ -70,16 +72,16 @@ li {
 			</a>
 		</c:if>
 	</div>
+	
+	<%@include file="../includes/footer.jsp"%>
+</body>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 		$(document).ready(function() {
 			$('.paginate_button a').on('click', function(e) {
 				e.preventDefault();
-				submit();
+				$(this).submit();
 			});
 		});
-	</script>
-	<%@include file="../includes/footer.jsp"%>
-</body>
+</script>
 </html>
