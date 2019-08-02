@@ -4,43 +4,15 @@
 <head>
 	<title>D'oh</title>
 	<link rel="stylesheet" type="text/css" href="${path}/resources/css/fboard/fboard.css"></link>
-	<script src="${path}/resources/js/fboard/fboard.js"></script>
-	<style>
-		html, body{
-			margin: 0;
-		}
-		a.btn{
-			font-size: 25px;
-			background-color: gold;
-			color: white;
-			margin-top: 30px;
-			padding: 1px 10px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			border: 5px solid gold;
-			border-bottom-color: #AEB404;
-			border-right-color: #AEB404;
-			border-radius: 10px;
-		}
-		a.btn.red{
-			background-color: red;
-			border: 5px solid red;
-			border-bottom-color: #B40404;
-			border-right-color: #B40404;
-		}
-		a.btn:hover{
-			font-size: 30px;
-			color: red;
-		}
-		a.btn.red:hover{
-			color: gold;
+	<style type="text/css">
+		td{
+			padding-top: 10px;
+			padding-bottom: 10px;
 		}
 	</style>
 </head>
 <body>
-	<%@include file= "../includes/header.jsp" %>	
-	
+	<%@include file= "../includes/header.jsp" %>
 	<div class="container">
 		<div></div>
 		<div class="content">
@@ -55,55 +27,119 @@
 				<c:forEach items="${fboardList}" var="list">
 				<tr>
 					<td>${list.f_no}</td>
-					<td style="text-align: left; padding: 0 20 0 20;">${list.f_title}</td>
+					<c:choose>
+						<c:when test='${search==null || search.equals("") || select==null || select.equals("")}'>
+							<td style="text-align: left; padding: 0 20 0 20;"><a class="titleLink" href="${path}/fboard/content?f_no=${list.f_no}&pageNum=${pageMaker.pageNum}">${list.f_title}</a>
+								<!-- 댓글 갯수 제목 옆에 붙이기 -->
+								<c:if test="${list.fc_count>0}">
+									<span style="color: red;"> (${list.fc_count})</span>
+								</c:if>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td style="text-align: left; padding: 0 20 0 20;"><a class="titleLink" href="${path}/fboard/content?f_no=${list.f_no}&search=${search}&select=${select}&pageNum=${pageMaker.pageNum}">${list.f_title}</a>
+								<c:if test="${list.fc_count>0}">
+									<span style="color: red;"> (${list.fc_count})</span>
+								</c:if>
+							</td>
+						</c:otherwise>
+					</c:choose>
+					
 					<td>${list.nickname}</td>
 					<td>${list.f_rdate}</td>
 					<td>${list.f_readnum}</td>
 				</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${pageMaker.startPage>1}">
-				<a class="btn red" href="${path}/fboard/list?pageNum=1">First</a>
-				<a class="btn red" href="${path}/fboard/list?pageNum=${pageMaker.startPage-1}">prev</a>
-			</c:if>
-			<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-				<a class="btn" href="${path}/fboard/list?pageNum=${num}">${num}</a>
-			</c:forEach>
-			<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
-				<a class="btn red" href="${path}/fboard/list?pageNum=${pageMaker.endPage+1}">next</a>
-				<a class="btn red" href="${path}/fboard/list?pageNum=${pageMaker.totalPage}">Last</a>
-			</c:if>
+			<div>
+				<form action="/fboard/list" method="get">
+					<input type="text" name="search"/>
+					<input type="submit" value="Submit"/>
+				<select name="select">
+					<option value="title" selected="selected">제목</option>
+				    <option value="content">내용</option>
+				    <option value="TitleContent">제목+내용</option>
+				    <option value="nickname">작성자</option>
+				</select>
+					<a class="write" href="${path}/fboard/write">✎ 쓰기</a>
+					<input type="hidden" name="pageNum" value=1>
+				</form>
+			</div>
+			<c:choose>
+				<c:when test='${search==null || search.equals("") || select==null || select.equals("")}'>
+					<c:if test="${pageMaker.startPage>1}">
+						<a class="btn silver" href="${path}/fboard/list?pageNum=1">처음</a>
+						<a class="btn silver" href="${path}/fboard/list?pageNum=${pageMaker.startPage-1}">이전</a>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<a class="btn" href="${path}/fboard/list?pageNum=${num}">${num}</a>
+					</c:forEach>
+					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
+						<a class="btn silver" href="${path}/fboard/list?pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="btn silver" href="${path}/fboard/list?pageNum=${pageMaker.totalPage}">끝</a>
+					</c:if>
+				</c:when>
+				
+				<c:when test='${select.equals("title")}'>
+					<c:if test="${pageMaker.startPage>1}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
+					</c:forEach>
+					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+					</c:if>
+				</c:when>
+				
+				<c:when test='${select.equals("content")}'>
+					<c:if test="${pageMaker.startPage>1}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
+					</c:forEach>
+					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+					</c:if>
+				</c:when>
+				
+				<c:when test='${select.equals("TitleContent")}'>
+					<c:if test="${pageMaker.startPage>1}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
+					</c:forEach>
+					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+					</c:if>
+				</c:when>
+				
+				<c:when test='${select.equals("nickname")}'>
+					<c:if test="${pageMaker.startPage>1}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
+					</c:forEach>
+					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+					</c:if>
+				</c:when>
+			</c:choose>
 		</div>
 		<div></div>
 	</div>
-	
 	<%@include file="../includes/footer.jsp" %>
-	
-	<script>
-		$(function(){
-			function getParameterByName(name){
-				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-					results = regex.exec(location.search);
-				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-			}
-	
-			function paintBtn(){
-				var pageNum = getParameterByName('pageNum');
-				var textArray = document.querySelectorAll('.btn'); 
-				for(var i = 0; i<textArray.length; i++){
-		            if(pageNum == textArray[i].textContent){
-		                textArray[i].style.color = "red";
-		                textArray[i].style.fontSize = "35px";
-		            }           
-				}
-			}
-			function init(){
-				paintBtn();
-			}
-	
-			init();
-		});
-	</script>
 </body>
+<script src="${path}/resources/js/fboard/fboard.js"></script>
 </html>

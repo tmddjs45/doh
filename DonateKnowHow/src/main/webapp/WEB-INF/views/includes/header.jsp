@@ -44,7 +44,7 @@
 				<li><a href="/about">ABOUT</a></li>
 				<li><a href="/cboard/list">LECTURE</a></li>
 				<li><a href="/Qboard/list">Q&A</a></li>
-				<li><a href="#">FREE-BOARD</a></li>
+				<li><a href="/fboard/list?pageNum=1">FREE-BOARD</a></li>
 			</ul>
 		</nav>
 	</div>
