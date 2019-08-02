@@ -1,5 +1,8 @@
 package com.doh.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,18 +11,43 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QCriteria {
-	
-	// pageNum과 amount값을 같이 전달하는 클래스
-	
+	private int page;
+	private int pageView = 5;
+	private int num;
+	private int total;
 	private int pageStart;
-	private int pageNum;	// 한 페이지에서 몇개의 데이터를 보여줄 지
+	private int pageEnd; 
+	private int pageTotal;
+	private int pageReal;	
 	
-	public QCriteria() { // 생성자를 통해 기본값을 한페이지당 10개로 지정
-		this(1,10);
+	private boolean pre, next;
+	
+	
+	public QCriteria(int num, int total) {
+		this.num = num;
+		this.total = total;
+		
+		if(num != 1) {
+			page = ( pageView * num ) - pageView;
+		}
+		
+		pageTotal = ( total / pageView ) ;
+		pageEnd = (int) (Math.ceil(num / (double) pageView) * pageView);
+		pageReal = (int) (Math.ceil( total / (double) pageView ));
+		pageStart = ( pageEnd - pageView ) + 1 ;
+	    if (pageEnd > pageReal) {
+	    	pageEnd = pageReal;
+	    }
+		
+		this.pre = num > 5 ;
+		this.next = pageEnd < pageTotal;
 	}
 	
-	public QCriteria(int pageStart, int pageNum) {
-		this.pageStart = pageStart;
-		this.pageNum = pageNum;
+	public String makeQuery(int num) {
+		UriComponents uri = UriComponentsBuilder.newInstance()
+												.queryParam("num", num)
+												.queryParam("pageView", this.getPageView())
+												.build();
+		return uri.toString();
 	}
 }

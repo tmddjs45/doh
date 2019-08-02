@@ -5,6 +5,7 @@
 	
 <mapper namespace="com.doh.mapper.MemberMapper">
 
+
 	<resultMap type="com.doh.domain.MemberVO" id="memberMap">
 		<id property="email" column="email"/>
 		<result property="email" column="email"/>
@@ -43,6 +44,5 @@
 	<insert id="signup_auth" parameterType="String">
 		insert into member_auth values(#{email},'ROLE_MEMBER')
 	</insert>
-	
 
 </mapper>

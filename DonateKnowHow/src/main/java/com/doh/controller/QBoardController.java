@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.doh.domain.QBoardPageVO;
 import com.doh.domain.QBoardVO;
 import com.doh.domain.QCriteria;
 import com.doh.service.QBoardService;
@@ -25,75 +24,69 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("Qboard")
 public class QBoardController {
-//	@Resource(name = "dohService")
 	private QBoardService service;
-	
-//	@RequestMapping("/list")
-//	public ModelAndView list() {
-//		List<QBoardVO> listGo = service.listImpl();
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("Qboard/list");
-//		mv.addObject("list",listGo);
-////		System.out.println("----------------------LIST : " + listGo.get(0));
-//		return mv;
-//	}
-	
-	@GetMapping("/list")
-	public void list(Model model, QCriteria cr) {
-		model.addAttribute("list", service.listImpl());
-		
-		System.out.println("--------------------list :: " + cr);
-//		model.addAttribute("list", service.getListImpl(cr));
-//		model.addAttribute("pageMaker", new QBoardPageVO(cr, 100));
-	}
-	
 
-	@GetMapping("/Qinput")
-	public String input() {
+	
+	@RequestMapping("/list")
+	public String list(Model model, @RequestParam(defaultValue="1") int num) {
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
+		model.addAttribute("list", service.getListImpl(cr));
+		model.addAttribute("cr", cr);
+		return "Qboard/list";
+	}
+
+	@GetMapping("/input")
+	public String inputGet() {
+		System.out.println("-----input GET");
 		return "Qboard/input";
 	}
 	
-	@PostMapping("/Qinput")
+	@PostMapping("/input")
 	public String input(QBoardVO vo, RedirectAttributes rttr) {
 		System.out.println("--------------------inputVO : " + vo);
 		service.insertImpl(vo);
-		rttr.addFlashAttribute("result", vo.getQ_no());
+		QCriteria cr = new QCriteria(1, service.listCountImpl());
+		rttr.addAttribute("num", 1);
+		rttr.addAttribute("pageView", cr.getPageView());
+		rttr.addAttribute("q_no", vo.getQ_no());
+		rttr.addFlashAttribute("result", "SUCCESS");
 		return "redirect:list";
-	}	
+	}			
 	
-	@GetMapping("/Qcontent")
-	public ModelAndView content(@RequestParam("q_no") int q_no, Model model) {
-		System.out.println("-------------------contentQno : " + q_no);
-//		model.addAttribute("content", service.contentImpl(qno));
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Qboard/content");
-		mv.addObject("content", service.contentImpl(q_no));
-		return mv;
+	@GetMapping("/content")
+	public String content(@RequestParam int q_no, Model model, int num) {
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
+		model.addAttribute("content", service.contentImpl(q_no));
+		model.addAttribute("cr", cr);
+		return "Qboard/content";
 	}
 	
-	@GetMapping("/Qupdate")
-	public String updateGet(@RequestParam("q_no") Integer q_no, QBoardVO vo, Model model) {
-		System.out.println("--------------------updateGET : " + vo.getQ_no());
+	@GetMapping("/update")
+	public String updateGet(@RequestParam("q_no") Integer q_no, QBoardVO vo, Model model, int num) {
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
+		model.addAttribute("list", service.getListImpl(cr));
+		model.addAttribute("cr", cr);
 		model.addAttribute("list", service.updateGetImpl(q_no));
 		return "Qboard/update";
 	}
 	
-	@PostMapping("/Qupdate")
-	public String update(QBoardVO vo, RedirectAttributes rttr) {
-		System.out.println("--------------------updateVO : " + vo);
-//		if(service.updateImpl(vo)) {
-//			rttr.addFlashAttribute("result", "SUCCESS");
-//		}
+	@PostMapping("/update")
+	public String update(QBoardVO vo, RedirectAttributes rttr, int num) {
 		service.updateImpl(vo);
-		rttr.addFlashAttribute("result", vo.getQ_no());
-		return "redirect:list";
+		QCriteria cr = new QCriteria(num, service.listCountImpl());
+		rttr.addAttribute("num", cr.getNum());
+		rttr.addAttribute("pageView", cr.getPageView());
+		rttr.addAttribute("q_no", vo.getQ_no());
+		rttr.addFlashAttribute("result", "SUCCESS");
+		return "redirect:/Qboard/content";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam("q_no") int q_no, RedirectAttributes rttr) {
-		System.out.println("-------------------deleteQno : " + q_no);
+	public String delete(@RequestParam("q_no") int q_no, RedirectAttributes rttr, int num) {
 		if(service.deleteImpl(q_no)) {
-			rttr.addFlashAttribute("result", "SUCCESS");
+			QCriteria cr = new QCriteria(num, service.listCountImpl());
+			rttr.addAttribute("num", cr.getNum());
+			rttr.addAttribute("pageView", cr.getPageView());
 		}
 		return "redirect:list";
 	}

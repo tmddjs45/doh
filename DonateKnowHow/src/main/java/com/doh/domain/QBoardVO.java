@@ -13,5 +13,5 @@ public class QBoardVO {
 	private String q_title;
 	private String q_content;
 	private Date q_rdate;
-	private int q_count;
+	private int q_count;	//조회
 }

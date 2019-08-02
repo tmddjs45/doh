@@ -2,6 +2,7 @@
 <%@page import="org.springframework.web.bind.annotation.ModelAttribute"%>
 <%@page import="org.springframework.ui.Model"%>
 <%@page import="com.doh.domain.*"%>
+
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -10,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<div class="header-bar">
 		<span class="name"><a href="/">D'oh</a></span>
@@ -29,7 +31,7 @@
 			</ul>
 		</span>
 	</div>
-		
+
 	<div class="title">
 		<a href="/"><img src="resources/img/dohmain.png" alt="main title"/></a>
 		<p style="font-family: 'Russo One', sans-serif;">Donate Know-How</p>
@@ -45,7 +47,6 @@
 			</ul>
 		</nav>
 	</div>
-	
 	<div class="modal hidden">
 		<div class="modal-overlay"></div>
 		<div class="modal-content">
@@ -72,8 +73,9 @@
 			</form>
 		</div>
 	</div>
-	
+
 <!-- modal Vanilla JS made by.Nomad Coders -->
+
 	<script>
 		const openBtn = document.getElementById("loginBtn");
 		const modal = document.querySelector(".modal");
@@ -82,19 +84,19 @@
 		
 		const openModal = () =>{
 			modal.classList.remove("hidden");
-		}	
-		
+
 		const closeModal = () =>{
 			modal.classList.add("hidden");
 		}
-		
+
 		overlay.addEventListener("click", closeModal);
 		openBtn.addEventListener("click", openModal);
 		closeBtn.addEventListener("click", closeModal);
 
 		
+
 		/* ---- # my code # ---- */
-		
+	
 		const loginSubmitBtn = () =>{
 			let email = loginForm.username.value;
 			let pwd = loginForm.password.value;
@@ -108,7 +110,7 @@
 			}
 			loginForm.submit();
 		}
-		
+    
 		/* ---- # Login form Css  # ---- */
 		
 		$(".txtb input").on("focus",function(){
@@ -122,3 +124,4 @@
 		});
 		
 	</script>
+
