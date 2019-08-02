@@ -84,6 +84,7 @@
 		
 		const openModal = () =>{
 			modal.classList.remove("hidden");
+		}
 
 		const closeModal = () =>{
 			modal.classList.add("hidden");
