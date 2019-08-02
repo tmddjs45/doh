@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<div class="header-bar">
@@ -123,6 +122,5 @@
 				$(this).removeClass("focus");
 			}
 		});
-		
 	</script>
 
