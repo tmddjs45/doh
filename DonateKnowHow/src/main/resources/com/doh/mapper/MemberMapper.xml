@@ -7,6 +7,7 @@
 
 	<resultMap type="com.doh.domain.MemberVO" id="memberMap">
 		<id property="email" column="email"/>
+		<result property="m_no" column="m_no"/>
 		<result property="email" column="email"/>
 		<result property="password" column="password"/> <!-- column : DB컬럼명 / property : DTO/VO 변수값 -->
 		<result property="nickname" column="nickname"/>
