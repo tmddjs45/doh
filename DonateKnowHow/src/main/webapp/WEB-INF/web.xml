@@ -43,26 +43,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<!-- 필터를 안하면 포스트 방식으로 한글을 보닐때 한글 깨짐 문제로 필터 태그 넣음 -->
-	<!-- 주의 사항!!!  Spring Security 설정이 있는 경우, 한글 필터 설정이 springSecurityFilterChain 앞에 위치해야 한다 -->
-	<filter> 
-	    <filter-name>encodingFilter</filter-name> 
-	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class> 
-	    <init-param> 
-	       <param-name>encoding</param-name> 
-	       <param-value>UTF-8</param-value> 
-	    </init-param> 
-	    <init-param> 
-	       <param-name>forceEncoding</param-name> 
-	       <param-value>true</param-value> 
-	    </init-param> 
-	 </filter> 
-	 <filter-mapping> 
-	    <filter-name>encodingFilter</filter-name> 
-	    <url-pattern>/*</url-pattern> 
-	 </filter-mapping> 
-
-
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
