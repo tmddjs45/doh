@@ -9,4 +9,5 @@ import com.doh.mapper.QReplyMapper;
 
 public interface QReplyService {	
 	List<QReplyVO> replyImpl(int q_no);
+	void insertRImpl(QReplyVO rvo);
 }

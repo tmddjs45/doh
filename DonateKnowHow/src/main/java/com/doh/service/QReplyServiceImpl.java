@@ -18,5 +18,9 @@ public class QReplyServiceImpl implements QReplyService {
 		List<QReplyVO> reply = mapper.reply(q_no);
 		return reply;
 	}
-
+	
+	@Override
+	public void insertRImpl(QReplyVO rvo) {
+		mapper.insertR(rvo);
+	}
 }

@@ -8,4 +8,8 @@
 		select * from answer inner join member on answer.m_no=member.m_no where q_no=#{q_no}
 	</select>
 
+	<insert id="insertR">
+		insert into answer (a_content, a_rdate, a_check, q_no, m_no)
+							value(#{a_content}, now(), 0, #{q_no}, "2")
+	</insert>
 </mapper>

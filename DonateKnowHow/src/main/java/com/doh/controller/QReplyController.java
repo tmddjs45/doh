@@ -38,9 +38,20 @@ public class QReplyController {
 
 	@GetMapping("/all/{q_no}")
 	public List<QReplyVO> replyList(@PathVariable("q_no") int q_no, Model model){
-		model.addAttribute("reply", rservice.replyImpl(q_no));
-		System.out.println("-------   >  " +rservice.replyImpl(q_no));
-		return rservice.replyImpl(q_no);
+		List<QReplyVO> rlist = rservice.replyImpl(q_no);
+		model.addAttribute("reply", rlist);
+		return rlist;
 	}
 	
+	@GetMapping("/insert/{q_no}")
+	public String replyInsert(@PathVariable("q_no") int q_no) {
+		return "qreply/insert/{q_no}";
+	}
+	
+	@PostMapping("/insert/{q_no}")
+	public String replyInsert(@PathVariable("q_no") int q_no, @ModelAttribute QReplyVO rvo) {
+		rservice.insertRImpl(rvo);
+		System.out.println("------ >> "+rvo);
+		return "success";
+	}
 }

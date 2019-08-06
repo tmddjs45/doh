@@ -4,19 +4,21 @@
 <html>
 <head>
 <body>
-<!-- 			reply Insert Form	 -->	
 	<form id="replyInsertForm" method="post">
-		<table  border='1' width='80%' align='center'>
+		<table border='1' width='80%' align='center'>
 			<tr>
-				<td>닉네임</td>
-				<td><textarea style="width: 98%" placeholder="Reply"></textarea></td>
-				<td width="5%"><button type="button" id="btn_replyInsert">GO</button></td>
+				<td>
+					<div>닉네임</div> 
+					<textarea id="a_content" name="a_content" style="width: 98%" placeholder="똥똥똥"></textarea>
+					<button type="button" id="btn_replyInsert">GO</button>
+				</td>
 			</tr>
+			<input type="hidden" id="q_no" value="${content.q_no}" />
+			
 		</table>
 	</form>
-	
-<!-- 			reply List Form		 -->	
-	<form id="replyListForm" >
+
+	<form id="replyListForm">
 		<table id="replyList" border='1' width='80%' align='center'>
 		</table>
 	</form>
@@ -26,6 +28,26 @@
 		$(function() {
 			//댓글목록불러오기
 			getReplyList();
+			
+			$("#btn_replyInsert").click(function(){
+				$.ajax({
+					type : "POST",
+					url : "/qreply/insert/${content.q_no}",
+					data : $("#replyInsertForm").serialize(),
+					success : function(data){
+						if(data == "success"){
+							getReplyList();
+							$("#a_content").val("");
+							console.log(data);
+						}else{
+							alert("flase"+data);
+						}
+					},
+					error : function(request,status,error){
+						alert(request.status+"\n"+request.responseText+"\n"+error);
+					}
+				});
+			});
 
 			function getReplyList() {
 				$.ajax({
@@ -46,14 +68,16 @@
 								html += "</tr>";
 							}
 						} else {
-
 							html += "<tr>";
 							html += "<td>등록된댓글이없따</td>";
 							html += "</tr>";
-
 						}
 						$("#replyList").html(html);
+					},
+					error : function(data){
+						console.log("에러 : " +data);
 					}
+					
 				});
 			}
 		});
