@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doh.mapper.FBoardMapper">
+	<!-- 기본 리스트 sql문 -->
+	<select id="getList" resultType="com.doh.domain.FBoardDTO" parameterType="com.doh.mapper.FBoardPageMaker">
+		select fb.f_no, fb.f_title, fb.f_rdate, fb.f_readnum, m.nickname,(SELECT COUNT(*) FROM fcomment WHERE f_no=fb.f_no) AS fc_count FROM freeboard as fb JOIN member as m ON fb.m_no = m.m_no 
+		ORDER BY fb.f_no DESC LIMIT #{calcCount}, #{listCount}
+	</select>
+	<!-- 제목 검색 리스트 sql문 -->
+	<select id="searchTitle" resultType="com.doh.domain.FBoardDTO" parameterType="com.doh.mapper.FBoardPageMaker">
+		select fb.f_no, fb.f_title, fb.f_rdate, fb.f_readnum, m.nickname,(SELECT COUNT(*) FROM fcomment WHERE f_no=fb.f_no) AS fc_count FROM freeboard as fb JOIN member as m ON fb.m_no = m.m_no where f_title like CONCAT('%',#{search},'%')
+		ORDER BY fb.f_no DESC LIMIT #{calcCount}, #{listCount}
+	</select>
+	<!-- 내용 검색 리스트 sql문 -->
+	<select id="searchContent" resultType="com.doh.domain.FBoardDTO" parameterType="com.doh.mapper.FBoardPageMaker">
+		select fb.f_no, fb.f_title, fb.f_rdate, fb.f_readnum, m.nickname,(SELECT COUNT(*) FROM fcomment WHERE f_no=fb.f_no) AS fc_count FROM freeboard as fb JOIN member as m ON fb.m_no = m.m_no where f_content like CONCAT('%',#{search},'%')
+		ORDER BY fb.f_no DESC LIMIT #{calcCount}, #{listCount}
+	</select>
+	<!-- 제목+내용 검색 리스트 sql문 -->
+	<select id="searchTitleContent" resultType="com.doh.domain.FBoardDTO" parameterType="com.doh.mapper.FBoardPageMaker">
+		select fb.f_no, fb.f_title, fb.f_rdate, fb.f_readnum, m.nickname,(SELECT COUNT(*) FROM fcomment WHERE f_no=fb.f_no) AS fc_count FROM freeboard as fb JOIN member as m ON fb.m_no = m.m_no where CONCAT(f_title,f_content) like CONCAT('%',#{search},'%')
+		ORDER BY fb.f_no DESC LIMIT #{calcCount}, #{listCount}
+	</select>
+	<!-- 닉네임 검색 리스트 sql문 -->
+	<select id="searchNickname" resultType="com.doh.domain.FBoardDTO" parameterType="com.doh.mapper.FBoardPageMaker">
+		select fb.f_no, fb.f_title, fb.f_rdate, fb.f_readnum, m.nickname,(SELECT COUNT(*) FROM fcomment WHERE f_no=fb.f_no) AS fc_count FROM freeboard as fb JOIN member as m ON fb.m_no = m.m_no where m.nickname like CONCAT('%',#{search},'%')
+		ORDER BY fb.f_no DESC LIMIT #{calcCount}, #{listCount}
+	</select>
+	
+	
+	
+	<!-- 조회 페이지 SQL문 -->
+	<select id="getContent" resultType="com.doh.domain.FBoardDTO">
+		select fb.f_no, fb.f_title, fb.f_rdate, fb.f_readnum, fb.f_content, m.nickname FROM freeboard as fb JOIN member as m ON fb.m_no = m.m_no where fb.f_no=#{f_no}
+	</select>
+	<!-- 현재 글의 이전글 숫자 구하는 SQL문 -->
+	<select id="getPrevNum" resultType="com.doh.domain.FBoardDTO">
+	<![CDATA[
+		SELECT * FROM freeboard WHERE f_no = #{f_no}
+
+		UNION ALL (
+		
+		SELECT * FROM freeboard WHERE f_no < #{f_no}  ORDER BY f_no DESC LIMIT 1)
+		
+		ORDER BY f_no DESC; 
+	]]>
+	</select>
+	<!-- 현재 글의 다음글 숫자 구하는 SQL문 -->
+	<select id="getNextNum" resultType="com.doh.domain.FBoardDTO">
+	<![CDATA[
+		SELECT * FROM freeboard WHERE f_no = #{f_no}
+		
+		UNION ALL (
+		
+		SELECT * FROM freeboard WHERE f_no > #{f_no}  ORDER BY f_no ASC LIMIT 1)
+		
+		ORDER BY f_no DESC;
+	]]>
+	</select>
+	
+	<!-- 검색한 현재 글의 이전글 숫자 구하는 SQL문 -->
+	<select id="getSearchPrevNum"  parameterType="map" resultType="com.doh.domain.FBoardDTO">
+	<![CDATA[
+		SELECT * FROM freeboard WHERE f_no = #{f_no}
+
+		UNION ALL (
+		
+		SELECT * FROM freeboard WHERE f_no < #{f_no} AND ${select} LIKE CONCAT('%',#{search},'%') ORDER BY f_no DESC LIMIT 1)
+		
+		ORDER BY f_no DESC; 
+	]]>
+	</select>
+	<!-- 검색한 현재 글의 다음글 숫자 구하는 SQL문 -->
+	<select id="getSearchNextNum"  parameterType="map" resultType="com.doh.domain.FBoardDTO">
+	<![CDATA[
+		SELECT * FROM freeboard WHERE f_no = #{f_no}
+		
+		UNION ALL (
+		
+		SELECT * FROM freeboard WHERE f_no > #{f_no} AND ${select} LIKE CONCAT('%',#{search},'%') ORDER BY f_no ASC LIMIT 1)
+		
+		ORDER BY f_no DESC;
+	]]>
+	</select>
+	<!-- 닉네임을 검색한 현재 글의 이전글 숫자 구하는 SQL문 -->
+	<select id="getSearchNicknamePrev" parameterType="map" resultType="com.doh.domain.FBoardDTO">
+	<![CDATA[
+		SELECT fb.f_no, m.nickname FROM freeboard AS fb JOIN member AS m ON fb.m_no = m.m_no WHERE f_no = #{f_no}
+		
+		UNION ALL (
+		
+		SELECT fb.f_no, m.nickname FROM freeboard AS fb JOIN member AS m ON fb.m_no = m.m_no WHERE f_no < #{f_no} AND ${select} LIKE CONCAT('%',#{search},'%') ORDER BY f_no DESC LIMIT 1)
+		
+		ORDER BY f_no DESC;
+	]]>
+	</select>
+	<!-- 닉네임을 검색한 현재 글의 다음글 숫자 구하는 SQL문 -->
+	<select id="getSearchNicknameNext" parameterType="map" resultType="com.doh.domain.FBoardDTO">
+	<![CDATA[
+		SELECT fb.f_no, m.nickname FROM freeboard AS fb JOIN member AS m ON fb.m_no = m.m_no WHERE f_no = #{f_no}
+		
+		UNION ALL (
+		
+		SELECT fb.f_no, m.nickname FROM freeboard AS fb JOIN member AS m ON fb.m_no = m.m_no WHERE f_no > #{f_no} AND ${select} LIKE CONCAT('%',#{search},'%') ORDER BY f_no ASC LIMIT 1)
+		
+		ORDER BY f_no DESC;
+	]]>
+	</select>
+	
+	
+	<!-- 기본 게시글 총 수 구하는 SQL문 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM freeboard;
+	</select>
+	<!-- 제목 검색 게시글 총 수 구하는 SQL문 -->
+	<select id="getTitleTotalCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM freeboard WHERE f_title LIKE CONCAT('%',#{search},'%')
+	</select>
+	<!-- 내용 검색 게시글 총 수 구하는 SQL문 -->
+	<select id="getContentTotalCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM freeboard WHERE f_content LIKE CONCAT('%',#{search},'%')
+	</select>
+	<!-- 제목+내용 검색 게시글 총 수 구하는 SQL문 -->
+	<select id="getTitleContentTotalCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM freeboard WHERE CONCAT(f_title,f_content) LIKE CONCAT('%',#{search},'%')
+	</select>
+	<!-- 닉네임 검색 게시글 총 수 구하는 SQL문 -->
+	<select id="getNicknameTotalCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM freeboard AS fb JOIN member AS m ON fb.m_no = m.m_no WHERE m.nickname LIKE CONCAT('%',#{search},'%')
+	</select>
+	
+	
+	<!-- 조회수 업데이트 SQL문 -->
+	<update id="updateReadnum">
+		UPDATE freeboard SET f_readnum = IFNULL(f_readnum,0)+1 WHERE f_no = #{f_no}
+	</update>
+	
+	
+	<!-- 게시물 삭제 SQL문 -->
+	<delete id="deleteContent">
+		DELETE FROM freeboard WHERE f_no = #{f_no}
+	</delete>
+	
+	<!-- 게시물 등록 SQL문 -->
+	<insert id="insertContent" parameterType="map">
+		INSERT INTO freeboard(f_title, f_content, m_no) VALUE(#{f_title}, #{f_content}, #{m_no});
+	</insert>
+	
+	<!-- 게시물 수정 SQL문 -->
+	<update id="updateContent" parameterType="map">
+		UPDATE freeboard SET f_title = #{f_title}, f_content = #{f_content} WHERE f_no = #{f_no};
+	</update>
+</mapper>

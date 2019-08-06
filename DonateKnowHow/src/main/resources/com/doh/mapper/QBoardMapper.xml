@@ -28,9 +28,12 @@
 		update qboard set q_title=#{q_title}, q_content=#{q_content}, q_rdate=now() where q_no=#{q_no}
 	</update>
 	
-	<!-- paging -->
-	<select id='listPaging' resultType="com.doh.domain.QBoardVO">
+		<!-- 페이징 -->
+	<select id='paging' resultType="com.doh.domain.QBoardVO">
 		<![CDATA[ select * from QBOARD left join MEMBER on QBOARD.M_NO = MEMBER.M_NO 
-					order by q_no desc limit #{pageStart}, #{pageNum} ]]>
+								order by q_no desc limit #{pageView} offset #{page} ]]>
+	</select>
+	<select id='listCount' resultType='Integer'>
+		<![CDATA[ select count(*) from QBOARD ]]>
 	</select>
 </mapper>

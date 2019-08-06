@@ -1,39 +1,19 @@
 
 package com.doh.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.tagext.PageData;
-import javax.websocket.*;
-import javax.websocket.server.ServerEndpoint;
-import com.doh.test.cpTest;
-
-import java.util.*;
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.doh.domain.CBoardDTO;
-import com.doh.domain.CCriteria;
-import com.doh.domain.CPageDTO;
 import com.doh.service.CBoardService;
+import com.doh.test.cpTest;
+
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -41,31 +21,18 @@ import lombok.extern.java.Log;
 @Log
 @RequestMapping("/cboard/*")
 @AllArgsConstructor
-@NoArgsConstructor
-@ServerEndpoint("/conn")
 
 public class CBoardController {
 	@Setter(onMethod_=@Autowired)
 	private CBoardService service;
-	
 
-	
-	@GetMapping("/list")
-	public String list(Model model, CCriteria cri) {
+
+	@RequestMapping("/list")
+	public String list(Model model) {
 		log.info("##list-----");
-		int total =service.getTotalCount(cri);
-		model.addAttribute("pageMaker", new CPageDTO(cri, total));
-		int critemp=cri.getPageNum();
-		System.out.println(critemp*10);
-		if(critemp==0) {
-			cri.setPageNum(critemp*10);
-		}else {
-		cri.setPageNum((critemp-1)*10);
-		}
+		model.addAttribute("list", service.getList());
+
 		
-		
-		model.addAttribute("list", service.getList(cri));
-			
 		return "/Cboard/list";
 	}
 	@RequestMapping("/content")
@@ -77,10 +44,10 @@ public class CBoardController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("c_no") int c_no, Model model, CCriteria cri) {
+	public String delete(@RequestParam("c_no") int c_no, Model model) {
 		log.info("##delete----");
 		service.delete(c_no);	
-		model.addAttribute("list", service.getList(cri));
+		model.addAttribute("list", service.getList());
 		return "Cboard/list";
 	}
 		
@@ -93,7 +60,6 @@ public class CBoardController {
 	@PostMapping("/update")
 	public String update(@RequestParam("c_no") int c_no,CBoardDTO cbdto, Model model) {
 		log.info("##update----");
-		
 		
 		service.update(cbdto);
 		
@@ -115,9 +81,10 @@ public class CBoardController {
 		log.info("dddddddddddddddddddddddd"+cbdto);
 		
 		
-		model.addAttribute("list", service.getList(null));
+		model.addAttribute("list", service.getList());
 		return "/Cboard/list";
 	}
+
 	
 	@PostMapping("/modal")
 	public String modal(@RequestParam("code") String code,@RequestParam("c_no") int c_no, Model model) {
@@ -161,5 +128,5 @@ public class CBoardController {
 		
 	}
 	
-	
+
 }
