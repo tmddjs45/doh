@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>About</title>
+<title>info</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/memberinfo.css"></link>
 <script src="https://kit.fontawesome.com/f4af1ffa80.js"></script>
