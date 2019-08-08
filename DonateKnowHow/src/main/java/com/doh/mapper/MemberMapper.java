@@ -1,6 +1,9 @@
 package com.doh.mapper;
 
 
+import java.util.ArrayList;
+
+
 import com.doh.domain.MemberVO;
 
 public interface MemberMapper {
@@ -11,5 +14,9 @@ public interface MemberMapper {
 	void signup_auth(String email);
 	MemberVO searchMember(String email);
 	MemberVO checknickname(String nickname);
+	
+	ArrayList boardcount(int m_no);
+	ArrayList replycount(int m_no);
+	int answercount(int m_no);
 	
 }

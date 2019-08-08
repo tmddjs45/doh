@@ -21,7 +21,7 @@
 					<sec:authentication property="principal.member.nickname" var="nickname"/>
 					<li><a>안녕하세요. ${nickname}님</a></li>|
 					<li><a href="/logout">로그아웃</a></li>|
-					<li><a href="#">내 정보</a></li>
+					<li><a href="/memberinfo">내 정보</a></li>
 				</sec:authorize>
 				
 				<sec:authorize access="isAnonymous()">
@@ -47,6 +47,8 @@
 			</ul>
 		</nav>
 	</div>
+	
+	
 	<div class="modal hidden">
 		<div class="modal-overlay"></div>
 		<div class="modal-content">
@@ -94,8 +96,6 @@
 		openBtn.addEventListener("click", openModal);
 		closeBtn.addEventListener("click", closeModal);
 
-		
-
 		/* ---- # my code # ---- */
 	
 		const loginSubmitBtn = () =>{
@@ -123,5 +123,8 @@
 				$(this).removeClass("focus");
 			}
 		});
-	</script>
+		
+		/*-------------------------------------------*/
+		
+</script>
 
