@@ -12,4 +12,8 @@
 		insert into answer (a_content, a_rdate, a_check, q_no, m_no)
 							value(#{a_content}, now(), 0, #{q_no}, "2")
 	</insert>
+	
+	<delete id="deleteR">
+		delete from answer where a_no = #{a_no}
+	</delete>
 </mapper>

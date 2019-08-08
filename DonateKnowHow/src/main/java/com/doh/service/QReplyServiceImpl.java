@@ -23,4 +23,9 @@ public class QReplyServiceImpl implements QReplyService {
 	public void insertRImpl(QReplyVO rvo) {
 		mapper.insertR(rvo);
 	}
+	
+	@Override
+	public void deleteRImpl(int a_no) {
+		mapper.deleteR(a_no);
+	}
 }
