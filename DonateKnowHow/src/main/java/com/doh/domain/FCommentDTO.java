@@ -12,4 +12,5 @@ public class FCommentDTO {
 	private int f_no;
 	
 	private String nickname;
+	private String email;
 }

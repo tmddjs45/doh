@@ -23,7 +23,8 @@ public class FBoardPageMaker {
 	public FBoardPageMaker(int pageNum, int totalCount) {	//전체 페이지 수를 계산하는 메소드
 		this.totalCount = totalCount;
 		this.pageNum = pageNum;
-		totalPage = totalCount / listCount;	// ex) 173 (총 게시글 수) / 10(한 페이지 게시글 갯수) => 17.3 즉 17페이지
+		totalPage = totalCount / listCount;	// ex) 173 (총 게시글 수) / 10(한 페이지 게시글 갯수) 
+//																			=> 17.3 즉 17페이지
 		if(totalCount%listCount > 0) {			// 	   하지만 나머지 게시글이 3개가 더 있으므로 
 			totalPage++;						//	   +1을 하여 총 18페이지로 구성하게 만듭니다! 
 		}
