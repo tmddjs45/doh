@@ -4,7 +4,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.IOException;
 import java.io.PrintWriter;
+<<<<<<< HEAD
 import java.security.Principal;
+=======
+>>>>>>> 16944694eec98787732358e71330388e6ce9f990
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -15,11 +18,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+=======
+>>>>>>> 16944694eec98787732358e71330388e6ce9f990
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +35,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+<<<<<<< HEAD
 import com.doh.domain.CustomUser;
+=======
+>>>>>>> 16944694eec98787732358e71330388e6ce9f990
 import com.doh.domain.MemberVO;
 import com.doh.service.MemberService;
 
@@ -68,6 +77,7 @@ public class IndexController {
 		log.info("Controller VO: " + vo);
 		service.signup(vo);
 		return "redirect:/";
+<<<<<<< HEAD
 	}
 	
 	@PostMapping("/emailcheck")
@@ -89,6 +99,29 @@ public class IndexController {
 		}catch(IOException io) {}
 	}
 	
+=======
+	}
+	
+	@PostMapping("/emailcheck")
+	public void emailcheck(String email, HttpServletResponse response){
+		log.info(email);
+		MemberVO member = service.checkemail(email);
+		try {
+			PrintWriter pw = response.getWriter();
+			
+			if(member!=null) {
+				//null 이 아니면 이미 있어 사용 불가능한 Email.
+				//JSon 파싱
+				pw.print(false);
+				
+			}else {
+				//null 이면 사용 가능한 Email.
+				pw.print(true);
+			}
+		}catch(IOException io) {}
+	}
+	
+>>>>>>> 16944694eec98787732358e71330388e6ce9f990
 	@PostMapping("/nickcheck")
 	public void nicknamecheck(String nickname, HttpServletResponse response) {
 		MemberVO member = service.checknickname(nickname);
