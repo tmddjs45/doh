@@ -38,6 +38,13 @@ public class QReplyController {
 		System.out.println("--- >> "+rvo);
 	}
 
+	@PostMapping("/update")
+	public void updateR(int a_no, String a_content) {
+		System.out.println("## a_no---- > " + a_no);
+		System.out.println("## rvo---- > " + a_content);
+		rservice.updateRImpl(a_no, a_content);
+	}
+	
 	@PostMapping("/delete")
 	public void deleteR(int a_no) {
 		log.info("###   넘어오는 a_no : "+a_no);

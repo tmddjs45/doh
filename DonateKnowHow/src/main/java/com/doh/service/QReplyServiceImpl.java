@@ -25,6 +25,14 @@ public class QReplyServiceImpl implements QReplyService {
 	}
 	
 	@Override
+	public void updateRImpl(int a_no, String a_content) {
+		QReplyVO rvo = new QReplyVO();
+		rvo.setA_no(a_no);
+		rvo.setA_content(a_content);
+		mapper.updateR(rvo);
+	}
+	
+	@Override
 	public void deleteRImpl(int a_no) {
 		mapper.deleteR(a_no);
 	}
