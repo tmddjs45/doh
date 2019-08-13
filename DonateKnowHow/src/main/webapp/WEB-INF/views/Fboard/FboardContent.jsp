@@ -10,6 +10,9 @@
 		html{
 			overflow-x: hidden;
 		}
+		body{
+			font-family: 'Nanum Gothic', sans-serif;
+		}
 		.replyInput{
 			position: relative;
 			margin-top: 10%;
@@ -42,13 +45,16 @@
 		}
 		#replyTable{
 			margin-top: 1%;
+			table-layout: fixed;
 		}
 		#replyTable th{
 			text-align:left;
 			border-bottom: none;
+			width:50px;
 		}
 		#replyTable td{
 			text-align:left;
+			word-break: break-all;
 		}
 		td{
 			padding: 10px;
@@ -64,6 +70,21 @@
 		*:focus {
     		outline: none;
 		}
+		pre{
+			font-family: 'Nanum Gothic', sans-serif;
+			margin:0;
+			white-space: pre-wrap;
+		}
+		#replyModify{ min-height: 37px; overflow: hidden; font-size: 12px; font-family: 'Nanum Gothic', sans-serif; margin:5 0 0 0;}
+		.blockBtn{
+			background-color: #FFFFFF;
+			color: #D8D8D8;
+			border: 1px solid #D8D8D8;
+			border-radius: 10px;
+			font-size: 10px;
+			margin: 0;
+			padding: 5px 10px;
+		}
 	</style>
 </head>
 <body>
@@ -72,7 +93,7 @@
 		<div></div>
 		<div class="content">
 			<!-- 상세 페이지 테이블입니다! -->
-			<table style="box-shadow: 4px 4px 4px 4px gray;">
+			<table style="box-shadow: 1px 1px 10px 1px #D8D8D8;">
 				<tr>
 					<td style="text-align: left;">${fboardContent.f_title}</td>
 					<td style="text-align: right;">${fboardContent.f_rdate}</td>
@@ -82,7 +103,7 @@
 					<td style="text-align: right;">조회수: ${fboardContent.f_readnum}</td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: left; padding: 50 20 50 20;">${fboardContent.f_content}</td>
+					<td colspan="2" style="text-align: left; padding: 50 20 50 20; border-bottom: none;">${fboardContent.f_content}</td>
 				</tr>
 			</table>
 			
@@ -136,7 +157,7 @@
 				<div class="replyIn">
 					<!-- 로그인시 나타나게 하는 시큐리티 문법 -->
 					<sec:authorize access="isAuthenticated()">
-						<textarea class="replytext" id="replytext" placeholder="댓글을 남겨주세요" ></textarea>
+						<textarea class="replytext" id="replytext" placeholder="댓글을 남겨주세요" spellcheck = 'false'></textarea>
 						<button id="btnReply" type="button">댓글쓰기</button>
 					</sec:authorize>
 					<!-- 비로그인시 나타나게 하는 시큐리티 문법 -->
@@ -286,6 +307,9 @@
 	</div>
 	
 	<script>
+		var height = 0;	//수정 할때 댓글content의 높이를 구하는 변수 (textarea 높이를 적용시키기 위해서)
+		
+		
 		$(function(){
 			listReply();	//먼저 JSP가 시작하기 전에 비동기로 댓글리스트 한 페이지(15개)를 가져옵니다 파라미터는 undefind입니다
 			listReplyPaging();	//먼저 JSP가 시작하기 전에 비동기로 페이징 계산을 합니다
@@ -307,7 +331,19 @@
 			});
 			$("#replytext").val('');	//작업이 모두 끝났으면 textarea를 깔끔하게 청소합니다
 		}
-	
+		function replyAnswer(num, parentNum){
+			var fc_content = $("#replyResponse").val();
+			var f_no = "${fboardContent.f_no}";
+			var param = {"fc_parent":parentNum, "fc_content":fc_content, "f_no":f_no};
+			$.ajax({
+				type: "post",
+				url: "${path}/fcomment/insert",
+				data: param,
+				success: function(){
+					listReply2(num);
+				}
+			});
+		}
 		function listReply(num){
 			if(num != undefined){
 				$('html, body').animate({
@@ -325,29 +361,245 @@
 					console.log(replyList);	
 					var output="";	//지정해둔 영역으로 보낼 문자열을 만들고 초기화합니다
 					for(var i in replyList){	//ex)for(int i : replyList){...}(향상된 for문)과 비슷하다
-						output += "<thead>";
-						output += "<tr>";
-						output += "<th style='font-size:15px;'>"+replyList[i].nickname+"<th>";
-						output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
-						output += "</tr>";
-						output += "<tr>";
-						output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
-						output += "</tr>";
-						output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
-						output += "<button class='btn' style='font-size: 10px;'>답글</button></sec:authorize></td>";
-						output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
-						if(conUserEmail == replyList[i].email){
-							output += "<button class='btn' style='font-size: 10px;'istReply2on>";
-							output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
-						}
-						output += "</sec:authorize></td></tr>";
-						output += "</thead>";
+						if(replyList[i].fc_parent == null){	//대댓글이 아닌 댓글이라면
+							output += "<thead>";
+							output += "<tr>";
+							output += "<th style='font-size:15px;'>"+replyList[i].nickname+"<th>";
+							output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
+							output += "</tr>";
+							output += "<tr>";
+							output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
+							output += "</tr>";
+							output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+							output += "<button class='btn' style='font-size: 10px;' onclick='listReply2("+num+","+replyList[i].fc_no+",\"답글\")'>답글</button></sec:authorize></td>";
+							output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+							if(conUserEmail == replyList[i].email){
+								output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+								output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+							}
+							output += "</sec:authorize></td></tr>";
+							output += "</thead>";
+						}else{	//대댓글이라면
+							output += "<thead>";
+							output += "<tr>";
+							output += "<th style='font-size:15px; padding-left:30px;'>💬"+replyList[i].nickname+"<th>";
+							output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
+							output += "</tr>";
+							output += "<tr>";
+							output += "<td colspan='3' style='border-bottom: none; font-size:13px; padding-left:6%;'><pre>"+replyList[i].fc_content+"</pre></td>";
+							output += "</tr>";
+							output += "<tr><td colspan='3' style='padding:5; text-align:right;'><sec:authorize access='isAuthenticated()'>";
+							if(conUserEmail == replyList[i].email){
+								output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+								output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+							}
+							output += "</sec:authorize></td></tr>";
+							output += "</thead>";
+						}	
 					}
 					$("#replyTable").html(output); //id가 replyTable인 영역에 output이라는 완성시킨 문자열을 html코드로 보낸다 
 				}
 			});
 			listReplyPaging(num);	//마무리로 다시 페이징을 계산한다 (이유는 댓글이 계속 생겨날때 비동기로 페이지가 늘어나게 하기 위함이다)
 		}
+		
+		function listReply2(num, fc_no, command){	//삭제 시 현재 페이지를 유지하기 위해서 listReply2를 따로 만듬
+			console.log("command 값은 ? "+ command);
+			if(num == undefined) num = 1;	//num의 값이 undefined이면 1로 지정해서 첫페이지의 리스트를 뽑게 만듭니다
+			$.ajax({
+				type: "get",	//겟 방식으로 게시글 번호와 파라미터로 받은 num을 /fcomment/list?에 보냅니다
+				url: "${path}/fcomment/list?f_no=${fboardContent.f_no}&replyPageNum="+num,	//마찬가지로 RestController단에 접근합니다
+				//get 방식은 post 방식이 아니기 때문에 data가 없습니다
+				success: function(replyList){	//성공시 리턴 받은 객체를 파라미터로 받고 익명함수를 바로 실행합니다
+					const conUserEmail = '<c:out value="${userEmail}"/>';
+					var output="";	//지정해둔 영역으로 보낼 문자열을 만들고 초기화합니다
+					if(fc_no == undefined){		//댓글번호가 정의되어지지 않았을 때 (기본 리스트나 삭제버튼으로 왔을 때)
+						for(var i in replyList){	//ex)for(int i : replyList){...}(향상된 for문)과 비슷하다
+							if(replyList[i].fc_parent == null){
+								output += "<thead>";
+								output += "<tr>";
+								output += "<th style='font-size:15px;'>"+replyList[i].nickname+"<th>";
+								output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
+								output += "</tr>";
+								output += "<tr>";
+								output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
+								output += "</tr>";
+								output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+								output += "<button class='btn' style='font-size: 10px;' onclick='listReply2("+num+","+replyList[i].fc_no+",\"답글\")'>답글</button></sec:authorize></td>";
+								output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+								if(conUserEmail == replyList[i].email){
+									output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+									output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+								}
+								output += "</sec:authorize></td></tr>";
+								output += "</thead>";
+							}else{
+								output += "<thead>";
+								output += "<tr>";
+								output += "<th style='font-size:15px; padding-left:30px;'>💬"+replyList[i].nickname+"<th>";
+								output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
+								output += "</tr>";
+								output += "<tr>";
+								output += "<td colspan='3' style='border-bottom: none; font-size:13px; padding-left:6%;'><pre>"+replyList[i].fc_content+"</pre></td>";
+								output += "</tr>";
+								output += "<tr><td colspan='3' style='padding:5; text-align:right;'><sec:authorize access='isAuthenticated()'>";
+								if(conUserEmail == replyList[i].email){
+									output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+									output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+								}
+								output += "</sec:authorize></td></tr>";
+								output += "</thead>";
+							}
+						}
+					}else{	//댓글번호가 정의되어 있으면 (수정 버튼 또는 답글 버튼으로 넘어왔다는 뜻)
+						for(var i in replyList){	//ex)for(int i : replyList){...}(향상된 for문)과 비슷하다
+							if(replyList[i].fc_parent == null){
+								output += "<thead>";
+								output += "<tr>";
+								output += "<th style='font-size:15px;'>"+replyList[i].nickname+"<th>";
+								output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
+								output += "</tr>";
+								output += "<tr>";
+								if(command == '수정'){
+									if(fc_no == replyList[i].fc_no){	//파라미터로 넘어온 댓글번호와 리스트중에 댓글번호가 같으면
+										console.log("... 대댓글 번호 맞냐?"+replyList[i].fc_no);
+										output += "<td colspan='3' style='border-bottom: none; font-size:13px; padding:0;'><pre><textarea onkeydown='resize(this)' onkeyup='resize(this)' class='replytext' id='replyModify' style='width:100%;' spellcheck = 'false'>"+replyList[i].fc_content+"</textarea></pre></td>";
+										output += "</tr>";
+										output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+										output += "</sec:authorize></td>";
+										output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+										if(conUserEmail == replyList[i].email){
+											output += "<button class='btn' style='font-size: 10px;' onclick='updateReply("+num+","+fc_no+")'>완료</button>";
+											output += "<button class='btn' style='font-size: 10px;' onclick='listReply2("+num+")'>취소</button>";
+										}
+										output += "</sec:authorize></td></tr>";
+										output += "</thead>";
+									}else{
+										output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
+										output += "</tr>";
+										output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+										output += "<button class='btn' style='font-size: 10px;' onclick='listReply2("+num+","+replyList[i].fc_no+",\"답글\")'>답글</button></sec:authorize></td>";
+										output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+										if(conUserEmail == replyList[i].email){
+											output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+											output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+										}
+										output += "</sec:authorize></td></tr>";
+										output += "</thead>";
+									}
+								}else if(command == '답글'){
+									if(fc_no == replyList[i].fc_no){	//파라미터로 넘어온 댓글번호와 리스트중에 댓글번호가 같으면
+										output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
+										output += "</tr>";
+										output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+										output += "<button class='blockBtn' disabled>답글</button></sec:authorize></td>";
+										output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+										if(conUserEmail == replyList[i].email){
+											output += "<button class='blockBtn' disabled>수정</button>";
+											output += "<button class='blockBtn' disabled>삭제</button>";
+										}
+										output += "</sec:authorize></td></tr>";
+										output += "</thead>";
+									}else{
+										output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
+										output += "</tr>";
+										output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+										output += "<button class='btn' style='font-size: 10px;' onclick='listReply2("+num+","+replyList[i].fc_no+",\"답글\")'>답글</button></sec:authorize></td>";
+										output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+										if(conUserEmail == replyList[i].email){
+											output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+											output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+										}
+										output += "</sec:authorize></td></tr>";
+										output += "</thead>";
+									}
+									if(fc_no == replyList[i].fc_no){
+										output += "<thead><tr>";
+										output += "<td style='border-bottom:none; font-size: 40px; padding:0; text-align:center;'>🗣</td>";
+										output += "<td colspan='2' style='border-bottom: none; font-size:13px; padding:0;'><pre><textarea onkeydown='resize(this)' onkeyup='resize(this)' id='replyResponse' class='replytext' style='width:100%; margin:0; height:37px; overflow:hidden;' spellcheck = 'false' placeholder='답글을 작성하세요'></textarea></pre></td>";
+										output += "<tr>";
+										output += "<td style='padding:5;'></td>";
+										output += "<td colspan='2' style='padding:5;'>";
+										output += "<button class='btn' style='font-size:10px;' onclick='replyAnswer("+num+","+replyList[i].fc_no+")'>작성</button>";
+										output += "<button class='btn' style='font-size:10px;' onclick='listReply2("+num+")'>취소</button>";
+										output += "</td>";
+										output += "</tr>";
+										output += "</tr></thead>";
+									}
+								}else{
+									output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
+									output += "</tr>";
+									output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+									output += "<button class='btn' style='font-size: 10px;' onclick='listReply2("+num+","+replyList[i].fc_no+",\"답글\")'>답글</button></sec:authorize></td>";
+									output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+									if(conUserEmail == replyList[i].email){
+										output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+										output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+									}
+									output += "</sec:authorize></td></tr>";
+									output += "</thead>";
+								}
+							
+							}else{
+								if(fc_no == replyList[i].fc_no){	//파라미터로 넘어온 댓글번호와 리스트중에 댓글번호가 같으면
+									console.log("... 대댓글 번호 맞냐?"+replyList[i].fc_no);
+									output += "<thead>";
+									output += "<tr>";
+									output += "<th style='font-size:15px; padding-left:30px;'>💬"+replyList[i].nickname+"<th>";
+									output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
+									output += "</tr>";
+									output += "<tr>";
+									output += "<td colspan='3' style='border-bottom: none; font-size:13px; padding:0; padding-left:6%;'><pre><textarea onkeydown='resize(this)' onkeyup='resize(this)' class='replytext' id='replyModify' style='width:100%;' spellcheck = 'false'>"+replyList[i].fc_content+"</textarea></pre></td>";
+									output += "</tr>";
+									output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
+									output += "</sec:authorize></td>";
+									output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
+									if(conUserEmail == replyList[i].email){
+										output += "<button class='btn' style='font-size: 10px;' onclick='updateReply("+num+","+fc_no+")'>완료</button>";
+										output += "<button class='btn' style='font-size: 10px;' onclick='listReply2("+num+")'>취소</button>";
+									}
+									output += "</sec:authorize></td></tr>";
+									output += "</thead>";
+								}else{
+									output += "<thead>";
+									output += "<tr>";
+									output += "<th style='font-size:15px; padding-left:30px;'>💬"+replyList[i].nickname+"<th>";
+									output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
+									output += "</tr>";
+									output += "<tr>";
+									output += "<td colspan='3' style='border-bottom: none; font-size:13px; padding-left:6%;'><pre>"+replyList[i].fc_content+"</pre></td>";
+									output += "</tr>";
+									output += "<tr><td colspan='3' style='padding:5; text-align:right;'><sec:authorize access='isAuthenticated()'>";
+									if(conUserEmail == replyList[i].email){
+										output += "<button class='btn' style='font-size: 10px;' onmouseenter='getHeight(this)' onclick='listReply2("+num+","+replyList[i].fc_no+",\"수정\")'>수정</button>";
+										output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
+									}
+									output += "</sec:authorize></td></tr>";
+									output += "</thead>";
+								}
+								
+							}
+						}
+					}
+					$("#replyTable").html(output); //id가 replyTable인 영역에 output이라는 완성시킨 문자열을 html코드로 보낸다 
+					var replyTextarea = $("#replyModify");
+					var val = replyTextarea.val();
+					replyTextarea.focus().val("").val(val);	//이걸 하면 커서가 마지막으로 간다
+					console.log("높이의 값은?"+height);
+					$("#replyModify").css("height", height+"px");
+				}
+			});
+			listReplyPaging(num);	//마무리로 다시 페이징을 계산한다 (이유는 댓글이 계속 삭제될때 페이지가 줄어들게 하기 위함이다)
+		}
+		function resize(obj) {	//댓글의 textarea의 글이 범위를 넘어설 때 마다 자동으로 크기를 조정시키기 위한 함수
+			obj.style.height = "1px";
+		  	obj.style.height = (12+obj.scrollHeight)+"px";
+		}
+		function getHeight(obj){
+			height = $(obj).parent().parent().prev().height();
+		}
+		
+		
 		function deleteReply(replyNum,num){
 			console.log("야이야이야이야이 deleteReply의 댓글 넘버 값은? "+replyNum);
 			console.log("야이 deleteReply의 페이지 값은? "+num);
@@ -362,40 +614,18 @@
 				}
 			});
 		}
-		function listReply2(num){	//삭제 시 현재 페이지를 유지하기 위해서 listReply2를 따로 만듬
-			if(num == undefined) num = 1;	//num의 값이 undefined이면 1로 지정해서 첫페이지의 리스트를 뽑게 만듭니다
+		function updateReply(num, fc_no){
+			if(num == undefined) num = 1;
+			var fc_content = $("#replyModify").val();
+			var param = {"fc_no":fc_no, "fc_content":fc_content};
 			$.ajax({
-				type: "get",	//겟 방식으로 게시글 번호와 파라미터로 받은 num을 /fcomment/list?에 보냅니다
-				url: "${path}/fcomment/list?f_no=${fboardContent.f_no}&replyPageNum="+num,	//마찬가지로 RestController단에 접근합니다
-				//get 방식은 post 방식이 아니기 때문에 data가 없습니다
-				success: function(replyList){	//성공시 리턴 받은 객체를 파라미터로 받고 익명함수를 바로 실행합니다
-					const conUserEmail = '<c:out value="${userEmail}"/>';
-					console.log("현재 당신이 접속한 아이디는 "+conUserEmail);
-					console.log(replyList);	
-					var output="";	//지정해둔 영역으로 보낼 문자열을 만들고 초기화합니다
-					for(var i in replyList){	//ex)for(int i : replyList){...}(향상된 for문)과 비슷하다
-						output += "<thead>";
-						output += "<tr>";
-						output += "<th style='font-size:15px;'>"+replyList[i].nickname+"<th>";
-						output += "<td style='font-size: 12px; text-align: right; border-bottom: none;'>"+replyList[i].fc_udate+"</td>";
-						output += "</tr>";
-						output += "<tr>";
-						output += "<td colspan='3' style='border-bottom: none; font-size:13px;'><pre>"+replyList[i].fc_content+"</pre></td>";
-						output += "</tr>";
-						output += "<tr><td style='padding:5;'><sec:authorize access='isAuthenticated()'>";
-						output += "<button class='btn' style='font-size: 10px;'>답글</button></sec:authorize></td>";
-						output += "<td colspan='2' style='text-align: right; padding:5;'><sec:authorize access='isAuthenticated()'>";
-						if(conUserEmail == replyList[i].email){
-							output += "<button class='btn' style='font-size: 10px;'>수정</button>";
-							output += "<button class='btn' style='font-size: 10px;' onclick='deleteReply("+replyList[i].fc_no+","+num+")'>삭제</button>";
-						}
-						output += "</sec:authorize></td></tr>";
-						output += "</thead>";
-					}
-					$("#replyTable").html(output); //id가 replyTable인 영역에 output이라는 완성시킨 문자열을 html코드로 보낸다 
+				type: "post",
+				url: "${path}/fcomment/modify",
+				data: param,
+				success: function(){
+					listReply2(num);
 				}
 			});
-			listReplyPaging(num);	//마무리로 다시 페이징을 계산한다 (이유는 댓글이 계속 삭제될때 페이지가 줄어들게 하기 위함이다)
 		}
 		function listReplyPaging(num){	//댓글 페이징을 하기 위한 함수 
 			if(num == undefined) num = 1;	//파라미터로 받은 숫자가 udefined이면 1페이지가 출력되게 1로 기본값 설정

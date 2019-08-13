@@ -17,4 +17,8 @@ public interface FCommentMapper {
 	
 	//댓글 삭제하는 메서드
 	public void deleteReply(FCommentDTO dto);
+	//대댓글 삭제하는 메서드
+	public void deleteAnswer(FCommentDTO dto);
+	//댓글 수정하는 메서드
+	public void updateReply(FCommentDTO dto);
 }

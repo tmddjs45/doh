@@ -36,6 +36,12 @@ public class FCommentServiceImpl implements FCommentService {
 	//댓글을 삭제하는 메서드
 	@Override
 	public void deleteReply(FCommentDTO dto) {
+		mapper.deleteAnswer(dto);
 		mapper.deleteReply(dto);
+	}
+	//댓글을 수정하는 메서드
+	@Override
+	public void updateReply(FCommentDTO dto) {
+		mapper.updateReply(dto);
 	}
 }

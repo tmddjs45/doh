@@ -28,7 +28,7 @@ public class FCommentController {
 	public void insert(FCommentDTO dto) {
 		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(pricipal.equals("anonymousUser")) return;	//시큐리티 username이 익명사용자이면 댓글이 쓰여지지 않게 그냥 리턴합니다!
-		if(dto.getFc_content() == null) return;	//댓글 내용이 null이면 댓글이 쓰여지지 않게 그냥 리턴 시킵니다
+		if(dto.getFc_content().equals("") || dto.getFc_content()==null) return;	//댓글 내용이 null이면 댓글이 쓰여지지 않게 그냥 리턴 시킵니다
 		CustomUser customUser = (CustomUser)pricipal;
 		int m_no = customUser.getMember().getM_no();
 		dto.setM_no(m_no);
@@ -37,6 +37,10 @@ public class FCommentController {
 	@PostMapping("delete")
 	public void delete(FCommentDTO dto) {
 		service.deleteReply(dto);
+	}
+	@PostMapping("modify")
+	public void modify(FCommentDTO dto) {
+		service.updateReply(dto);
 	}
 	
 	@RequestMapping("list")

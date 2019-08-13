@@ -6,14 +6,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<<<<<<< HEAD
-=======
-
-<link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
->>>>>>> 16944694eec98787732358e71330388e6ce9f990
 
 <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
@@ -92,10 +84,7 @@
 		
 		const openModal = () =>{
 			modal.classList.remove("hidden");
-<<<<<<< HEAD
 		}
-=======
->>>>>>> 16944694eec98787732358e71330388e6ce9f990
 
 		const closeModal = () =>{
 			modal.classList.add("hidden");
@@ -134,9 +123,5 @@
 				$(this).removeClass("focus");
 			}
 		});
-<<<<<<< HEAD
-=======
-		
->>>>>>> 16944694eec98787732358e71330388e6ce9f990
 	</script>
 

@@ -5,13 +5,13 @@
 <mapper namespace="com.doh.mapper.FCommentMapper">
 	<!-- 댓글 입력 SQL문 -->
 	<insert id="insertReply" parameterType="com.doh.domain.FCommentDTO">
-		insert into fcomment(fc_content, m_no, f_no) values(#{fc_content}, #{m_no}, #{f_no})
+		insert into fcomment(fc_parent, fc_content, m_no, f_no) values(#{fc_parent}, #{fc_content}, #{m_no}, #{f_no})
 	</insert>
 	
 	<!-- 댓글 리스트 SQL문 -->
 	<select id="getReplyList" parameterType="map" resultType="com.doh.domain.FCommentDTO">
-		SELECT fc.fc_no, fc.fc_content, DATE_FORMAT(fc.fc_rdate,'%Y-%m-%d %T') AS fc_rdate, DATE_FORMAT(fc.fc_udate,'%Y-%m-%d %T') AS fc_udate, fc.m_no, fc.f_no, m.nickname, m.email
-		FROM fcomment AS fc JOIN member2 AS m ON fc.m_no = m.m_no WHERE f_no=#{f_no} order by fc.fc_no DESC LIMIT #{replyPageMaker.calcCount}, #{replyPageMaker.listCount} 
+		SELECT fc.fc_no, fc.fc_content, DATE_FORMAT(fc.fc_rdate,'%Y-%m-%d %T') AS fc_rdate, DATE_FORMAT(fc.fc_udate,'%Y-%m-%d %T') AS fc_udate, fc.m_no, fc.f_no, fc.fc_parent, m.nickname, m.email
+		FROM fcomment AS fc JOIN member2 AS m ON fc.m_no = m.m_no WHERE f_no=#{f_no} order by IF(ISNULL(fc_parent), fc_no, fc_parent) DESC LIMIT #{replyPageMaker.calcCount}, #{replyPageMaker.listCount} 
 	</select>
 	
 	<!-- 댓글 총 갯수 구하는 SQL문 -->
@@ -23,4 +23,12 @@
 	<delete id="deleteReply" parameterType="com.doh.domain.FCommentDTO">
 		DELETE FROM fcomment WHERE fc_no = ${fc_no}
 	</delete>
+	<!-- 대댓글 삭제하는 SQL문 -->
+	<delete id="deleteAnswer" parameterType="com.doh.domain.FCommentDTO">
+		DELETE FROM fcomment WHERE fc_parent = ${fc_no}
+	</delete>
+	
+	<update id="updateReply" parameterType="com.doh.domain.FCommentDTO">
+		UPDATE fcomment SET fc_content = '${fc_content}', fc_udate = CURRENT_TIMESTAMP WHERE fc_no = ${fc_no}
+	</update>
 </mapper>

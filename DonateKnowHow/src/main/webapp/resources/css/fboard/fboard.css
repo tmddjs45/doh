@@ -122,7 +122,7 @@ hr{
 a.titleLink:link{text-decoration: none; color: black;}
 a.titleLink:visited{color: #BDBDBD;}
 a.titleLink:active{color: blue;}
-a.titleLink:hover{ color: red; text-shadow: 1px 1px 1px #B40431; }
+a.titleLink:hover{ color: red;}
 
 /* 승언이의 로그인 css랑 겹쳐서 따로 수정 */
 .login-form{
