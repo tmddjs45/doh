@@ -2,51 +2,44 @@
 <%@page import="org.springframework.web.bind.annotation.ModelAttribute"%>
 <%@page import="org.springframework.ui.Model"%>
 <%@page import="com.doh.domain.*"%>
-
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/main_header.css"></link>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/menubar.css"></link>
+<meta charset='utf-8'>
+<link rel='stylesheet' type='text/css' href='${path}/resources/css/dohHeader.css'>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
+<link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/f4af1ffa80.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-	<div class="header-bar">
-		<span class="name"><a href="/">D'oh</a></span>
-		<span class="member">
-			<ul>			
-				<sec:authorize access="isAuthenticated()">
-					<sec:authentication property="principal.member.nickname" var="nickname"/>
-					<li><a>안녕하세요. ${nickname}님</a></li>|
-					<li><a href="/logout">로그아웃</a></li>|
-					<li><a href="#">내 정보</a></li>
-				</sec:authorize>
-				
-				<sec:authorize access="isAnonymous()">
-					<li><a id="loginBtn">로그인</a></li>|
-					<li><a href="/signup">회원가입</a></li>
-				</sec:authorize>
-			</ul>
-		</span>
-	</div>
-
-	<div class="title">
-		<a href="/"><img src="${path}/resources/img/dohmain.png" alt="main title"/></a>
-		<p style="font-family: 'Russo One', sans-serif;">Donate Know-How</p>
-	</div>
-
-	<div>
-		<nav class='menuBar'>
-			<ul>
-				<li><a href="/about">ABOUT</a></li>
-				<li><a href="/cboard/list">LECTURE</a></li>
-				<li><a href="/Qboard/list">Q&A</a></li>
-				<li><a href="/fboard/list?pageNum=1">FREE-BOARD</a></li>
-			</ul>
-		</nav>
-	</div>
+    <div class="bar">
+       <span class="logo">
+           <a href="/"><img src="${path}/resources/img/dohmain.png"></a>
+        </span>
+        <nav>
+            <ul>
+                <li><a href="/about">ABOUT</a></li>
+                <li><a href="/cboard/list">LECTURE</a></li>
+                <li><a href="/Qboard/list">Q & A</a></li>
+                <li><a href="/fboard/list?pageNum=1">FREE-BOARD</a></li>
+                <sec:authorize access="isAnonymous()">
+                	<li><a id="loginBtn">LOGIN</a></li>
+                </sec:authorize>
+                
+                <sec:authorize access="isAuthenticated()">
+                	<sec:authentication property="principal.member.nickname" var="nickname"/>
+                	<li><a>${nickname}</a>
+                		<ul>
+                			<li><a href="/memberinfo">Info</a></li>
+                			<li><a href="/logout">Logout</a></li>
+                		</ul>
+                	</li>
+                </sec:authorize>
+            </ul>
+        </nav>   
+     </div>
+        
+        
 	<div class="modal hidden">
 		<div class="modal-overlay"></div>
 		<div class="modal-content">
@@ -59,7 +52,7 @@
 				</div>
 				
 				<div class="txtb">
-					<input type="password" name="password">
+					<input type="password" name="password" onkeyup="enterKey()">
 					<span data-placeholder="Password"></span>
 				</div>
 				<div>
@@ -67,6 +60,11 @@
 						<span style="font-size:10px; position: relative; top:-3px;">&nbsp;로그인 상태 유지</span>
 					</label>
 				</div>
+				
+				<div>
+					<a href="/signup">아직 회원이 아니신가요?</a>
+				</div>
+				
 				<input class="logbtn" type="button" value="Login" onclick="loginSubmitBtn()">
 				<input class="cls" type="button" value="Close">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -77,6 +75,13 @@
 <!-- modal Vanilla JS made by.Nomad Coders -->
 
 	<script>
+	
+		const enterKey = () =>{
+			if (window.event.keyCode == 13) {
+				loginSubmitBtn();
+	        }
+		}
+	
 		const openBtn = document.getElementById("loginBtn");
 		const modal = document.querySelector(".modal");
 		const overlay = modal.querySelector(".modal-overlay");
@@ -93,8 +98,6 @@
 		overlay.addEventListener("click", closeModal);
 		openBtn.addEventListener("click", openModal);
 		closeBtn.addEventListener("click", closeModal);
-
-		
 
 		/* ---- # my code # ---- */
 	
@@ -122,6 +125,9 @@
 			if($(this).val()==""){
 				$(this).removeClass("focus");
 			}
-		});
-	</script>
+		});		
+</script>
 
+
+        
+ 

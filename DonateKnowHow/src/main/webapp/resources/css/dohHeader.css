@@ -1,65 +1,77 @@
 @charset "UTF-8";
 
-.header-bar{
-    position: fixed;
+html{
+	margin: 0;
+}
+
+body{
+    padding:0;
+    margin:0;
+}
+
+.bar{
+	padding: 10px;
+	position: sticky;
+	top: 0;
+	z-index: 3;
+	background-color: white;
+	border-bottom: 1px solid Gainsboro;
+}
+
+.bar img{
+    width: 200px;
+    height: 70px;
+    margin: 10px 20px 10px 15px;
+}
+
+.bar nav{
+    position: absolute;
+    top: 35px;
+    right:0;
     width: 100%;
-    padding: 3px;
-    z-index: 3;
+    text-align: right;
+
 }
 
-.header-bar .name{
-    margin-left: 1%;
+.bar nav ul{
+    list-style-type: none; 
+    font-family: 'Russo One', sans-serif; 
+    font-size: 20pt;
+    padding-right: 2%;
 }
 
-.header-bar .name a{
-    text-decoration: none;
-    color: black;
-    font-family: 'Russo One', sans-serif;
+.bar nav ul li{
+   display: inline-block;
+   padding-left: 2%;
+   padding-right: 2%;
 }
 
-.header-bar .member{
-    margin-right: 1%;
-    float: right;
+.bar nav ul li a{
+	color:black;
+	text-decoration: none;
 }
 
-.header-bar .member ul{
-    list-style-type: none;
-    margin: 0;
+.bar nav ul li a:hover{
+	color:darkorange;
 }
 
-.header-bar .member li{
-    display: inline;
+.bar nav ul li ul{
+   display: none;
+   position: absolute;
+   background-color: #fff;
+   text-align: left;
+   padding: 15px 10px;
+   border-radius: 0px 0px 10px 10px;
 }
 
-.header-bar .member a{
-    text-decoration: none;
-    color: black;
-    font-size: 9pt;
-    padding-right: 12px;
-    padding-left: 12px;
+.bar nav ul li:hover ul{
+   display: block;
 }
 
-/* ---------- hover ------------ */
-
-.header-bar .member a:hover{
-    color: darkorange;
+.bar nav ul li ul li{
+	padding: 5px;
 }
 
-
-
-/* ------------------- title ------------------ */
-.title{
-    text-align: center;
-}
-
-.title img{
-    margin-top: 3%;
-}
-
-.title p{
-    padding: 0;
-    margin: 0;
-}
 
 /*----------------------------  modal --------------------*/
 
@@ -171,3 +183,5 @@
 .cls:hover{
 	background-position: right;
 }
+
+

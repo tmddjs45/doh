@@ -3,30 +3,19 @@
 <html>
 <head>
 	<title>Q & A</title>
-	<style type="text/css">
-	ul {
-		text-align: center;
-	}
-	
-	li {
-		display: inline-block;
-		list-style-type: none;
-		margin: 5px;
-	}
-	
-	#qtable tr {
-		align: center;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/qboard/qboardList.css"></link>
 </head>
-
 <body>
 	<%@include file="../includes/header.jsp"%>
 	
-	<div align='center'>
-		<a>질문 ${cr.total} 개</a> <input name="serch" type="text">검색 <a
-			href="input"> 글쓰기 </a>
+<!-- 	<div> -->
+<%-- 		<label>${cr.total} Questions </label> --%>
+<!-- 	</div> -->
+	<div class="searchLine" align='center'>
+		<input name="serch" type="text" onkeyup="searchEnterKey()"/>
+		<button class="searchBtn" type="button" onclick="searchBtn()"></button>
 	</div>
+
 	<c:forEach items="${list}" var="list">
 		<table id='qtable' border='1' width='600' align='center'>
 			<br />
@@ -55,10 +44,10 @@
 	<hr width='600' size='2' noshade style="margin-top: 20px;">
 	
 	<!--  페이징  -->
-	<div align='center'>
+	<div class="pagination">
 		<c:if test='${cr.pre}'>
 			<a href='list${cr.makeQuery(cr.pageStart-1)}'> <span
-				aria-hidden='true'>이전</span>
+				aria-hidden='false'>이전</span>
 			</a>
 		</c:if>
 		<c:forEach var='num' begin='${cr.pageStart}' end='${cr.pageEnd}'>
@@ -67,21 +56,33 @@
 			</li>
 		</c:forEach>
 		<c:if test='${cr.next}'>
-			<a href='list${cr.makeQuery(cr.pageEnd+1)}'> <span
-				aria-hidden='true'>다음</span>
-			</a>
+			<a href='list${cr.makeQuery(cr.pageEnd+1)}'>다음</a>
 		</c:if>
 	</div>
 	
 	<%@include file="../includes/footer.jsp"%>
+<script>
+
+	const searchEnterKey = () =>{
+		if (window.event.keyCode == 13) {
+			searchBtn();
+	    }
+	}
+	
+	function searchBtn(){
+		alert("준비중입니다. :) ");
+	}
+</script>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 		$(document).ready(function() {
 			$('.paginate_button a').on('click', function(e) {
 				e.preventDefault();
 				$(this).submit();
 			});
+		
 		});
+		
 </script>
 </html>
