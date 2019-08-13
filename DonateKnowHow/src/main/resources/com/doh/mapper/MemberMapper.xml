@@ -7,6 +7,7 @@
 
 	<resultMap type="com.doh.domain.MemberVO" id="memberMap">
 		<id property="email" column="email"/>
+		<result property="m_no" column="m_no"/>
 		<result property="email" column="email"/>
 		<result property="password" column="password"/> <!-- column : DB컬럼명 / property : DTO/VO 변수값 -->
 		<result property="nickname" column="nickname"/>
@@ -44,5 +45,20 @@
 		insert into member_auth values(#{email},'ROLE_MEMBER')
 	</insert>
 	
-
+	<select id="boardcount" resultType="int">
+		SELECT COUNT(*) FROM freeboard WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*) FROM cboard WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*)FROM qboard WHERE m_no = #{m_no}
+	</select>
+	
+	<select id="replycount" resultType="int">
+		SELECT COUNT(*) FROM fcomment WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*) FROM ccomment WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*)FROM answer WHERE m_no = #{m_no}
+	</select>
+	
+	<select id="answercount" resultType="int">
+		SELECT COUNT(*) FROM answer WHERE m_no = #{m_no} AND a_check=1
+	</select>
+	
 </mapper>
