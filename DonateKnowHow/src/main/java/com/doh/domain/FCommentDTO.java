@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class FCommentDTO {
 	private int fc_no;
+	private Integer fc_parent;
 	private String fc_content;
 	private String fc_rdate;
 	private String fc_udate;
@@ -12,4 +13,5 @@ public class FCommentDTO {
 	private int f_no;
 	
 	private String nickname;
+	private String email;
 }

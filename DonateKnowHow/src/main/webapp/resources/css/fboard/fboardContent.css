@@ -25,6 +25,7 @@ button.btn:hover{
 	height: 100%;
 	display: flex;
 	justify-content: center;
+	z-index: 200;
 }
 .modalchang_overlay{
 	background-color: rgba(0, 0, 0, 0.3);

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <html>
 <head>
 	<title>D'oh</title>
@@ -61,7 +62,9 @@
 				    <option value="TitleContent">제목+내용</option>
 				    <option value="nickname">작성자</option>
 				</select>
-					<a class="write" href="${path}/fboard/write">✎ 쓰기</a>
+					<sec:authorize access="isAuthenticated()">
+						<a class="write" href="${path}/fboard/write">✎ 쓰기</a>
+					</sec:authorize>
 					<input type="hidden" name="pageNum" value=1>
 				</form>
 			</div>
