@@ -125,4 +125,9 @@ public class IndexController {
 		return "member/memberinfo";
 	}
 	
+	@RequestMapping("/loginfail")
+	public String loginfail() {
+		return "member/loginfailMsg";
+	}
+	
 }

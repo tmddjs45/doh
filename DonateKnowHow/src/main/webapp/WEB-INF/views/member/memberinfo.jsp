@@ -20,7 +20,7 @@
 		
 		<div class="content">
 			<div class="info-wrapper">
-				<h2><img src="${path}/resources/img/web-programming.png">&nbsp;Profile</h2>
+				<h2><img src="${path}/resources/img/web-programming.png"/>&nbsp;Profile</h2>
 				<div class="info-nick"><sec:authentication property="principal.member.nickname"/></div>
 				<div class="info-email"><sec:authentication property="principal.username"/></div>
 				
