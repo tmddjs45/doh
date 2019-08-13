@@ -3,19 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../../resources/css/qboard/qreply.css"></link>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<div>
-		<div>닉네임</div>
-		<button type="button" onclick="btn_replyInsert(${content.q_no})">GO</button>
-		<textarea id="a_content" name="a_content" style="width: 98%" placeholder="REPLY"></textarea>
+		<sec:authorize access="isAuthenticated()">
+			<div>닉네임</div>
+			<button type="button" onclick="btn_replyInsert(${content.q_no})">GO</button>
+			<textarea id="a_content" name="a_content" style="width: 98%" placeholder="REPLY"></textarea>
+		</sec:authorize>
 	</div>
 
 	<div id="replyList" style="float:center">
 	</div>
 	
-<script>
+	<script>
 		$(function() {
 			/* 댓글 리스트 출력먼저 실행 */
 			getReplyList();
@@ -70,6 +73,7 @@
 		
 		/* 댓글 update Form */
 		function updateBnt(a_no, a_content){
+			console.log("-- > " + a_no);
 			console.log("-- > " + a_content);
 			
 			var html = "";
