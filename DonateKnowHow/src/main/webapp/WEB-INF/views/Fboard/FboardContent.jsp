@@ -515,7 +515,7 @@
 									}
 									if(fc_no == replyList[i].fc_no){
 										output += "<thead><tr>";
-										output += "<td style='border-bottom:none; font-size: 40px; padding:0; text-align:center;'>🗣</td>";
+										output += "<td style='border-bottom:none; font-size: 40px; padding:0; text-align:center;'>💬</td>";
 										output += "<td colspan='2' style='border-bottom: none; font-size:13px; padding:0;'><pre><textarea onkeydown='resize(this)' onkeyup='resize(this)' id='replyResponse' class='replytext' style='width:100%; margin:0; height:37px; overflow:hidden;' spellcheck = 'false' placeholder='답글을 작성하세요'></textarea></pre></td>";
 										output += "<tr>";
 										output += "<td style='padding:5;'></td>";
