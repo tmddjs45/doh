@@ -62,7 +62,7 @@
 			<div class="compiler">
 				<div class="codeborder">
 					
-					<textarea style="background-color:black; color:white; width:100%; height:60%" class="code"> ${list.c_content}</textarea>
+					<textarea style="background-color:black; color:white; width:100%; height:60%" class="code"> ${list.c_code}</textarea>
 				
 					<input type="button" id="runBtn" value="RUN" />
 					

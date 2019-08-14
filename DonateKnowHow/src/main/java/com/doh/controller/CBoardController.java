@@ -1,7 +1,10 @@
 
 package com.doh.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.doh.domain.CBoardDTO;
 import com.doh.service.CBoardService;
 import com.doh.test.cpTest;
+import com.doh.domain.CCriteria;
+import com.doh.domain.CustomUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -28,12 +33,16 @@ public class CBoardController {
 
 
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model, @RequestParam(defaultValue="1") int pageNum) {
 		log.info("##list-----");
-		model.addAttribute("list", service.getList());
+		int totalCount = service.totalCount();
+		CCriteria cr = new CCriteria(pageNum, totalCount);
+		model.addAttribute("list", service.getList(cr));
+		model.addAttribute("cr", cr);
+	
 
 		
-		return "/Cboard/list";
+		return "/Cboard/Cboard";
 	}
 	@RequestMapping("/content")
 	public String content(@RequestParam("c_no") int c_no, Model model) {
@@ -47,8 +56,11 @@ public class CBoardController {
 	public String delete(@RequestParam("c_no") int c_no, Model model) {
 		log.info("##delete----");
 		service.delete(c_no);	
-		model.addAttribute("list", service.getList());
-		return "Cboard/list";
+		int totalCount = service.totalCount();
+		CCriteria cr = new CCriteria(1, totalCount);
+		model.addAttribute("list", service.getList(cr));
+		model.addAttribute("cr", cr);
+		return "Cboard/Cboard";
 	}
 		
 	@RequestMapping("/updateform")
@@ -76,16 +88,19 @@ public class CBoardController {
 	
 	@RequestMapping("/insert")
 	public String insert(Model model,CBoardDTO cbdto) {
-		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser user = (CustomUser)principal;
+		int m_no = user.getMember().getM_no();
+		cbdto.setM_no(m_no);
 		service.insert(cbdto);
-		log.info("dddddddddddddddddddddddd"+cbdto);
-		
-		
-		model.addAttribute("list", service.getList());
-		return "/Cboard/list";
+		int totalCount = service.totalCount();
+		CCriteria cr = new CCriteria(1, totalCount);
+		model.addAttribute("list", service.getList(cr));
+		model.addAttribute("cr", cr);
+		return "/Cboard/Cboard";
 	}
 
-	
+	 
 	@PostMapping("/modal")
 	public String modal(@RequestParam("code") String code,@RequestParam("c_no") int c_no, Model model) {
 		
@@ -98,20 +113,20 @@ public class CBoardController {
 		return "/Cboard/content";
 		
 	}
-	@RequestMapping("/frame")
-	public String frame(@RequestParam("c_no") int c_no, Model model) {
-		log.info("##frame----");
-		System.out.println("cnoooooooooooooo"+c_no);
-        model.addAttribute("list",service.read(c_no));
-		return "/Cboard/frame";
-	}
-
-	@RequestMapping("/savejava")
-	public String savejava(@RequestParam("code")String code) {
-		System.out.println(code+"------------------------------------------------");
-		System.out.println("세이브자바들어옴");
-		return code;
-	}
+//	@RequestMapping("/frame")
+//	public String frame(@RequestParam("c_no") int c_no, Model model) {
+//		log.info("##frame----");
+//		System.out.println("cnoooooooooooooo"+c_no);
+//        model.addAttribute("list",service.read(c_no));
+//		return "/Cboard/frame";
+//	}
+//
+//	@RequestMapping("/savejava")
+//	public String savejava(@RequestParam("code")String code) {
+//		System.out.println(code+"------------------------------------------------");
+//		System.out.println("세이브자바들어옴");
+//		return code;
+//	}
 	@RequestMapping(value="/compile", produces = "application/text; charset=utf8")
 	public @ResponseBody String compile(@RequestParam("code")String code) {
 		System.out.println("##compile---- : "+code);

@@ -29,6 +29,10 @@
 <td width='30%' align='center'>글내용</td>
 <td align='center'><input type='text' name='c_content' size='60' value='${list.c_content}'></td>
 </tr>
+<tr>
+<td width='30%' align='center'>코드?</td>
+<td align='center'><input type='text' name='c_code' size='60' value='${list.c_code}'></td>
+</tr>
 
 <tr>
 <td colspan='2' align='center'>
