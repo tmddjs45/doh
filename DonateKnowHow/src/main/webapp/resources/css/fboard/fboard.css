@@ -12,6 +12,19 @@ html, body{
 	text-align: center;
 }
 
+.searchBtn{
+	position:relative;
+	margin-left:5px;
+	top:8px;
+	background-image: url("/resources/img/search.png");
+	background-color:white;
+	border:none;
+	outline:none;
+	width:24px;
+	height: 24px;
+	
+}
+
 a.btn, input,select{
 	font-size: 15px;
 	background-color: #FFFFFF;
@@ -77,6 +90,7 @@ input[type=text]{
 	padding: 5px 10px;
 	border: 1px solid #D8D8D8;
 	border-radius: 10px;
+	
 }
 input{
 	font-size: 15px;
@@ -115,13 +129,4 @@ hr{
 a.titleLink:link{text-decoration: none; color: black;}
 a.titleLink:visited{color: #BDBDBD;}
 a.titleLink:active{color: blue;}
-a.titleLink:hover{ color: red;}
-
-/* 승언이의 로그인 css랑 겹쳐서 따로 수정 */
-.login-form{
-	margin-left: 0;
-}
-.txtb input{
-	margin-right: 0;
-	text-align: left;
-}
+a.titleLink:hover{ color: red; text-shadow: 1px 1px 1px #B40431; }

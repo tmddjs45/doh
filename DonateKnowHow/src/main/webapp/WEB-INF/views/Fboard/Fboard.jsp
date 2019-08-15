@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=utf-8" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <html>
 <head>
 	<title>D'oh</title>
@@ -53,18 +52,18 @@
 				</c:forEach>
 			</table>
 			<div>
-				<form action="/fboard/list" method="get">
-					<input type="text" name="search"/>
-					<input type="submit" value="Submit"/>
-				<select name="select">
-					<option value="title" selected="selected">제목</option>
-				    <option value="content">내용</option>
-				    <option value="TitleContent">제목+내용</option>
-				    <option value="nickname">작성자</option>
-				</select>
-					<sec:authorize access="isAuthenticated()">
-						<a class="write" href="${path}/fboard/write">✎ 쓰기</a>
-					</sec:authorize>
+				<form name="searchForm" action="/fboard/list" method="get">
+					<select name="select">
+						<option value="title" selected="selected">제목</option>
+					    <option value="content">내용</option>
+					    <option value="TitleContent">제목+내용</option>
+					    <option value="nickname">작성자</option>
+					</select>
+					<input type="text" name="search" onkeyup="fboardSearchEnterKey()"/>
+<!-- 					<input type="submit" value="Submit"/> -->
+					<button class="searchBtn" type="button" onclick="fboardSearchBtn()"></button>
+				
+					<a class="write" href="${path}/fboard/write">✎ 쓰기</a>
 					<input type="hidden" name="pageNum" value=1>
 				</form>
 			</div>
@@ -143,6 +142,19 @@
 		<div></div>
 	</div>
 	<%@include file="../includes/footer.jsp" %>
+<script>
+	
+	function fboardSearchEnterKey(){
+		if (window.event.keyCode == 13) {
+			fboardSearchBtn();
+	    }
+	}
+	
+	function fboardSearchBtn(){
+		searchForm.submit();
+	}
+
+</script>
 </body>
 <script src="${path}/resources/js/fboard/fboard.js"></script>
 </html>

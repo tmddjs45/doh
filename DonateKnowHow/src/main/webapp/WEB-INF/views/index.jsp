@@ -2,20 +2,18 @@
 <html>
 <head>
 	<title>D'oh</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="${path}/resources/css/slider.css"></link>
-	<style>
-		html, body{
-			margin: 0;
-		}	
-	</style>
 </head>
 <body>
  	<%@include file= "includes/header.jsp" %>
  	
 	<div class="slider">
-		<div class="slider_item"><h1>1</h1></div>
-		<div class="slider_item"><h1>2</h1></div>
+		<div class="slider_item">
+			<span class="mainLec"><img src="${path}/resources/img/mainLecture.png"/></span>
+		</div>
+		<div class="slider_item">
+			<span class="mainQA"><img src="${path}/resources/img/mainQA.png"/></span>
+		</div>
 		<div class="slider_item"><h1>3</h1></div>
 		<div class="slider_item"><h1>4</h1></div>
 
@@ -50,7 +48,7 @@
 		}
 	}
 	slide();
-	setInterval(slide, 2000);
+	setInterval(slide, 3100);
 	
 </script>
 </html>
