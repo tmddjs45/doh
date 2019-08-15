@@ -9,6 +9,7 @@
 <link rel='stylesheet' type='text/css' href='${path}/resources/css/dohHeader.css'>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/footer.css"></link>
 <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/f4af1ffa80.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 

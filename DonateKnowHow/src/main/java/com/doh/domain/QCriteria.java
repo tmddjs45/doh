@@ -40,7 +40,7 @@ public class QCriteria {
 	    }
 		
 		this.pre = num > 5 ;
-		this.next = pageEnd < pageReal;
+		this.next = pageEnd < pageTotal;
 	}
 	
 	public String makeQuery(int num) {

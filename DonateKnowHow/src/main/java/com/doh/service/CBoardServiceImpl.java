@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.doh.domain.CBoardDTO;
+import com.doh.domain.CCriteria;
 import com.doh.mapper.CBoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -44,9 +45,12 @@ public class CBoardServiceImpl implements CBoardService {
 	}
 
 	@Override
-	public List<CBoardDTO> getList() {
-		log.info("service##getlist--");
-		return mapper.getList();
+	public List<CBoardDTO> getList(CCriteria cr) {
+		return mapper.getList(cr);
+	}
+	@Override
+	public int totalCount() {
+		return mapper.totalCount();
 	}
 
 }

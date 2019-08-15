@@ -10,7 +10,7 @@ public class FBoardPageMaker {
 	//  <페이징에 필요한 변수>
 	private int totalCount;	//  전체 게시물 갯수
 	private int totalPage;	//	전체 페이지 수
-	private int listCount = 20;	//  한 페이지당 출력되는 게시글 갯수 (일단은 10으로 초기화!)
+	private int listCount = 15;	//  한 페이지당 출력되는 게시글 갯수 (일단은 10으로 초기화!)
 	private int pageNum = 1;	//  현재 페이지 번호 (디폴트 1로 잡는다... 아마 컨트롤러에서 1로 받기 때문에 의미는 없지만)
 	private int pageCount = 10;	//	하단에(한 섹션 당) 보여지는 페이지 번호 갯수 (일단은 10으로 지정)
 	private int startPage;	//  현재 페이지 블록의 시작 페이지

@@ -51,6 +51,7 @@
 				</tr>
 				</c:forEach>
 			</table>
+			
 			<div>
 				<form name="searchForm" action="/fboard/list" method="get">
 					<select name="select">
@@ -67,6 +68,7 @@
 					<input type="hidden" name="pageNum" value=1>
 				</form>
 			</div>
+			
 			<c:choose>
 				<c:when test='${search==null || search.equals("") || select==null || select.equals("")}'>
 					<c:if test="${pageMaker.startPage>1}">

@@ -8,14 +8,12 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.doh.domain.CustomUser;
 import com.doh.domain.FBoardDTO;
 import com.doh.mapper.FBoardPageMaker;
 import com.doh.service.FBoardService;
@@ -77,15 +75,6 @@ public class FBoardController {
 	@GetMapping("/content")
 	public String content(int f_no, String search, String select, Integer pageNum, Model model, HttpServletRequest request, HttpServletResponse response) {
 		if(pageNum == null) pageNum=1;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(principal.equals("anonymousUser")) {
-			model.addAttribute("userEmail", "null");
-		}else {
-			CustomUser customUser = (CustomUser)principal;
-			String email = customUser.getMember().getEmail();
-			model.addAttribute("userEmail", email);
-		}
-		
 		if(search == null || search.equals("") || select==null || select.equals("")) {
 			FBoardDTO fboardContent = fboardService.getContent(f_no);
 			fboardService.receiveReadnum(f_no, fboardContent, fboardService, request, response);
@@ -183,9 +172,7 @@ public class FBoardController {
 	//게시물 등록 컨트롤러
 	@PostMapping("/write")
 	public String write(String f_title, String f_content) {
-		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		CustomUser customUser = (CustomUser)pricipal;
-		int m_no = customUser.getMember().getM_no();
+		int m_no = 1;	//야매로 만든 변수! 꼭 시큐리티 적용하면 수정하길 바람!
 		fboardService.insertContent(f_title, f_content, m_no);
 		return "redirect:/fboard/list";
 	}

@@ -1,12 +1,93 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=utf-8"%>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>D'oh</title>
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/cboard/cboardList.css"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
+<style>
+</style>
 <body>
+	<%@include file="../includes/header.jsp"%>
 
+	<div class="cb-container">
+		<div class="empty_left"></div>
+		
+		<div class="cb-list">
+			<table>
+				<thead>
+					<tr>
+						<th style="width: 10%;">번호</th>
+						<th style="width: 45%;">제목</th>
+						<th style="width: 20%;">작성자</th>
+						<th style="width: 15%;">날짜</th>
+						<th style="width: 10%;">조회</th>
+					</tr>
+				</thead>
+
+				<c:forEach items="${list}" var="board">
+				<tbody>
+					<tr>
+						<td><c:out value="${board.c_no}" /></td>
+						<td class="list-title"><a href="content?c_no=${board.c_no}"><c:out value="${board.c_title}" /></a></td>
+						<td><c:out value="${board.nickname}" /></td>
+						<td><c:out value="${board.c_rdate}" /></td>
+						<td><c:out value="0" /></td>
+					</tr>
+				</tbody>
+				</c:forEach>
+			</table>
+
+			<div class="cb-search">
+				<form name="searchForm" action="#" method="get">
+					<select name="select">
+						<option value="title" selected="selected">제목</option>
+					    <option value="content">내용</option>
+					    <option value="TitleContent">제목+내용</option>
+					    <option value="nickname">작성자</option>
+					</select>
+					<input type="text" name="search" onkeyup="fboardSearchEnterKey()"/>
+<!-- 					<input type="submit" value="Submit"/> -->
+					<button class="searchBtn" type="button" onclick="fboardSearchBtn()"></button>
+					<a class="write" href="#">✎ 쓰기</a>
+					<input type="hidden" name="pageNum" value=1>
+				</form>
+			</div>
+			
+									<!-- ##### Pagination Start ##### -->
+			<div class="cb-paging">
+			
+				<c:if test="${cr.startPage>1}">
+					<a class ="first-btn" href="${path}/cboard/list?pageNum=1">처음</a>
+					<a class ="prev-btn" href="${path}/cboard/list?pageNum=${cr.startPage-1}">이전</a>
+				</c:if>
+				<ul>
+				<c:forEach var="num" begin="${cr.startPage}" end="${cr.endPage}">
+					<li><a href="${path}/cboard/list?pageNum=${num}">${num}</a></li>
+				</c:forEach>
+				</ul>
+				<c:if test="${cr.endPage<cr.totalPage}">
+					<a class ="next-btn" href="${path}/cboard/list?pageNum=${cr.endPage+1}">다음</a>
+					<a class ="end-btn" href="${path}/cboard/list?pageNum=${cr.totalPage}">끝</a>
+				</c:if>
+				
+			</div>
+									<!-- ##### Pagination End ##### -->
+		</div>
+		
+		<div class="empty_right"></div>
+	</div>
+
+
+	<%@include file="../includes/footer.jsp"%>
 </body>
+<script>
+	function aa() {
+		//document.querySelector('.Btn').innerHTML="버튼아니지롱";
+		$('.Btn').text("하잉");
+	}
+</script>
 </html>

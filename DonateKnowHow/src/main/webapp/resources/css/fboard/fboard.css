@@ -10,12 +10,13 @@ html, body{
 	display: grid;
 	grid-template-columns: 1fr 5fr 1fr;
 	text-align: center;
+	border-bottom: 1px solid #D8D8D8;
 }
 
 .searchBtn{
 	position:relative;
 	margin-left:5px;
-	top:8px;
+	top:5px;
 	background-image: url("/resources/img/search.png");
 	background-color:white;
 	border:none;
@@ -29,6 +30,7 @@ a.btn, input,select{
 	font-size: 15px;
 	background-color: #FFFFFF;
 	color: #424242;
+	margin: 0px 0px 40px 0px;
 	padding: 1px 10px;
 	text-align: center;
 	text-decoration: none;
@@ -38,6 +40,7 @@ a.btn, input,select{
 	border-right-color: #FFFFFF;
 	border-radius: 10px;
 	outline: none;
+	transition: 0.4s;
 }
 a.btn:hover{
 	font-size: 20px;
@@ -61,6 +64,7 @@ a.write{
 	text-decoration: none;
 	float: right;
 	margin-right: 11%;
+	transition: 0.4s;
 }
 a.write:hover,input[type=submit]:hover,a.btn.silver:hover {
 	background-color: #2E2E2E;
@@ -68,6 +72,7 @@ a.write:hover,input[type=submit]:hover,a.btn.silver:hover {
 }
 form{
 	margin-top: 20px;
+	margin-bottom: 0;
 	margin-left: 10%;
 	text-align: left;
 }
@@ -129,4 +134,4 @@ hr{
 a.titleLink:link{text-decoration: none; color: black;}
 a.titleLink:visited{color: #BDBDBD;}
 a.titleLink:active{color: blue;}
-a.titleLink:hover{ color: red; text-shadow: 1px 1px 1px #B40431; }
+a.titleLink:hover{ color: red;}

@@ -3,6 +3,7 @@
 body{
 	margin:0;
 	padding:0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 .wrapper{
@@ -41,7 +42,7 @@ body{
 }
 
 .boardQA{
-	margin: 4% auto;
+	margin: 3% auto;
 	display:grid;
 	grid-template-columns: 1fr 5fr;
 	width: 80%;
@@ -95,13 +96,14 @@ body{
 }
 
 .pagination{
-	margin: 0px 0px 4% 0px;
+	margin: 0px 0px 2% 0px;
 	width: 100%;
 	text-align: center;
 }
 .pagination ul{
 	
 	display: inline-block;
+
 	padding: 0;	
 }
 
@@ -125,9 +127,7 @@ body{
 	background-color: white;
 	border: none;
 	color:red;
-	
 }
-
 
 .prev-btn , .next-btn{
 	font-size: 15px;

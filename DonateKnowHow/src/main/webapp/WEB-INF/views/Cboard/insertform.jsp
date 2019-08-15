@@ -1,16 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8" %>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>LECTURE BOARD INSERTFORM</title>
+	<title>D'oh</title>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/frame.css"></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-
-
-	<form name="input" method="post" action="insert">
+	<%@include file= "../includes/header.jsp" %>
+	
+	<div class="content-temp">
+		<div></div>
+		<div class="content">
+			
+			<form name="input" method="post" action="insert">
 	<input type='hidden' name='m_no' value='1'>
 	   <table border="1" width="600" align="center"  cellpadding="3" cellspacing="1">
 	     
@@ -23,6 +26,10 @@
 			 <td align="center"><textarea name="c_content" rows="5" cols="53"></textarea></td>
 		  </tr>
 		  <tr>
+		     <td align="center">코드</td>
+			 <td align="center"><textarea name="c_code" rows="5" cols="53"></textarea></td>
+		  </tr>
+		  <tr>
 		     <td colspan="2" align="center">
 			    <input type="button" value="전송" onclick="submit()">
 				<input type="reset" value="다시입력">
@@ -32,7 +39,11 @@
 	   <br>
 	   <hr width="600" size="2" noshade>
 	</form>
-
-
+			
+		</div>
+		<div></div>
+	</div>
+	
+	<%@include file="../includes/footer.jsp" %>
 </body>
 </html>
