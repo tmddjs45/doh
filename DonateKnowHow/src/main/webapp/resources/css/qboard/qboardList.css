@@ -13,7 +13,7 @@ body{
 }
 
 .searchLine{
-	margin: 20px 0px;	
+	margin: 4% 0px;	
 }
 
 .searchBtn{
@@ -29,7 +29,7 @@ body{
 }
 
 .searchLine input{
-	width: 30%;
+	width: 50%;
 	height: 7%;
 	font-size: 25px;
 	border: 1px solid #D8D8D8;
@@ -40,7 +40,62 @@ body{
 
 }
 
+.boardQA{
+	margin: 4% auto;
+	display:grid;
+	grid-template-columns: 1fr 5fr;
+	width: 80%;
+	height: 160px;
+	border-top: 1px solid #D8D8D8;
+	border-bottom: 1px solid #D8D8D8;
+	
+}
+
+.boardQA-info{
+	text-align: center;
+}
+
+.boardQA-info img{
+	margin: 10px 0px;
+}
+.boardQA-info div{
+	margin: 4% 0px;
+}
+
+.boardQA-content{
+	float: left;
+}
+.boardQA-content div{
+	padding-top:5px;
+}
+
+.boardQA-content h3{
+	margin:1% 0px;
+}
+
+.boardQA-content h3 a{
+	text-decoration: none;
+	font-size:20px;
+	font-weight: lighter;
+	color: blue;
+}
+.boardQA-content h3 a:hover{
+	color: #a6def2;
+}
+
+.boardQA-content div:nth-child(2){
+	
+}
+.boardQA-content div:nth-child(3){
+	
+}
+.boardQA-content div:nth-child(4){
+	text-align: right;
+	font-size: 12px;
+}
+
 .pagination{
+	margin:10px;
 	width: 100%;
 	text-align: center;
 }
@@ -54,7 +109,6 @@ body{
 .pagination a{
 	text-decoration: none;
 	color: black;
-	
 	border-radius: 8px;
 	padding:5px 10px;
 	transition: 0.4s;

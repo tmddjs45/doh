@@ -12,13 +12,6 @@ html, body{
 	text-align: center;
 }
 
-.container .content{
-	margin-top: 15px;
-	margin-bottom: 15px;
-	border-left: 1px dotted gray;
-	border-right: 1px dotted gray;
-	
-}
 a.btn, input,select{
 	font-size: 15px;
 	background-color: #FFFFFF;
