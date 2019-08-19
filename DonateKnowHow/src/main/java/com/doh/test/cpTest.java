@@ -3,26 +3,54 @@ package com.doh.test;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
-public class cpTest implements Runnable {
-//	String javaFileName = "C:\\Users\\ajako\\Desktop\\teststart\\test6.java";
-//	String command= "javac \"C:\\Users\\ajako\\Desktop\\teststart\\test6.java\" -encoding UTF-8";
-//	String command1="java -cp C:\\Users\\ajako\\Desktop\\teststart test6";
-//	String classFileName="C:\\Users\\ajako\\Desktop\\teststart\\test6.class";
-	
+public class cpTest {
+	//	String javaFileName = "C:\\Users\\ajako\\Desktop\\teststart\\test6.java";
+	//	String command= "javac \"C:\\Users\\ajako\\Desktop\\teststart\\test6.java\" -encoding UTF-8";
+	//	String command1="java -cp C:\\Users\\ajako\\Desktop\\teststart test6";
+	//	String classFileName="C:\\Users\\ajako\\Desktop\\teststart\\test6.class";
+
 	//window command//
-	String path = cpTest.class.getResource("").getPath();
-	String javaFileName=path+"test.java";
-	String classFileName=path+"test.class";
-	String javaccommand="javac"+path+"test.java -encoding UTF-8";
-	String javacommand="java -cp "+path+" test";
+	String path = this.getClass().getResource("").getPath();
+	String javaFileName;
+	String classFileName;
+	String javaccommand;
+	String javacommand;
 	Runtime rt = Runtime.getRuntime();
 	Process pc = null;
-	Runnable r = new cpTest();
-	Thread t = new Thread(r);
+	
+	
+	public void checkOS() {
+		String osName = System.getProperty("os.name");
+		System.out.println(" - OS Name: " + osName);
+		if(osName.toLowerCase().startsWith("window")) {
+			System.out.println("윈도우로떨어짐");	
+			javaFileName=path+"test.java";
+			classFileName=path+"test.class";
+			javaccommand="cmd /c javac"+path+"test.java -encoding UTF-8";
+			javacommand="cmd /c java -cp "+path+" test";
+			
+
+		}else {
+			System.out.println("check에서 윈도우아님");
+			javaFileName=path+"test.java";
+			classFileName=path+"test.class";
+			javaccommand="/bin/sh-c"+"javac"+path+"test.java -encoding UTF-8";
+			javacommand="/bin/sh-c"+"java -cp "+path+" test";
+			
+		}
+
+	}
+	
+	
+
+
+
 
 
 	public String saveJava(String code) {	//.java저장하는메소드
+		checkOS();
 		System.out.println("#####path : "+path);
 		File file = new File(classFileName);
 		if(file.exists()) {
@@ -44,120 +72,97 @@ public class cpTest implements Runnable {
 			e.printStackTrace();
 		}
 		return runcompile();
-		//return check(code);
 	}
-	
-	
-	
-//	public String check(String code) {
-//		 if(code.contains("while")) {
-//	            System.out.println("##while 있음");
-//		 }else if(code.contains("for")){
-//	            System.out.println("##for 있음");
-//	            
-//	     }else {
-//	    	 	System.out.println("#for,while 없음");
-//	    	 	return runcompile();
-//	     }
-//		
-//		return null;
-//	}
-	
-	
-	
-	
+
+
+
+
+
 
 	public String runcompile(){   //저장된.java를 컴파일하는메소드
 
 		try {
-			rt.exec("cmd /c "+javaccommand);
+			rt.exec(javaccommand);
 
 		}catch(IOException ie) {}
 		return runclass();
 	}
-	
-	
+
+
 	public String runclass() {// .class파일을 실행하는 메소드 ,,
-	
-		String i="";
-		StringBuilder result = new StringBuilder();
+		
+		ReadStream s1=null;
+		ReadStream s2=null;
+		
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		try {		
-			pc=rt.exec("cmd /c "+javacommand);
-			BufferedReader br = new BufferedReader(new InputStreamReader(pc.getInputStream(),"euc-kr")); 
-			while((i=br.readLine())!=null){ 
-				result.append(i + '\n'); 
-				}
-			
-			if(pc==null){
-				System.out.println("런클래스에서 널임");
-			}else {
-				System.out.println("런클래스에서 널아님님님ㄴ미");
-				//pc.destroy();
-			}
-			t.start();
-		}catch(IOException ie) {}
-		System.out.println("런클래스에서 결과 값"+result.toString());
-		String resultStr= result.toString();
-		return resultStr;
-	}
-
-//	public void test(String word) {
-//		System.out.println("여기서부터는 테스트");
-//		try {
-//			System.out.println("1"+new String(word.getBytes("utf-8"), "euc-kr"));
-//			System.out.println("2"+new String(word.getBytes("utf-8"), "ksc5601"));
-//			System.out.println("3"+new String(word.getBytes("utf-8"), "x-windows-949"));
-//			System.out.println("4"+new String(word.getBytes("utf-8"), "iso-8859-1"));
-//
-//			System.out.println("5"+new String(word.getBytes("iso-8859-1"), "euc-kr"));
-//			System.out.println("6"+new String(word.getBytes("iso-8859-1"), "ksc5601"));
-//			System.out.println("7"+new String(word.getBytes("iso-8859-1"), "x-windows-949"));
-//			System.out.println("8"+new String(word.getBytes("iso-8859-1"), "utf-8"));
-//
-//			System.out.println("9"+new String(word.getBytes("euc-kr"), "ksc5601"));
-//			System.out.println("10"+new String(word.getBytes("euc-kr"), "utf-8"));
-//			System.out.println("11"+new String(word.getBytes("euc-kr"), "x-windows-949"));
-//			System.out.println("12"+new String(word.getBytes("euc-kr"), "iso-8859-1"));
-//
-//			System.out.println("13"+new String(word.getBytes("ksc5601"), "euc-kr"));
-//			System.out.println("14"+new String(word.getBytes("ksc5601"), "utf-8"));
-//			System.out.println("15"+new String(word.getBytes("ksc5601"), "x-windows-949"));
-//			System.out.println("16"+new String(word.getBytes("ksc5601"), "iso-8859-1"));
-//
-//			System.out.println("17"+new String(word.getBytes("x-windows-949"), "euc-kr"));
-//			System.out.println("18"+new String(word.getBytes("x-windows-949"), "utf-8"));
-//			System.out.println("19"+new String(word.getBytes("x-windows-949"), "ksc5601"));
-//			System.out.println("20"+new String(word.getBytes("x-windows-949"), "iso-8859-1"));
-//			System.out.println("21"+new String(word.getBytes("utf-8"), "utf-8"));
-//			System.out.println("-------------------------------------------------------------");
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
-
-
-	@Override
-	public void run() {   // 종료시키는 메소드,
-		if(pc==null) {
-			System.out.println("#####null널널널널");
-		}else {
-			System.out.println("####nullxxxxx");
-			pc.destroy();
+		try {
+		pc = rt.exec(javacommand) ;  
+		s1 = new ReadStream("stdin", pc.getInputStream ());
+		s2 = new ReadStream("stderr", pc.getErrorStream ());
+		s1.start ();
+		s2.start ();
+		try {
+			Thread.sleep(3000);
 			pc.destroyForcibly();
+			System.out.println("##destroy");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}     
+		} catch (Exception e) {  
+		e.printStackTrace();  
+		} finally {
+		    if(pc != null)
+		        pc.destroy();
 		}
-		System.out.println("ㅋ#쓰레드 시작댐 그럼종료되것지");
-		System.out.println("##종료....");
-		
-		
+		if(s1.returnRerult()!=null) {
+			return s1.returnRerult();
+		}else {
+			return s2.returnRerult();
+		}
 	}
-
 }
 
+
+
+
+
+
+class ReadStream implements Runnable {
+	String name;
+	InputStream is;
+	Thread thread; 
+	String result="";
+	String i;
+	public ReadStream(String name, InputStream is) {
+		this.name = name;
+		this.is = is;
+	}       
+	public void start () {
+		thread = new Thread (this);
+		thread.start ();
+	}       
+	public void run () {
+		try {
+			BufferedReader br = new BufferedReader (new InputStreamReader (is,"euc-kr"));  
+			while((i=br.readLine())!=null){ 
+				result+=(i + '\n'); 
+			}
+			System.out.println("##resutlddddddddddddddd"+result);
+			
+			
+			is.close ();    
+		} catch (Exception ex) {
+			System.out.println ("##compire err"+ex);
+			ex.printStackTrace ();
+		}
+	}
+	public String returnRerult() {
+		return result;
+	}
+}
 
 
