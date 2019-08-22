@@ -45,5 +45,20 @@
 		insert into member_auth values(#{email},'ROLE_MEMBER')
 	</insert>
 	
-
+	<select id="boardcount" resultType="int">
+		SELECT COUNT(*) FROM freeboard WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*) FROM cboard WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*)FROM qboard WHERE m_no = #{m_no}
+	</select>
+	
+	<select id="replycount" resultType="int">
+		SELECT COUNT(*) FROM fcomment WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*) FROM ccomment WHERE m_no= #{m_no} UNION ALL 
+		SELECT COUNT(*)FROM answer WHERE m_no = #{m_no}
+	</select>
+	
+	<select id="answercount" resultType="int">
+		SELECT COUNT(*) FROM answer WHERE m_no = #{m_no} AND a_check=1
+	</select>
+	
 </mapper>

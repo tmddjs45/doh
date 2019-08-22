@@ -2,6 +2,8 @@ package com.doh.domain;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,7 @@ public class QReplyVO {
 	
 	private String nickname;
 	private String a_content;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date a_rdate;
 	private int a_check;
 

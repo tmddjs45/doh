@@ -11,6 +11,7 @@
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/security-context.xml	
 		</param-value>
+
 	</context-param>
 	
 	<!-- 인코딩설정 -->
@@ -47,7 +48,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
@@ -63,10 +63,14 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+<<<<<<< HEAD
 	
 	<error-page>
     	<location>/error</location>
 	</error-page>
 	
+=======
+>>>>>>> cecf1cb0e1172447c4c500588688f18a2abe274c
 
 </web-app>
+

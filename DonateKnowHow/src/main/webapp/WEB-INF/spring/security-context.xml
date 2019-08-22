@@ -11,11 +11,9 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
 	<security:http auto-config="true" use-expressions="true">
-		
-		<security:intercept-url pattern="/signup" access="permitAll"/>
-		<security:intercept-url pattern="/Qboard/list" access="hasRole('ROLE_MEMBER')"/>
 				
-		<security:form-login login-processing-url="/login" authentication-success-forward-url="/"/>
+		<security:form-login login-processing-url="/login" authentication-success-forward-url="/" 
+		authentication-failure-url="/loginfail"/>
 		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/" delete-cookies="remember-me,JSESSION_ID"/>
 		<security:csrf disabled="true"/>
 		
