@@ -8,16 +8,4 @@
 		select * from answer inner join member on answer.m_no=member.m_no where q_no=#{q_no}
 	</select>
 
-	<insert id="insertR">
-		insert into answer (a_content, a_rdate, a_check, q_no, m_no)
-							value(#{a_content}, now(), 0, #{q_no}, "2")
-	</insert>
-	
-	<update id="updateR">
-		update answer set a_content=#{a_content}, a_rdate=now() where a_no=#{a_no}
-	</update>
-	
-	<delete id="deleteR">
-		delete from answer where a_no = #{a_no}
-	</delete>
 </mapper>

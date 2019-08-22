@@ -10,6 +10,7 @@
 </body>
 <script>
 	alert("회원이 아니거나 비밀번호가 올바르지 않습니다. ");
-	location.replace("/");
+	let prevPageLink = document.referrer;
+	location.replace(prevPageLink);
 </script>
 </html>

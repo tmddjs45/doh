@@ -3,120 +3,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../../resources/css/qboard/qreply.css"></link>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</head>
 <body>
-	<div>
-		<sec:authorize access="isAuthenticated()">
-			<div>닉네임</div>
-			<button type="button" onclick="btn_replyInsert(${content.q_no})">GO</button>
-			<textarea id="a_content" name="a_content" style="width: 98%" placeholder="REPLY"></textarea>
-		</sec:authorize>
-	</div>
-
-	<div id="replyList" style="float:center">
-	</div>
+<!-- 			reply Insert Form	 -->	
+	<form id="replyInsertForm" method="post">
+		<table  border='1' width='80%' align='center'>
+			<tr>
+				<td>닉네임</td>
+				<td><textarea style="width: 98%" placeholder="Reply"></textarea></td>
+				<td width="5%"><button type="button" id="btn_replyInsert">GO</button></td>
+			</tr>
+		</table>
+	</form>
 	
+<!-- 			reply List Form		 -->	
+	<form id="replyListForm" >
+		<table id="replyList" border='1' width='80%' align='center'>
+		</table>
+	</form>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		$(function() {
-			/* 댓글 리스트 출력먼저 실행 */
+			//댓글목록불러오기
 			getReplyList();
-			});	
-		
-		/* 댓글 리스트 출력 */
-		function getReplyList() {
-			$.ajax({
-				type : "GET",
-				url : "/qreply/all",
-				data : { q_no : "${content.q_no}" },
-				success : function(data) {
-					if (data.length > 0) {
-						var html = "";
-						for (i = 0; i < data.length; i++) {
-							html += "<div class='replyList'>";
-							html += "<div><button>채택</button></div>";
-							html += "<div>" + data[i].a_no + "</div>";
-							html += "<div>" + data[i].nickname + "</div>";
-							html += "<div class='update_content" + data[i].a_no + "'>" + data[i].a_content + "</div>";
-							html += "<div>" + data[i].a_rdate + "</div>";
-							html += "<div><button type='button' onclick='updateBnt("+data[i].a_no+",\""+data[i].a_content+"\");'>up</button>"+
-							"<button type='button' onclick='deleteBnt("+data[i].a_no+")'>del</button></div>";
-							html += "</div>";
-						}
-					} else {
-						html += "<tr>";
-						html += "<td>등록된댓글이없따</td>";
-						html += "</tr>";
-					}
-					$("#replyList").html(html);
-				},
-				error : function(data){
-					console.log("에러 : " +data);
-				}
-			});
-		}
-		
-		/* 댓글insert */
-		function btn_replyInsert(dataQ_no){
+
+			function getReplyList() {
 				$.ajax({
-					type : "POST",
-					url : "/qreply/insert",
-					data : { q_no : dataQ_no, a_content : $("#a_content").val() },
-					success : function(data){
-						console.log("-- > " + dataQ_no);
-						getReplyList();
-						$("#a_content").val("");
+					type : "GET",
+					url : "/qreply/all/${content.q_no}",
+					dataType : "json",
+					data : $("#replyListForm").serialize(),
+					success : function(data) {
+						if (data.length > 0) {
+							var html = "";
+							for (i = 0; i < data.length; i++) {
+								html += "<tr align='center'>";
+								html += "<td width='8%'> 채택 </td>";
+								html += "<td width='8%'>" + data[i].a_no + "</td>";
+								html += "<td width='10%'>" + data[i].nickname + "</td>";
+								html += "<td width='70%'>" + data[i].a_content + "</td>";
+								html += "<td>" + data[i].a_rdate + "</td>";
+								html += "</tr>";
+							}
+						} else {
+
+							html += "<tr>";
+							html += "<td>등록된댓글이없따</td>";
+							html += "</tr>";
+
 						}
-					});
+						$("#replyList").html(html);
+					}
+				});
 			}
-		
-		/* 댓글 update Form */
-		function updateBnt(a_no, a_content){
-			console.log("-- > " + a_no);
-			console.log("-- > " + a_content);
-			
-			var html = "";
-			html += "<div>";
-			html += "<input class='content"+a_no+"' value='"+a_content+"'/>";
-			html += "<button onclick='updateBnt_go("+a_no+")'>GO</button>";
-			html += "</div>";
-			$(".update_content" + a_no).html(html);
-		}
-		/* 댓글 update set */		
-		function updateBnt_go(a_no){
-			var updateR = $(".content"+a_no).val();
-			
-			console.log("go a_no  	-> " + a_no);
-			console.log("content   -> " + updateR);
-			
-			$.ajax({
-				type : "POST",
-				url : "/qreply/update",
-				data : { 'a_no' : a_no , 'a_content' : updateR },
-				success : function(data){
-					console.log("success ---- > " + data);
-					getReplyList();
-				},
-				error : function(request, status){
-					console.log("ERROR ---- > " + request.status);
-				}
-			});
-		}
-		
-		/* 댓글 delete */
-		function deleteBnt(dataA_no){
-			console.log("--- delete >" + dataA_no);
-			$.ajax({
-				type: "POST",
-				url : "/qreply/delete",
-				data: {a_no: dataA_no},
-				success : function(data) {
-					alert("삭제완료.");
-					getReplyList();
-				}
-			});
-		}
+		});
 	</script>
 </body>
 </html>

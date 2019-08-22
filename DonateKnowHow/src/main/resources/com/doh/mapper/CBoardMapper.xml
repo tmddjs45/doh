@@ -6,13 +6,16 @@
 	
 	
 	<insert id = "insert" >
-	insert into cboard values(null, #{m_no}, #{c_title}, #{c_content}, now() )
+
+	INSERT INTO cboard (m_no, c_title, c_content, c_code) VALUES(#{m_no}, #{c_title}, #{c_content}, #{c_code})
 	</insert>
 	
 	
-	<select id= "getList" resultType="com.doh.domain.CBoardDTO">
+	<select id= "getList" resultType="com.doh.domain.CBoardDTO" parameterType="com.doh.domain.CCriteria"> 
 	 <![CDATA[
-		select * from cboard where c_no>0
+				
+	SELECT c.c_no, m.nickname, c.c_title, c.c_rdate FROM cboard AS c LEFT JOIN member2 AS m ON c.m_no = m.m_no 
+	ORDER BY c.c_no DESC LIMIT #{calcCount}, #{listCount}
 		]]>
 	</select>
 	
@@ -26,6 +29,10 @@
 	</delete>
 	
 	<update id = "update">
-		update cboard set c_title = #{c_title}, c_content = #{c_content} where c_no = #{c_no}
+		update cboard set c_title = #{c_title},c_code = #{c_code}, c_content = #{c_content} where c_no = #{c_no}
 	</update>
+	
+	<select id="totalCount" resultType="int">
+		<![CDATA[ select count(*) from cboard ]]>
+	</select>
 </mapper>

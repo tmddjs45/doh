@@ -19,8 +19,8 @@ body{
 }
 
 .bar img{
-    width: 200px;
-    height: 70px;
+    width: 160px;
+    height: 50px;
     margin: 10px 20px 10px 15px;
 }
 
@@ -38,6 +38,8 @@ body{
     font-family: 'Russo One', sans-serif; 
     font-size: 20pt;
     padding-right: 2%;
+    margin:15px 0px 0px 0px;
+
 }
 
 .bar nav ul li{
@@ -60,8 +62,10 @@ body{
    position: absolute;
    background-color: #fff;
    text-align: left;
-   padding: 15px 10px;
-   border-radius: 0px 0px 10px 10px;
+   width:150px;
+   padding: 20px 20px;
+   border-radius: 10px;
+   margin:0px;
 }
 
 .bar nav ul li:hover ul{
@@ -69,6 +73,7 @@ body{
 }
 
 .bar nav ul li ul li{
+	display:block;
 	padding: 5px;
 }
 
@@ -106,9 +111,6 @@ body{
 	z-index: 3;
 }
 
-.hidden{
-	display: none;
-}
 
 .login-form h1{
 	text-align: center;
@@ -184,4 +186,102 @@ body{
 	background-position: right;
 }
 
+.member-join{
+	font-size: 12px;
+	margin:15px 0px;
+	
+}
+
+.member-join ul {
+	margin:0;
+	padding:0;
+
+}
+
+
+.member-join ul li{
+	display: inline-block;
+	text-decoration: none;
+	color:black;
+}
+
+
+.member-join ul li a:hover{
+	color:#d8d8d8;
+}
+
+
+
+.signup-modal{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 3;
+	
+}
+
+.signup-modal-overlay{
+	background-color: rgba(0, 0, 0, 0.6);
+	width:100%;
+	height: 100%;
+	position: absolute;
+	z-index: 3;
+}
+
+.signup-modal-content{
+	text-align:center;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	position: relative;
+	background-color: white;
+	padding:1% 2%;
+	border-radius:10px;
+	width: 375px;
+	z-index: 3;
+}
+
+.signup-input input{
+	outline: none;
+	border: 1px solid #d8d8d8;
+	border-radius: 10px;
+	margin: 10px 0px;
+	width: 80%;
+	height: 40px;
+	padding: 15px;
+}
+
+.access-text{
+	width:90%;
+	text-align:right;
+	font-size: 9px;
+}
+
+.submitBtn, .signupCls{
+	margin-top: 18px;
+	border: none;
+	outline: none;
+	width: 80%;
+	border-radius: 10px;
+	height: 50px;
+	background: linear-gradient(120deg, #ff9f1a,#fff200,#ff9f1a);
+	background-size: 200%;
+	color:white;
+	transition: 0.5s;
+}
+
+.submitBtn:hover{
+	background-position: right;
+}
+
+.signupCls:hover{
+	background-position: right;
+}
+
+.hidden{
+	display: none;
+}
 

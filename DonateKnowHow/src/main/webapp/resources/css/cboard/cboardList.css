@@ -1,31 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap&subset=korean');
+@charset "UTF-8";
 
-html, body{
+body{
 	margin: 0;
+	padding: 0;
 	font-family: 'Nanum Gothic', sans-serif;
 }
-.container{
-	margin: 0;
-	height:auto;
+
+.cb-container{
 	display: grid;
 	grid-template-columns: 1fr 5fr 1fr;
 	border-bottom: 1px solid #D8D8D8;
 }
 
-.searchBtn{
-	position:relative;
-	margin-left:5px;
-	top:5px;
-	background-image: url("/resources/img/search.png");
-	background-color:white;
-	border:none;
-	outline:none;
-	width:24px;
-	height: 24px;
-	
-}
-
-.boardList{
+.cb-list table{
 	width: 80%;
 	margin: auto;
 	margin-top: 5%;
@@ -34,29 +21,50 @@ html, body{
 	text-align: center;
 }
 
-.boardList tr{
+.cb-list table tr{
 	border-bottom: 1px solid #D8D8D8;
+
 }
 
-.boardList tr th{
+.cb-list table tr th{
 	font-size: 20px;
 	font-weight: bold;
     vertical-align: inherit;
 }
 
-.boardList tr td{
+.cb-list table tr td{
 	padding-top: 10px ;
 	padding-bottom: 10px ;
 	font-size: 15px;
     vertical-align: inherit;
 }
 
-.searchLine{
+.list-title{
+	text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+	
+	
+}
+.list-title a{
+	text-decoration: none;
+	color: black;
+}
+
+.list-title a:hover{
+	color: darkorange;
+}
+
+.list-title a:visited{
+	color: #BDBDBD;
+}
+/* #### search ##### */
+.cb-search{
 	margin: 20px auto;
 	width: 80%;
 }
 
-.searchLine a{
+.cb-search a{
 	float: right;
 	font-size: 15px;
 	font-weight: 900;
@@ -69,13 +77,12 @@ html, body{
 	padding:5px 10px;
 	transition: 0.4s;
 }
-
-.searchLine a:hover{
+.cb-search a:hover{
 	color: white;
 	background-color: #2E2E2E;
 }
 
-.searchLine input,select{
+.cb-search input,select{
 	border: 1px solid #D8D8D8;
 	border-radius: 10px;
 	font-size: 15px;
@@ -83,32 +90,29 @@ html, body{
 	outline: none;
 }
 
-.searchLine input{
+.cb-search input{
 	position: relative;
 	top:-3px;
 }
 
-.pagination {
+.searchBtn{
+	position:relative;
+	top:3px;
+	background-image: url("/resources/img/search.png");
+	background-color:white;
+	border:none;
+	outline:none;
+	width:24px;
+	height: 24px;
+	
+}
+
+.cb-paging{
 	text-align: center;
 	margin: 10px 0px 40px 0px;
 }
 
-.btn{
-	font-size: 15px;
-	color: #424242;
-	padding: 1px 10px;
-	margin: 0px 5px;
-	text-decoration: none;
-	outline: none;
-}
 
-.btn:hover{
-	font-size: 20px;
-	text-decoration: underline;
-	text-underline-position: under;
-	background-color: white;
-	color:red;
-}
 
 .prev-btn , .next-btn, .first-btn, .end-btn{
 	font-size: 15px;
@@ -122,12 +126,38 @@ html, body{
 	transition: 0.4s;
 }
 
-.prev-btn:hover , .next-btn:hover, .first-btn:hover, .end-btn:hover{
-	color:white;
-	background-color: #2e2e2e;
+.cb-paging a:hover {
+	color: white;
+	background-color: #2E2E2E;
 }
 
-a.titleLink:link{text-decoration: none; color: black;}
-a.titleLink:visited{color: #BDBDBD;}
-a.titleLink:active{color: blue;}
-a.titleLink:hover{ color: red;}
+
+.cb-paging ul{
+	display: inline-block;
+	margin:0;
+	padding:0;
+}
+.cb-paging ul li{
+	display: inline-block;
+	text-decoration: none;
+} 
+
+.cb-paging ul li a{
+	font-size: 15px;
+	color: #424242;
+	padding: 1px 10px;
+	margin: 0px 5px;
+	text-decoration: none;
+	border:none;
+	outline: none;
+} 
+
+.cb-paging ul li a:hover{
+	font-size: 20px;
+	text-decoration: underline;
+	text-underline-position: under;
+	background-color: white;
+	color:red;
+}
+
+

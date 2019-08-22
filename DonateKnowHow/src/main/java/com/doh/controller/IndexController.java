@@ -51,8 +51,10 @@ public class IndexController {
 	}
 	@RequestMapping("/frame") // 기본프레임으로 접속합니다.
 	public String frame() {
+		
 		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser customUser = (CustomUser)pricipal;
+	
 		
 		log.info("## Email : "+customUser.getMember().getEmail());
 		log.info("## Nick : "+customUser.getMember().getNickname());
