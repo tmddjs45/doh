@@ -32,7 +32,7 @@
 		update cboard set c_title = #{c_title},c_code = #{c_code}, c_content = #{c_content} where c_no = #{c_no}
 	</update>
 	
-	<select id="totalCount" resultType="Integer">
+	<select id="totalCount" resultType="int">
 		<![CDATA[ select count(*) from cboard ]]>
 	</select>
 </mapper>

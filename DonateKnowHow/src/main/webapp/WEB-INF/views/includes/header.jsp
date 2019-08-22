@@ -22,11 +22,11 @@
                 <li><a href="/about">ABOUT</a></li>
                 <li><a href="/cboard/list">LECTURE</a>
                 	<ul>
-                		<li><a>Html</a></li>
-                		<li><a>Css</a></li>
-                		<li><a>BootStrap</a></li>
-                		<li><a>JavaScript</a></li>
-                		<li><a>jQuery</a></li>
+                		<li><a href="${path}/lecture/tutorial?lecture_name=lecture_html">Html</a></li>
+                		<li><a href="${path}/lecture/tutorial?lecture_name=lecture_css">Css</a></li>
+                		<li><a href="${path}/lecture/tutorial?lecture_name=lecture_bootstrap">BootStrap</a></li>
+                		<li><a href="${path}/lecture/tutorial?lecture_name=lecture_js">JavaScript</a></li>
+                		<li><a href="${path}/lecture/tutorial?lecture_name=lecture_jquery">jQuery</a></li>
                 		             		
                 	</ul>
                 </li>
