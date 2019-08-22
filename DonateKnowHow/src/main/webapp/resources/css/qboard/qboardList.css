@@ -62,6 +62,9 @@ body{
 .boardQA-info div{
 	margin: 4% 0px;
 }
+.boardQA-info div:nth-child(1){
+	margin: 7% 0px;
+}
 
 .boardQA-content{
 	float: left;
@@ -84,15 +87,9 @@ body{
 	color: #a6def2;
 }
 
-.boardQA-content div:nth-child(2){
-	
-}
-.boardQA-content div:nth-child(3){
-	
-}
-.boardQA-content div:nth-child(4){
-	text-align: right;
+.boardQA-content div:nth-child(1){
 	font-size: 12px;
+	text-align: right;
 }
 
 .pagination{

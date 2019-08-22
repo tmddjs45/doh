@@ -42,16 +42,15 @@
 			</table>
 
 			<div class="cb-search">
-				<form name="searchForm" action="#" method="get">
+				<form name="searchForm" action="" method="post">
 					<select name="select">
 						<option value="title" selected="selected">제목</option>
 					    <option value="content">내용</option>
 					    <option value="TitleContent">제목+내용</option>
 					    <option value="nickname">작성자</option>
 					</select>
-					<input type="text" name="search" onkeyup="fboardSearchEnterKey()"/>
-<!-- 					<input type="submit" value="Submit"/> -->
-					<button class="searchBtn" type="button" onclick="fboardSearchBtn()"></button>
+					<input type="text" name="search" onkeyup="cboardSearchEnterKey()"/>
+					<button class="searchBtn" type="button" onclick="cboardSearchBtn()"></button>
 					<a class="write" href="#">✎ 쓰기</a>
 					<input type="hidden" name="pageNum" value=1>
 				</form>
@@ -66,7 +65,7 @@
 				</c:if>
 				<ul>
 				<c:forEach var="num" begin="${cr.startPage}" end="${cr.endPage}">
-					<li><a href="${path}/cboard/list?pageNum=${num}">${num}</a></li>
+					<li><a class="pagination_btn" href="${path}/cboard/list?pageNum=${num}">${num}</a></li>
 				</c:forEach>
 				</ul>
 				<c:if test="${cr.endPage<cr.totalPage}">
@@ -89,5 +88,42 @@
 		//document.querySelector('.Btn').innerHTML="버튼아니지롱";
 		$('.Btn').text("하잉");
 	}
+	
+	const firstPage = "list"
+	let currentPageLink = document.URL;
+	console.log(currentPageLink);
+	currentPageLink = currentPageLink.substr(currentPageLink.lastIndexOf("/")+1);
+	console.log(currentPageLink);
+		
+	let page = document.querySelectorAll('.pagination_btn');
+	console.log(page);
+	console.log(page[1].getAttribute('href'));
+		
+	if(currentPageLink == firstPage ){
+		page[0].style.color ="red";
+		page[0].style.fontSize = "22px";
+		page[0].style.fontWeight = "900";
+	}
+
+	for(let i=0; i<page.length;i++){
+		realPageLink = "/cboard/"+currentPageLink;
+		
+		if(realPageLink === page[i].getAttribute('href')){
+			page[i].style.color ="red";
+			page[i].style.fontSize = "22px";
+			page[i].style.fontWeight = "900";
+		}
+	}
+
+	function cboardSearchEnterKey(){
+		if (window.event.keyCode == 13) {
+			cboardSearchBtn();
+	    }
+	}
+		
+	function cboardSearchBtn(){
+		alert("준비중입니다. :) ");
+	}
 </script>
+
 </html>

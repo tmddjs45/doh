@@ -1,22 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <html>
 <head>
 	<title>D'oh</title>
 	<link rel="stylesheet" type="text/css" href="${path}/resources/css/fboard/fboard.css"></link>
-	<style type="text/css">
-		td{
-			padding-top: 10px;
-			padding-bottom: 10px;
-		}
-	</style>
 </head>
 <body>
 	<%@include file= "../includes/header.jsp" %>
 	<div class="container">
 		<div></div>
+		
 		<div class="content">
-			<table>
+			<table class="boardList">
 				<tr>
 					<th style="width: 10%;">번호</th>
 					<th style="width: 45%;">제목</th>
@@ -52,7 +48,7 @@
 				</c:forEach>
 			</table>
 			
-			<div>
+			<div class="searchLine">
 				<form name="searchForm" action="/fboard/list" method="get">
 					<select name="select">
 						<option value="title" selected="selected">제목</option>
@@ -68,78 +64,81 @@
 					<input type="hidden" name="pageNum" value=1>
 				</form>
 			</div>
-			
+<!-- Pagination Start -->
+			<div class="pagination">
 			<c:choose>
 				<c:when test='${search==null || search.equals("") || select==null || select.equals("")}'>
 					<c:if test="${pageMaker.startPage>1}">
-						<a class="btn silver" href="${path}/fboard/list?pageNum=1">처음</a>
-						<a class="btn silver" href="${path}/fboard/list?pageNum=${pageMaker.startPage-1}">이전</a>
+						<a class="first-btn" href="${path}/fboard/list?pageNum=1">처음</a>
+						<a class="prev-btn" href="${path}/fboard/list?pageNum=${pageMaker.startPage-1}">이전</a>
 					</c:if>
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 						<a class="btn" href="${path}/fboard/list?pageNum=${num}">${num}</a>
 					</c:forEach>
 					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
-						<a class="btn silver" href="${path}/fboard/list?pageNum=${pageMaker.endPage+1}">다음</a>
-						<a class="btn silver" href="${path}/fboard/list?pageNum=${pageMaker.totalPage}">끝</a>
+						<a class="next-btn" href="${path}/fboard/list?pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="end-btn" href="${path}/fboard/list?pageNum=${pageMaker.totalPage}">끝</a>
 					</c:if>
 				</c:when>
 				
 				<c:when test='${select.equals("title")}'>
 					<c:if test="${pageMaker.startPage>1}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+						<a class="first-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="prev-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
 					</c:if>
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
 					</c:forEach>
 					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+						<a class="next-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="end-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
 					</c:if>
 				</c:when>
 				
 				<c:when test='${select.equals("content")}'>
 					<c:if test="${pageMaker.startPage>1}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+						<a class="first-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="prev-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
 					</c:if>
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
 					</c:forEach>
 					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+						<a class="next-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="end-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
 					</c:if>
 				</c:when>
 				
 				<c:when test='${select.equals("TitleContent")}'>
 					<c:if test="${pageMaker.startPage>1}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+						<a class="first-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="prev-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
 					</c:if>
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
 					</c:forEach>
 					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+						<a class="next-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="end-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
 					</c:if>
 				</c:when>
 				
 				<c:when test='${select.equals("nickname")}'>
 					<c:if test="${pageMaker.startPage>1}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
+						<a class="first-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=1">처음</a>
+						<a class="prev-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.startPage-1}">이전</a>
 					</c:if>
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 						<a class="btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${num}">${num}</a>
 					</c:forEach>
 					<c:if test="${pageMaker.endPage<pageMaker.totalPage}">
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
-						<a class="btn silver" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
+						<a class="next-btn" href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.endPage+1}">다음</a>
+						<a class="end-btn " href="${path}/fboard/list?search=${search}&select=${select}&pageNum=${pageMaker.totalPage}">끝</a>
 					</c:if>
 				</c:when>
 			</c:choose>
+			</div>
+<!-- Pagination End -->
 		</div>
 		<div></div>
 	</div>

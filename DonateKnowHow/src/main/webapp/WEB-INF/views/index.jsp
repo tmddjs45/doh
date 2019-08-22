@@ -20,10 +20,7 @@
 	
 	</div>
 	
-	<div style="background-color: gold; margin:0; text-align: center">
-		<h1 style="margin-top:0;">여기기기기기기기기</h1>
-		<h2>gdkljlkasd</h2>
-		<h3 style="margin-bottom:0;">sdoqjsdmlqksmdlk</h3>
+	<div style="background-color: gold; margin:0; text-align: center; width:100%; height: 150px;">
 	</div>
 	
 	<%@include file="includes/footer.jsp" %>

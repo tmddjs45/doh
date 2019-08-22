@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
 <title>Q & A</title>
@@ -28,11 +29,18 @@
 					</div>
 					
 					<div class="boardQA-content">
-						<h3><a href="content${cr.makeQuery(cr.num)}&q_no=${list.q_no}"><c:out value='${list.q_title}' /></a></h3>
-						<div><c:out value='${list.nickname}' />testNick</div>
-						<div><c:out value='${list.q_content}'/>Test 쓰는글란입니다Test글란입니다Te글란입니다Te글란입니다Te글란입니다Te글란입니다Te글란입니다Te 쓰는글란입니다Test 쓰는글란입니다Test 쓰는글란입니다Test 쓰는글란입니다.</div>
 						<div><c:out value='${list.q_rdate}' /></div>
-					</div>
+	                 	<h3><a href="content${cr.makeQuery(cr.num)}&q_no=${list.q_no}"><c:out value='${list.q_title}' /></a></h3>
+	                  	<div><c:out value='${list.nickname}' /></div>
+	                  	<c:choose>
+		                    <c:when test="${ fn : length(list.q_content) > 120 }">
+		                    	<div><c:out value='${fn:substring(list.q_content,0,119)}'/>...</div>
+		                    </c:when>
+		                    <c:otherwise>
+		                    	<div><c:out value="${list.q_content}"/></div>
+		                    </c:otherwise>
+	                  	</c:choose>
+              		</div>
 				</div>
 			</c:forEach>
 
