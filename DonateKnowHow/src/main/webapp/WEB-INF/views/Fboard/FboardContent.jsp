@@ -127,7 +127,7 @@
 					<c:if test="${nextNum != 0}">
 						<a class="btn silver" href="${path}/fboard/content?f_no=${nextNum}&pageNum=${nextNum > maxiNum ? pageNum-1 : pageNum}" style="width: 20%;">다음 글</a>
 					</c:if>
-				</c:otherwise>
+				</c:otherwise> 
 			</c:choose>
 			<hr>
 			<sec:authentication property="principal" var="pinfo"/>

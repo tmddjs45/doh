@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doh.mapper.LectureMapper">
+	<select id="selectList" resultType="com.doh.domain.LectureDTO" parameterType="com.doh.domain.LectureDTO">
+		SELECT * FROM ${lecture_name} ORDER BY lecture_no
+	</select>
+	
+	<select id="selectContent" resultType="com.doh.domain.LectureDTO" parameterType="com.doh.domain.LectureDTO">
+		SELECT * FROM ${lecture_name} WHERE lecture_no = #{lecture_no}
+	</select>
+	
+	<insert id="insert" parameterType="com.doh.domain.LectureDTO">
+		INSERT INTO ${lecture_name}(lecture_title,lecture_content,lecture_code) VALUE(#{lecture_title}, #{lecture_content}, #{lecture_code})
+	</insert>
+	
+	<delete id="delete" parameterType="com.doh.domain.LectureDTO">
+		DELETE FROM ${lecture_name} WHERE lecture_no = #{lecture_no}
+	</delete>
+	
+	<update id="update" parameterType="com.doh.domain.LectureDTO">
+		UPDATE ${lecture_name} SET lecture_title = #{lecture_title}, lecture_content = #{lecture_content}, lecture_code = #{lecture_code} WHERE lecture_no = #{lecture_no}
+	</update>
+</mapper>
