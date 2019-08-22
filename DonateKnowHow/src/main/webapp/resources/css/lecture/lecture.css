@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+html,body{
+	margin:0;
+}
+*{
+	box-sizing:border-box;
+	outline: none;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.sideMenubar{
+	width:13%;
+	height:100%;
+	border: 1px solid #BDBDBD;
+	float: left;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-bottom: 50px;
+}
+.fixed{
+	position:fixed;
+	top:0px;
+	float: left;
+}
+ul{
+	padding:0;
+	margin:0;
+}
+li{
+	list-style-type: none;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+a.plusBtn{
+	font-size: xx-large;
+	display: block;
+	text-align: center;
+	padding-bottom: 5px;
+}
+a.plusBtn:hover{
+	background-color: #2E2E2E;
+	color:white;
+}
+a.sideBtn{
+	font-size: 13px;
+	font-weight: 900;
+	display: block;
+	padding: 2px 1px 2px 16px;
+	background-color: white;
+	color: black;
+}
+a.sideBtn:hover{
+	background-color: #2E2E2E;
+	color:white;
+}
+#main{
+	width:87%;
+	height: auto;
+	float: right;
+}
+form{
+	margin:0;
+}
+.align{
+	width:75%;
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+	
+}
+.lecture_title{
+	width: 90%;
+	padding: 10px 15px;
+	border: 1px solid #D8D8D8;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+.btn{
+    background-color: #2E2E2E;
+   	color: white;
+   	cursor: pointer;
+   	border: 1px solid #D8D8D8;
+   	border-radius: 10px;
+   	font-size: 15px;
+   	padding: 5px 20px;
+   	margin-top: 10px;
+   	margin-bottom: 5%;
+}
+.btn:hover{
+	background-color: white;
+	color: #2E2E2E;
+}
+.btn2{
+	padding: 15px 50px;
+	cursor: pointer;
+	background-color: white;
+	border: 1px solid #BDBDBD;
+}
+.edit{
+	width:100%;
+    display: block;
+    margin-top: 20px;
+    text-align: left;
+}
+.CodeMirror{
+    font-size: 15px;
+}
+#viewer{
+    width:100%;
+    height: 700px;
+    border: 1px solid #BDBDBD;
+}
+#runBtn{
+    width: 100%;
+    height: 5%;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 1px solid #BDBDBD;
+}
+#runBtn:hover, .btn2:hover{
+    color: #BDBDBD;
+}
+.edit_container{
+	width:50%; display:inline-block; float:left; margin-bottom:1%;
+}
+.lectureContentArea{
+	width: 85%; margin:auto; margin-top:5%; min-height: 80%;
+}
+p > img{
+	max-width: 100%;
+}
+hr{
+	border: 0;
+	height: 0.8px;
+	margin-bottom: 50px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+}

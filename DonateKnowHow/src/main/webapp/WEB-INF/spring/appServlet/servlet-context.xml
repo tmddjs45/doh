@@ -17,6 +17,9 @@
 	
 	<!-- 스마트에디터 리소스 맵핑 -->
 	<resources mapping="/ckeditor/**" location="/WEB-INF/views/ckeditor/" />
+	
+	<!-- 코드미러 리소스 맵핑 -->
+	<resources mapping="/codemirror/**" location="/WEB-INF/views/codemirror/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
