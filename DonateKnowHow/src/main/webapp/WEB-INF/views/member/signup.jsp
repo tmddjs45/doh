@@ -20,7 +20,7 @@
 		<div class="content">
 			<div class="signup-form">
 				<div>
-					<h1>- Sign Up -</h1>
+					<h1> Sign Up </h1>
 				</div>
 				<div>
 					<form name="signupform" method="post" action="/signup">

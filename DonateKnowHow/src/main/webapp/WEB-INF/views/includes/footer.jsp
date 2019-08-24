@@ -1,7 +1,4 @@
-
 <%@ page contentType="text/html;charset=utf-8" %>	
-
-
 	<div class="footer">
 		<p class="info">
 			서울 마포구 백범로 23 구프라자 3층

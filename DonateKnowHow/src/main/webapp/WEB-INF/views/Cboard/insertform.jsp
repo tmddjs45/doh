@@ -14,7 +14,6 @@
 		<div class="content">
 			
 			<form name="input" method="post" action="insert">
-	<input type='hidden' name='m_no' value='1'>
 	   <table border="1" width="600" align="center"  cellpadding="3" cellspacing="1">
 	     
 		  <tr>

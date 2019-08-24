@@ -15,7 +15,7 @@
 		<div class="content">
 			<form name="writeForm">
 			<!-- 임시로 세션으로 줘야할 값을 무작정 넣었습니다... 나중에 잊지 말고 수정하십시오 장현! 바로 너!!! -->
-				<table>
+				<table class="write-table">
 					<tr>
 						<td><input type="text" name="f_title" placeholder="제목을 입력해주세요"></td>
 					</tr>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.doh.domain.CBoardDTO;
 import com.doh.service.CBoardService;
+import com.doh.service.EmailService;
 import com.doh.test.cpTest;
 import com.doh.domain.CCriteria;
 import com.doh.domain.CustomUser;
+import com.doh.domain.EmailDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -30,6 +33,7 @@ import lombok.extern.java.Log;
 public class CBoardController {
 	@Setter(onMethod_=@Autowired)
 	private CBoardService service;
+	private EmailService emailService;
 
 
 	@RequestMapping("/list")
@@ -113,13 +117,13 @@ public class CBoardController {
 		return "/Cboard/content";
 		
 	}
-//	@RequestMapping("/frame")
-//	public String frame(@RequestParam("c_no") int c_no, Model model) {
-//		log.info("##frame----");
-//		System.out.println("cnoooooooooooooo"+c_no);
-//        model.addAttribute("list",service.read(c_no));
-//		return "/Cboard/frame";
-//	}
+	@RequestMapping("/frame")
+	public String frame(@RequestParam("c_no") int c_no, Model model) {
+		log.info("##frame----");
+		System.out.println("cnoooooooooooooo"+c_no);
+        model.addAttribute("list",service.read(c_no));
+		return "/Cboard/frame";
+	}
 //
 //	@RequestMapping("/savejava")
 //	public String savejava(@RequestParam("code")String code) {
@@ -141,6 +145,35 @@ public class CBoardController {
 			return result;
 		}
 		
+	}
+	
+	
+	
+	@RequestMapping("/emailw")
+	public String emailWrite() {
+		return "Cboard/emailwrite";
+	}
+	
+	@RequestMapping("/emailsend")
+	public String send(@ModelAttribute EmailDTO dto, Model model) {
+		System.out.println("##셋팅전의 디티오값---:"+dto);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser user = (CustomUser)principal;
+		String email = user.getMember().getEmail();
+		String nickName = user.getMember().getNickname();
+		String message = dto.getMessage();
+		dto.setReceiveMail("bit119doh@gmail.com");
+		dto.setSenderMail(email);
+		dto.setSenderNickname(nickName);
+		dto.setMessage("보낸사람 이메일-------------"+email+'\n'+"-----------------------"+
+		message);
+		System.out.println("##셋팅후의 디티오값---:"+dto);
+		
+		
+		emailService.sendMail(dto);
+		model.addAttribute("message", "메일 발송");
+		
+		return "Cboard";
 	}
 	
 
