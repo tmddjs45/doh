@@ -17,7 +17,7 @@
 			<div class="sideMenubar">
 				<ul>		
 				<c:forEach items="${lectureList}" var="list">
-							<li><a class="sideBtn" href="${path}/lecture/content?lecture_no=${list.lecture_no}&lecture_name=lecture_css">${list.lecture_title}</a></li><!-- 이 부분을 강좌마다 바꾸면 됩니다 -->						
+							<li><a class="sideBtn" href="${path}/lecture/content?lecture_no=${list.lecture_no}&lecture_name=lecture_js">${list.lecture_title}</a></li><!-- 이 부분을 강좌마다 바꾸면 됩니다 -->						
 				</c:forEach>	
 				</ul>
 				<a class="plusBtn" href="javascript:makeLecture();">+</a>
@@ -33,7 +33,7 @@
 						<c:if test="${command eq 'make'}">
 						<div class="align">
 							<form name="writeForm">
-								<input type="hidden" name="lecture_name" value="lecture_css"/>	<!-- 강좌마다 이 부분 바꿔주면 됩니다 -->
+								<input type="hidden" name="lecture_name" value="lecture_js"/>	<!-- 강좌마다 이 부분 바꿔주면 됩니다 -->
 								<input class="lecture_title" type="text" name="lecture_title" placeholder="강의 제목을 입력해주세요"/>
 								<textarea id="lecture_content" name="lecture_content"></textarea>
 
@@ -63,7 +63,7 @@
 						<c:if test="${command eq 'modify'}">
 							<div class="align">
 								<form name="modifyForm">
-									<input type="hidden" name="lecture_name" value="lecture_css"/>	<!-- 강좌마다 이 부분 바꿔주면 됩니다 -->
+									<input type="hidden" name="lecture_name" value="lecture_js"/>	<!-- 강좌마다 이 부분 바꿔주면 됩니다 -->
 									<input type="hidden" name="lecture_no" value="${oneContent.lecture_no}"/>
 									<input class="lecture_title" type="text" name="lecture_title" value="${oneContent.lecture_title}"/>
 									<textarea id="lecture_content" name="lecture_content">${oneContent.lecture_content}</textarea>
@@ -97,7 +97,7 @@
 						<c:if test="${oneContent != null}">
 							<div class="btn-area">
 								<form name="changeForm" action="${path}/lecture/delete" method="post">
-									<input type="hidden" name="lecture_name" value="lecture_css">	<!--  강좌마다 이 부분 바꿔주면 됩니다-->
+									<input type="hidden" name="lecture_name" value="lecture_js">	<!--  강좌마다 이 부분 바꿔주면 됩니다-->
 									<input type="hidden" name="lecture_no" value="${oneContent.lecture_no}">
 									<button class="btn2" onclick="modifyButton()">수정</button>
 									<button class="btn2">삭제</button>
@@ -154,11 +154,11 @@
 				prevScrollpos = currentScrollpos;
 			}
 		});
-		
+	
 		function makeLecture(){
 			var sideMenuForm = document.lectureBar;
 			sideMenuForm.command.value = "make";
-			sideMenuForm.lecture_name.value = "lecture_css"; <%-- 이 부분을 강좌마다 바꾸셔야합니다 --%>
+			sideMenuForm.lecture_name.value = "lecture_js"; <%-- 이 부분을 강좌마다 바꾸셔야합니다 --%>
 			sideMenuForm.action = "${path}/lecture/tutorial";
 			sideMenuForm.method = "post";
 			sideMenuForm.submit();

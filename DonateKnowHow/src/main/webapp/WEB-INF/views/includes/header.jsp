@@ -20,7 +20,7 @@
         <nav>
             <ul>
                 <li><a href="/about">ABOUT</a></li>
-                <li><a href="/cboard/list">LECTURE</a>
+                <li><a>LECTURE</a>
                 	<ul>
                 		<li><a href="${path}/lecture/tutorial?lecture_name=lecture_html">Html</a></li>
                 		<li><a href="${path}/lecture/tutorial?lecture_name=lecture_css">Css</a></li>

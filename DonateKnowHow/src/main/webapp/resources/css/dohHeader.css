@@ -13,9 +13,10 @@ body{
 	padding: 10px;
 	position: sticky;
 	top: 0;
-	z-index: 3;
+	z-index: 98;
 	background-color: white;
-	border-bottom: 1px solid Gainsboro;
+	border-bottom: 1px solid #d8d8d8;
+	transition: .5s;
 }
 
 .bar img{
@@ -55,6 +56,7 @@ body{
 
 .bar nav ul li a:hover{
 	color:darkorange;
+	cursor: pointer;
 }
 
 .bar nav ul li ul{
@@ -89,7 +91,7 @@ body{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 3;
+	z-index: 99;
 	
 }
 
@@ -98,7 +100,7 @@ body{
 	width:100%;
 	height: 100%;
 	position: absolute;
-	z-index: 3;
+	z-index: 99;
 }
 
 .modal-content{
@@ -108,7 +110,7 @@ body{
 	padding:25px 35px;
 	border-radius:10px;
 	width: 20%;
-	z-index: 3;
+	z-index: 99;
 }
 
 
@@ -221,7 +223,7 @@ body{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 3;
+	z-index: 99;
 	
 }
 
@@ -230,7 +232,7 @@ body{
 	width:100%;
 	height: 100%;
 	position: absolute;
-	z-index: 3;
+	z-index: 99;
 }
 
 .signup-modal-content{
@@ -241,7 +243,7 @@ body{
 	padding:1% 2%;
 	border-radius:10px;
 	width: 375px;
-	z-index: 3;
+	z-index: 99;
 }
 
 .signup-input input{

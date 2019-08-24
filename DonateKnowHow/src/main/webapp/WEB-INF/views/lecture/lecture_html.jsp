@@ -7,30 +7,27 @@
 	<link href="${path}/codemirror/lib/codemirror.css" rel="stylesheet"/>
     <link href="${path}/codemirror/theme/darcula.css" rel="stylesheet"/>
     <link href="${path}/resources/css/lecture/lecture.css" rel="stylesheet"></link>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="${path}/codemirror/lib/codemirror.js"></script>
-    <script src="${path}/codemirror/mode/xml/xml.js"></script>
-    <script src="${path}/codemirror/addon/edit/closetag.js"></script>
+    <script src="${path}/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 	<%@include file= "../includes/header.jsp" %>
-	<script src="${path}/ckeditor/ckeditor.js"></script>
-	<div class="container">
-		<div class="content">
+	
+			<div class="container">
+			
 			<div class="sideMenubar">
+				<ul>		
+				<c:forEach items="${lectureList}" var="list">
+							<li><a class="sideBtn" href="${path}/lecture/content?lecture_no=${list.lecture_no}&lecture_name=lecture_html">${list.lecture_title}</a></li><!-- 이 부분을 강좌마다 바꾸면 됩니다 -->						
+				</c:forEach>	
+				</ul>
+				<a class="plusBtn" href="javascript:makeLecture();">+</a>
 				<form name="lectureBar">
 					<input type="hidden" name="command"/>
 					<input type="hidden" name="lecture_name"/> 
 				</form>
-				<c:forEach items="${lectureList}" var="list">
-					<ul>
-						<li>
-							<a class="sideBtn" href="${path}/lecture/content?lecture_no=${list.lecture_no}&lecture_name=lecture_html">${list.lecture_title}</a> <!-- 이 부분을 강좌마다 바꾸면 됩니다 -->
-						</li>
-					</ul>
-				</c:forEach>
-				<a class="plusBtn" href="javascript:makeLecture();">+</a>
 			</div>
+			
+	
 			<div id="main">
 				<c:choose>
 					<c:when test="${command != null }">
@@ -40,17 +37,27 @@
 								<input type="hidden" name="lecture_name" value="lecture_html"/>	<!-- 강좌마다 이 부분 바꿔주면 됩니다 -->
 								<input class="lecture_title" type="text" name="lecture_title" placeholder="강의 제목을 입력해주세요"/>
 								<textarea id="lecture_content" name="lecture_content"></textarea>
-								<div>
-									<button type="button" id="runBtn" onclick="refresh()">RUN</button>
-								</div>
-								<div class="edit_container" style="text-align:left;">
-									<textarea id="editor" name="lecture_code"></textarea>
-								</div>
+
 								<div class="edit_container">
-									<iframe id="viewer"></iframe>
+										<div class="edit_container_code" style="text-align:left;">
+											<textarea id="editor" name="lecture_code"></textarea>
+										</div>
+										
+										<div style="padding:0px 10px;">
+											<div>
+												<button id="runBtn" type="button" onclick="refresh()">RUN</button>
+											</div>
+											
+											<div class="edit_container_viewer">
+												<iframe id="viewer"></iframe>
+											</div>
+										</div>
+									</div>				
+								
+								<div class="btn-area">
+									<button class="btn2" type="button" onclick="window.history.go(-1); return false;">취소</button>
+									<button class="btn2" type="button" onclick="writeButton('new')">등록</button>
 								</div>
-								<button class="btn2" type="button" onclick="window.history.go(-1); return false;">취소</button>
-								<button class="btn2" type="button" onclick="writeButton('new')">등록</button>
 							</form>
 						</div>
 						</c:if>
@@ -61,62 +68,94 @@
 									<input type="hidden" name="lecture_no" value="${oneContent.lecture_no}"/>
 									<input class="lecture_title" type="text" name="lecture_title" value="${oneContent.lecture_title}"/>
 									<textarea id="lecture_content" name="lecture_content">${oneContent.lecture_content}</textarea>
-									<div>
-										<button type="button" id="runBtn" onclick="refresh()">RUN</button>
-									</div>
-									<div class="edit_container" style="text-align:left;">
-										<textarea id="editor" name="lecture_code">${oneContent.lecture_code}</textarea>
-									</div>
+									
 									<div class="edit_container">
-										<iframe id="viewer"></iframe>
+										<div class="edit_container_code" style="text-align:left;">
+											<textarea id="editor" name="lecture_code">${oneContent.lecture_code}</textarea>
+										</div>
+										
+										<div style="padding:0px 10px;">
+											<div>
+												<button id="runBtn" type="button" onclick="refresh()">RUN</button>
+											</div>
+											
+											<div class="edit_container_viewer">
+												<iframe id="viewer"></iframe>
+											</div>
+										</div>
 									</div>
-									<button class="btn2" type="button" onclick="window.history.go(-1); return false;">취소</button>
-									<button class="btn2" type="button" onclick="writeButton('modify')">수정</button>
+									
+									<div class="btn-area">
+										<button class="btn2" type="button" onclick="window.history.go(-1); return false;">취소</button>
+										<button class="btn2" type="button" onclick="writeButton('modify')">수정</button>
+									</div>
 								</form>
 							</div>
 						</c:if>
 					</c:when>
+					
 					<c:otherwise>
 						<c:if test="${oneContent != null}">
-							<div style="float:right; margin: 30px;">
+							<div class="btn-area">
 								<form name="changeForm" action="${path}/lecture/delete" method="post">
-									<input type="hidden" name="lecture_name" value="lecture_html">	<!-- 강좌마다 이 부분 바꿔주면 됩니다 -->
+									<input type="hidden" name="lecture_name" value="lecture_html">	<!--  강좌마다 이 부분 바꿔주면 됩니다-->
 									<input type="hidden" name="lecture_no" value="${oneContent.lecture_no}">
 									<button class="btn2" onclick="modifyButton()">수정</button>
 									<button class="btn2">삭제</button>
 								</form>
 							</div>
+							
 							<div class="lectureContentArea">
 								<h1>${oneContent.lecture_title}</h1>
 								<hr/>
 								${oneContent.lecture_content}
-							</div>
-							<div>
-								<button id="runBtn" onclick="refresh()">RUN</button>
-							</div>
+							</div>			
+							
 							<div class="edit_container">
-								<textarea id="editor" name="lecture_code">${oneContent.lecture_code}</textarea>
-							</div>
-							<div class="edit_container">
-								<iframe id="viewer"></iframe>
-							</div>
+								<div class="edit_container_code">
+									<textarea id="editor" name="lecture_code">${oneContent.lecture_code}</textarea>
+								</div>		
+								<div style="padding:0px 10px;">
+									<div >
+										<button id="runBtn" type="button" onclick="refresh()">RUN</button>
+									</div>
+									<div class="edit_container_viewer">
+										<iframe id="viewer"></iframe>
+									</div>
+								</div>
+							</div>		
+										
 						</c:if>
 					</c:otherwise>
 				</c:choose>
 			</div>
-		</div>
-	</div>
+			</div>
+			<%@include file= "../includes/footer.jsp" %>
+			
+			
+			
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="${path}/codemirror/lib/codemirror.js"></script>
+    <script src="${path}/codemirror/mode/xml/xml.js"></script>
+    <script src="${path}/codemirror/addon/edit/closetag.js"></script>
 	<script>
 		$(document).ready(function(){
-			var sideMenuOffset = $(".sideMenubar").offset();
-			$(window).scroll(function(){
-				if($(document).scrollTop() > sideMenuOffset.top){
-					$('.sideMenubar').addClass('fixed');
-				}else{
-					$('.sideMenubar').removeClass('fixed');
+			var prevScrollpos = window.pageYOffset;
+			window.onscroll = function(){
+				var currentScrollpos = window.pageYOffset;
+				if(prevScrollpos > currentScrollpos){
+					document.querySelector(".bar").style.top = "0px";
+					document.querySelector(".sideMenubar").style.top = "91px";
+				} else{
+					document.querySelector(".bar").style.top = "-92px";
+					document.querySelector(".sideMenubar").style.top = "0px";
 				}
-			});
+				
+				prevScrollpos = currentScrollpos;
+			}
 		});
+		
+		
 		function makeLecture(){
 			var sideMenuForm = document.lectureBar;
 			sideMenuForm.command.value = "make";

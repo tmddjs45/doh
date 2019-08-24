@@ -1,140 +1,129 @@
-@charset "UTF-8";
+.container{
+	display:grid;
+	grid-template-columns : 13vw auto;
+	border-bottom:1px solid #d8d8d8;
+	box-sizing: border-box;
+}
 
-html,body{
+.lectureBar{
 	margin:0;
 }
-*{
-	box-sizing:border-box;
-	outline: none;
-	font-family: 'Nanum Gothic', sans-serif;
+
+.lecture_title{
+	width:100%;
+	padding: 15px;
+    font-size: 20px;
+    margin: 70px 0px 20px 0px;
 }
 .sideMenubar{
-	width:13%;
-	height:100%;
-	border: 1px solid #BDBDBD;
-	float: left;
-	overflow-y: auto;
-	overflow-x: hidden;
-	padding-bottom: 50px;
-}
-.fixed{
 	position:fixed;
-	top:0px;
-	float: left;
+	width:13vw;
+	height:100%;
+	transition:.5s;
+	z-index:1;
 }
-ul{
-	padding:0;
-	margin:0;
-}
-li{
+
+.sideMenubar ul {
+	margin:0px;
+	padding:0px;
+} 
+
+.sideMenubar ul li{
 	list-style-type: none;
 }
-a{
+
+.sideMenubar ul li a{
 	text-decoration: none;
-	color: black;
-}
-a.plusBtn{
-	font-size: xx-large;
-	display: block;
-	text-align: center;
-	padding-bottom: 5px;
-}
-a.plusBtn:hover{
-	background-color: #2E2E2E;
-	color:white;
-}
-a.sideBtn{
-	font-size: 13px;
+	font-size: 16px;
 	font-weight: 900;
 	display: block;
-	padding: 2px 1px 2px 16px;
 	background-color: white;
 	color: black;
+	padding: 10px 10px 10px 15px;
 }
-a.sideBtn:hover{
+
+.sideMenubar ul li a:hover, .plusBtn:hover{
 	background-color: #2E2E2E;
 	color:white;
 }
-#main{
-	width:87%;
-	height: auto;
-	float: right;
-}
-form{
-	margin:0;
-}
-.align{
-	width:75%;
+
+.plusBtn{
+	padding: 10px 10px 5px 15px;
+	color:black;
+	text-decoration:none;
+	font-size: 20px;
+	display: block;
 	text-align: center;
-	margin: auto;
-	margin-top: 50px;
 	
 }
-.lecture_title{
-	width: 90%;
-	padding: 10px 15px;
-	border: 1px solid #D8D8D8;
-	border-radius: 10px;
-	margin-bottom: 10px;
+
+#main{
+	grid-column-start: 2;
+	padding: 20px 105px 20px 93px;
+	width:85%;
+	border-left: 1px solid #BDBDBD;
 }
-.btn{
-    background-color: #2E2E2E;
-   	color: white;
-   	cursor: pointer;
-   	border: 1px solid #D8D8D8;
-   	border-radius: 10px;
-   	font-size: 15px;
-   	padding: 5px 20px;
-   	margin-top: 10px;
-   	margin-bottom: 5%;
+
+#main form{
+	margin: 0;
 }
-.btn:hover{
-	background-color: white;
-	color: #2E2E2E;
+
+
+.btn-area{
+	text-align: right;
+	margin: 20px 0px 0px 0px;
+	min-height: 70px;
 }
-.btn2{
+
+.lectureContentArea{
+	padding: 0px 0px 20px 0px;
+}
+
+.edit_container{
+	display: grid;
+	grid-template-columns :  60% 40%;
+	margin: 5% 0px;
+}
+
+.edit_container_code{
+	width:670px;
+}
+
+
+.edit_container_viewer{
+	width:430px;
+	height: 640px;
+}
+#runBtn{
+	width:100%;
+	margin-bottom:10px;
 	padding: 15px 50px;
 	cursor: pointer;
 	background-color: white;
 	border: 1px solid #BDBDBD;
 }
-.edit{
-	width:100%;
-    display: block;
-    margin-top: 20px;
-    text-align: left;
+
+#runBtn:hover{
+	color:white;
+	background-color: #2E2E2E;
 }
-.CodeMirror{
-    font-size: 15px;
-}
+
 #viewer{
-    width:100%;
-    height: 700px;
-    border: 1px solid #BDBDBD;
+	width:100%;
+	height: 640px;
+
 }
-#runBtn{
-    width: 100%;
-    height: 5%;
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    border: 1px solid #BDBDBD;
+
+.btn2 {
+	padding: 15px 50px;
+	cursor: pointer;
+	background-color: white;
+	border: 1px solid #BDBDBD;
 }
-#runBtn:hover, .btn2:hover{
-    color: #BDBDBD;
+
+.btn2:hover{
+	color:white;
+	background-color: #2E2E2E;
 }
-.edit_container{
-	width:50%; display:inline-block; float:left; margin-bottom:1%;
-}
-.lectureContentArea{
-	width: 85%; margin:auto; margin-top:5%; min-height: 80%;
-}
-p > img{
-	max-width: 100%;
-}
-hr{
-	border: 0;
-	height: 0.8px;
-	margin-bottom: 50px;
-	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
-}
+
+
