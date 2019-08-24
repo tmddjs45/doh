@@ -63,6 +63,11 @@ public class IndexController {
 		return "frame";
 	}
 	
+	@RequestMapping("/ask")
+	public String ask_email(){
+		return "/member/ask";
+	}
+	
 	@RequestMapping("/signup")
 	public String signupform() {
 		return "/member/signup";
