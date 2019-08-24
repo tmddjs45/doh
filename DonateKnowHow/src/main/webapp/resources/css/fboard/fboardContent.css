@@ -130,6 +130,13 @@ html,body{
     top: -34.5px;
 }
 
+#btnReply:hover{
+	background-color: white;
+	color:black;
+	text-decoration: underline;
+    text-underline-position: under;
+}
+
 .blockBtn{
 	background-color: #FFFFFF;
 	color: #D8D8D8;
@@ -186,6 +193,7 @@ button.btn{
 button.btn:hover{
 	background-color: white;
 	color: black;
+	font-size: 15px;
 }
 
 /*  #### Modal Start ####  */
