@@ -60,5 +60,10 @@
 	<select id="answercount" resultType="int">
 		SELECT COUNT(*) FROM answer WHERE m_no = #{m_no} AND a_check=1
 	</select>
+
+	
+	<update id="profile_update" parameterType="com.doh.domain.MemberVO">
+		update member2 set password=#{password}, nickname=#{nickname} where m_no=#{m_no}
+	</update>
 	
 </mapper>

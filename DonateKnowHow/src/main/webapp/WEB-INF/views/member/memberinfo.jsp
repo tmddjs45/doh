@@ -1,4 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -39,7 +38,7 @@
 					</div>
 				</div>
 				<div class="info-edit">
-					<a href="#"><label><i class="far fa-edit"></i>프로필 수정</label></a>
+					<a href="/profile_update"><label><i class="far fa-edit"></i>프로필 수정</label></a>
 				</div>
 			</div>
 		</div>

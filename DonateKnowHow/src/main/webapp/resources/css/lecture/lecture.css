@@ -1,7 +1,6 @@
 .container{
 	display:grid;
 	grid-template-columns : 13vw auto;
-	border-bottom:1px solid #d8d8d8;
 	box-sizing: border-box;
 }
 

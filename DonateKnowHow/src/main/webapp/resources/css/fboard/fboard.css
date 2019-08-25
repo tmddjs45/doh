@@ -9,7 +9,7 @@ html, body{
 	height:auto;
 	display: grid;
 	grid-template-columns: 1fr 5fr 1fr;
-	border-bottom: 1px solid #D8D8D8;
+	
 }
 
 .searchBtn{

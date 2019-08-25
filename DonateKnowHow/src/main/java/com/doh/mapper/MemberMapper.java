@@ -19,4 +19,6 @@ public interface MemberMapper {
 	ArrayList replycount(int m_no);
 	int answercount(int m_no);
 	
+	void profile_update(MemberVO member);
+	
 }

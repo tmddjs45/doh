@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.profile_update_wrapper{
+	margin: 40px auto;
+	padding: 30px;
+	text-align: center;
+	width:85%;
+	
+}
+
+.profile_update_wrapper input{
+	height: 30px;
+	width: 50%;
+	padding: 10px 30px;
+	border-radius: 10px;
+	border: 1px solid #D8d8d8;
+	outline: none;
+	font-size: 24px;
+	margin: 20px 0px;
+}
+
+.btn-area{
+	padding: 20px 0px;
+}
+
+.clsBtn, .updateBtn{
+	font-size:16px;
+	margin: 20px;
+	padding: 10px 40px;
+	border:none;
+	outline: none;
+	border-radius: 10px;
+	background-color: #d8d8d8;
+
+}

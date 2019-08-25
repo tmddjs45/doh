@@ -49,20 +49,7 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
-	@RequestMapping("/frame") // 기본프레임으로 접속합니다.
-	public String frame() {
-		
-		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		CustomUser customUser = (CustomUser)pricipal;
-	
-		
-		log.info("## Email : "+customUser.getMember().getEmail());
-		log.info("## Nick : "+customUser.getMember().getNickname());
-		log.info("## M_no : "+customUser.getMember().getM_no());
 
-		return "frame";
-	}
-	
 	@RequestMapping("/ask")
 	public String ask_email(){
 		return "/member/ask";
@@ -124,17 +111,30 @@ public class IndexController {
 	public String memberinfo(Model model) {
 		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser customUser = (CustomUser)pricipal;
-		
 		log.info("## 멤버 넘버 : "+customUser.getMember().getM_no());
 		ArrayList<Integer> count = service.countinfo(customUser.getMember().getM_no());
 		model.addAttribute("count",count);
-		
 		return "member/memberinfo";
 	}
 	
 	@RequestMapping("/loginfail")
 	public String loginfail() {
 		return "member/loginfailMsg";
+	}
+	
+	@RequestMapping("/profile_update")
+	public String profile_update(Model model){
+		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser customUser = (CustomUser)pricipal;
+		model.addAttribute("profile",customUser);
+		return "/member/profile_update";
+	}
+	
+	@PostMapping("/profile_update")
+	public String profile_update(Model model, String nickname, String password, String currentPassword){
+		boolean result = service.profile_update(nickname,password,currentPassword);
+		model.addAttribute("update_result",result);
+		return "/member/Profile_Update_Msg";
 	}
 	
 }

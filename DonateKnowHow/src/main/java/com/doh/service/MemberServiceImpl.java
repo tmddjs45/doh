@@ -2,9 +2,11 @@ package com.doh.service;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.doh.domain.CustomUser;
 import com.doh.domain.MemberVO;
 import com.doh.mapper.MemberMapper;
 
@@ -63,6 +65,29 @@ public class MemberServiceImpl implements MemberService{
 		sumcount.add(replySum);
 		sumcount.add(answercount);
 		return sumcount;
+	}
+
+	@Override
+	public boolean profile_update(String nickname, String password, String currentPassword) {
+		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser customUser = (CustomUser)pricipal;
+		
+		if(bcrypt.matches(currentPassword, customUser.getMember().getPassword())) {
+			log.info("nickname = "+nickname);
+			log.info("password = "+password);
+			if(password=="") {
+				customUser.getMember().setNickname(nickname);
+				mapper.profile_update(customUser.getMember());			
+			}else {
+				customUser.getMember().setNickname(nickname);
+				customUser.getMember().setPassword(bcrypt.encode(password));
+				mapper.profile_update(customUser.getMember());	
+			}		
+			return true;
+			
+		}else {
+			return false;
+		}
 	}
 
 }
