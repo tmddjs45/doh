@@ -14,6 +14,7 @@ public class MemberVO {
 	private String password;
 	private boolean enabled;
 	private Date jdate;
+	private String confirm_key;
 	
 	private List<AuthVO> authList;
 

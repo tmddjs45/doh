@@ -75,7 +75,7 @@
 				<div class="member-join">
 					<ul>
 						<li><a id="signupBtn">회원가입</a></li>&nbsp;|&nbsp;
-						<li><a>비밀번호 찾기</a></li>
+						<li><a href="/find_password">비밀번호 찾기</a></li>
 					</ul>
 				</div>
 				
@@ -276,10 +276,10 @@
 				
 				if($('.signup-nickname').val().length==0){
 					$('#nickname-check').text('빈칸이네요 :( 입력해주세요.').css('color','red');
-					emailFlag = false;
+					nicknameFlag = false;
 				}else if($('.signup-nickname').val().length > 28){
 					$('#nickname-check').text('너무 길어요 :( 다시 입력해주세요.').css('color','red');
-					emailFlag = false;
+					nicknameFlag = false;
 				}else{
 					$.ajax({
 						url: "./nickcheck",

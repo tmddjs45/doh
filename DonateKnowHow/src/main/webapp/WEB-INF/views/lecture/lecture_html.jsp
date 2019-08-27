@@ -18,15 +18,14 @@
 				<ul>		
 				<c:forEach items="${lectureList}" var="list">
 							<li><a class="sideBtn" href="${path}/lecture/content?lecture_no=${list.lecture_no}&lecture_name=lecture_html">${list.lecture_title}</a></li><!-- 이 부분을 강좌마다 바꾸면 됩니다 -->						
-				</c:forEach>	
+				</c:forEach>
+				<li><a class="plusBtn" href="javascript:makeLecture();">+</a></li>
 				</ul>
-				<a class="plusBtn" href="javascript:makeLecture();">+</a>
 				<form name="lectureBar">
 					<input type="hidden" name="command"/>
 					<input type="hidden" name="lecture_name"/> 
 				</form>
 			</div>
-			
 	
 			<div id="main">
 				<c:choose>
@@ -141,14 +140,20 @@
 	<script>
 		$(document).ready(function(){
 			var prevScrollpos = window.pageYOffset;
+
 			window.onscroll = function(){
 				var currentScrollpos = window.pageYOffset;
+				
 				if(prevScrollpos > currentScrollpos){
 					document.querySelector(".bar").style.top = "0px";
 					document.querySelector(".sideMenubar").style.top = "91px";
-				} else{
+				
+			    }else if($(window).height() - $(window).scrollTop() < window.innerHeight+1){
+		               document.querySelector(".sideMenubar").style.height = "629px";
+				}else{
 					document.querySelector(".bar").style.top = "-92px";
 					document.querySelector(".sideMenubar").style.top = "0px";
+					 document.querySelector(".sideMenubar").style.height = "721px";	
 				}
 				
 				prevScrollpos = currentScrollpos;

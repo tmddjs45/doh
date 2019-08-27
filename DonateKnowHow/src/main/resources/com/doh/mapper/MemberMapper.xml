@@ -13,6 +13,7 @@
 		<result property="nickname" column="nickname"/>
 		<result property="enabled" column="enabled"/>
 		<result property="jdate" column="jdate"/>
+		<result property="confirm_key" column="confirm_key"/>
 		
 		<collection property="authList" resultMap="authMap">
 		</collection>
@@ -38,7 +39,7 @@
 	</select>
 
 	<insert id="signup"  parameterType="com.doh.domain.MemberVO">
-		insert into member2 values(null,#{email},#{password},#{nickname},true,CURRENT_TIMESTAMP())
+		insert into member2 values(null,#{email},#{password},#{nickname},true,CURRENT_TIMESTAMP(),'Y')
 	</insert>
 	
 	<insert id="signup_auth" parameterType="String">
@@ -64,6 +65,14 @@
 	
 	<update id="profile_update" parameterType="com.doh.domain.MemberVO">
 		update member2 set password=#{password}, nickname=#{nickname} where m_no=#{m_no}
+	</update>
+	
+	<update id="confirm_key_alter" parameterType="com.doh.domain.MemberVO">
+		update member2 set confirm_key=#{confirm_key} where email=#{email}
+	</update>
+	
+	<update id="alter_password" parameterType="com.doh.domain.MemberVO">
+		update member2 set password=#{password} where email=#{email}
 	</update>
 	
 </mapper>

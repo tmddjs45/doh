@@ -28,6 +28,8 @@
 </body>
 
 <script>
+
+	
 	const SHOWING_CLASS ="showing";
 	const firstSlide = document.querySelector(".slider_item:first-child");
 	function slide(){

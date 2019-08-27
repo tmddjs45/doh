@@ -90,4 +90,28 @@ public class MemberServiceImpl implements MemberService{
 		}
 	}
 
+	@Override
+	public boolean compareKey(String email, String key) {
+		log.info("## 이메일 URL로 넘어온 email 값 : "+email);
+		MemberVO member = mapper.searchMember(email);
+		log.info("## 이메일 URL로 넘어온 키 값 : "+key);
+		log.info("맴버 키갑ㅅㅅㅅㅅ:"+member.getConfirm_key());
+		if(member.getConfirm_key().equals(key)) {
+			
+			member.setConfirm_key("Y");
+			mapper.confirm_key_alter(member);
+			return true;
+		}else {
+			return false;
+		}	
+	}
+
+	@Override
+	public void alter_password(String email, String password) {
+		MemberVO member = new MemberVO();
+		member.setEmail(email);
+		member.setPassword(bcrypt.encode(password));
+		mapper.alter_password(member);
+	}
+
 }
