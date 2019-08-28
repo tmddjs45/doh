@@ -50,11 +50,19 @@
 	
 	let profileUpdateTimer;
 	let nicknameUpdateFlag = false;
-	let passwordUpdateFlag = false;
+	let passwordUpdateFlag = true;
+	let currentUser = '${profile.getMember().getNickname()}';
+	
+	if($('.update-nickname').val() == currentUser){
+		console.log("아아아아ㅏ아앙");
+		nicknameUpdateFlag= true;
+	}
 	
 	/* ----- # Debouncing Profile-Update Nickname Check Start  #  ----- */
 	const profileUpdateNickname = document.querySelector(".update-nickname");	
 	profileUpdateNickname.addEventListener("input",function(){
+		
+		
 		
 		if(profileUpdateTimer){
 			clearTimeout(profileUpdateTimer);
@@ -76,11 +84,18 @@
 						if(responseData=="true"){
 							$('#update-nickname-check').text('사용 가능한 닉네임 입니다.').css('color','green');
 							nicknameUpdateFlag = true;
-							console.log("nicknameFlag : "+nicknameFlag);
+						
 						}else{
-							$('#update-nickname-check').text('중복된 닉네임 입니다.').css('color','red');
-							nicknameUpdateFlag = false;
-							console.log("nicknameFlag : "+nicknameFlag);
+							if($('.update-nickname').val() == currentUser){
+								console.log("라라라ㅏㄹ라랄");
+								nicknameUpdateFlag = true;
+	
+								
+							}else{
+								$('#update-nickname-check').text('중복된 닉네임 입니다.').css('color','red');
+								nicknameUpdateFlag = false;
+								console.log("nicknameFlag : "+nicknameFlag);
+							}
 						}							
 					}
 				});
@@ -120,7 +135,7 @@
 	});
 				
 	function profileUpdate(){
-		if(passwordUpdateFlag&&nicknameUpdateFlag){
+		if(passwordUpdateFlag&&nicknameUpdateFlag&&profileUpdatePassword.value.length==profileUpdateRepeatPassword.value.length){
 			document.profile_update_form.submit();
 		}else{
 			alert("입력한 정보를 다시 확인해주세요!");

@@ -220,7 +220,7 @@
 						passwordFlag=false;
 					}	
 				}
-			},1500);
+			},1000);
 		});
 		
 		/* ---- #  Debouncing Password Check END  # ---- */
@@ -243,7 +243,6 @@
 							type: "POST",
 							data: { email: $(".signup-email").val()},
 							success: function(responseData){
-								console.log("아라라ㅏ안안앙 실행은 된당!");
 								if(responseData=="true"){
 									$('#email-check').text('사용 가능한 Email 입니다.').css('color','green');
 									emailFlag = true;

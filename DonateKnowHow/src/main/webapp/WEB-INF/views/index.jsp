@@ -14,8 +14,8 @@
 		<div class="slider_item">
 			<span class="mainQA"><img src="${path}/resources/img/mainQA.png"/></span>
 		</div>
-		<div class="slider_item"><h1>3</h1></div>
-		<div class="slider_item"><h1>4</h1></div>
+		<div class="slider_item"><span class="flagImg"><img src="${path}/resources/img/flag.png"/></span></div>
+		<div class="slider_item"><span class="donate"><img src="${path}/resources/img/donate.png"/></span></div>
 
 	
 	</div>

@@ -97,7 +97,6 @@ public class MemberServiceImpl implements MemberService{
 		log.info("## 이메일 URL로 넘어온 키 값 : "+key);
 		log.info("맴버 키갑ㅅㅅㅅㅅ:"+member.getConfirm_key());
 		if(member.getConfirm_key().equals(key)) {
-			
 			member.setConfirm_key("Y");
 			mapper.confirm_key_alter(member);
 			return true;
