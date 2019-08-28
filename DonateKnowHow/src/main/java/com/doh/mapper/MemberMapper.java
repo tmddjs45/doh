@@ -1,3 +1,4 @@
+    
 package com.doh.mapper;
 
 
@@ -19,9 +20,5 @@ public interface MemberMapper {
 	void profile_update(MemberVO member);
 	void confirm_key_alter(MemberVO member);
 	void alter_password(MemberVO member);
-	
-	ArrayList boardcount(int m_no);
-	ArrayList replycount(int m_no);
-	int answercount(int m_no);
 	
 }
