@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -151,11 +152,13 @@ public class CBoardController {
 	
 	@RequestMapping("/emailw")
 	public String emailWrite() {
-		return "Cboard/emailwrite";
+		return "Cboard/ask";
 	}
 	
 	@RequestMapping("/emailsend")
-	public String send(@ModelAttribute EmailDTO dto, Model model) {
+	public String send(@ModelAttribute EmailDTO dto, Model model, @RequestParam("Kategorie") String Kategorie) {
+		System.out.println(Kategorie+"카테고리값 빼져오나????####!!!!");
+		
 		System.out.println("##셋팅전의 디티오값---:"+dto);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser user = (CustomUser)principal;
@@ -165,15 +168,16 @@ public class CBoardController {
 		dto.setReceiveMail("bit119doh@gmail.com");
 		dto.setSenderMail(email);
 		dto.setSenderNickname(nickName);
-		dto.setMessage("보낸사람 이메일-------------"+email+'\n'+"-----------------------"+
-		message);
+		dto.setMessage("보낸사람 : "+email+'\n'+
+						"카테고리 : "+Kategorie+'\n'+
+						"메세지 : "+message);
 		System.out.println("##셋팅후의 디티오값---:"+dto);
 		
 		
 		emailService.sendMail(dto);
 		model.addAttribute("message", "메일 발송");
 		
-		return "Cboard";
+		return "redirect:../";
 	}
 	
 

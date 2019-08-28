@@ -4,4 +4,57 @@
 	margin: 0px auto;
 	text-align: center;
 	width:80%;
+	color:gray;
+	
+}
+.ask-form{
+	margin:0px auto;
+	padding:10px;
+	width:100%;
+	height:70vh;
+	vertical-align:middle;
+	white-space: nowrap;
+	position: relative;
+	
+}
+
+
+input.btn{
+	
+	width:300px;
+	height:50px;
+	background: #2E2E2E;
+	border: 1px solid #D8D8D8;
+	color:white;
+	border:none;
+	border-radius:5px;
+	float:inherit;
+	cursor: pointer;
+	
+}
+
+input.btn:hover{
+	background-color: white;
+	border: 1px solid black;
+	color: black;
+	width:310px;
+	height:53px;
+	text-decoration: underline;
+    text-underline-position: under;
+    font-size:20px;
+    font-weight: bold;
+}
+.b{
+	margin:0px auto;
+	border-radius: 5px;
+	border: 1px solid gray;
+	
+}
+
+.img{
+	width:30px;
+	height:30px;
+}
+p{
+	margin:5px auto;
 }
