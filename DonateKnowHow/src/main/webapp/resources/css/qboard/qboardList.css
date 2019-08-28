@@ -8,9 +8,7 @@ body{
 
 .wrapper{
 	display: grid;
-	grid-template-columns: 1fr 5fr 1fr;
-	border-bottom: 1px solid #D8D8D8;
-	
+	grid-template-columns: 1fr 5fr 1fr;	
 }
 
 .searchLine{

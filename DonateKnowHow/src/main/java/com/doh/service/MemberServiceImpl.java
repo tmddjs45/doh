@@ -2,9 +2,11 @@ package com.doh.service;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.doh.domain.CustomUser;
 import com.doh.domain.MemberVO;
 import com.doh.mapper.MemberMapper;
 
@@ -63,6 +65,52 @@ public class MemberServiceImpl implements MemberService{
 		sumcount.add(replySum);
 		sumcount.add(answercount);
 		return sumcount;
+	}
+
+	@Override
+	public boolean profile_update(String nickname, String password, String currentPassword) {
+		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser customUser = (CustomUser)pricipal;
+		
+		if(bcrypt.matches(currentPassword, customUser.getMember().getPassword())) {
+			log.info("nickname = "+nickname);
+			log.info("password = "+password);
+			if(password=="") {
+				customUser.getMember().setNickname(nickname);
+				mapper.profile_update(customUser.getMember());			
+			}else {
+				customUser.getMember().setNickname(nickname);
+				customUser.getMember().setPassword(bcrypt.encode(password));
+				mapper.profile_update(customUser.getMember());	
+			}		
+			return true;
+			
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean compareKey(String email, String key) {
+		log.info("## 이메일 URL로 넘어온 email 값 : "+email);
+		MemberVO member = mapper.searchMember(email);
+		log.info("## 이메일 URL로 넘어온 키 값 : "+key);
+		log.info("맴버 키갑ㅅㅅㅅㅅ:"+member.getConfirm_key());
+		if(member.getConfirm_key().equals(key)) {
+			member.setConfirm_key("Y");
+			mapper.confirm_key_alter(member);
+			return true;
+		}else {
+			return false;
+		}	
+	}
+
+	@Override
+	public void alter_password(String email, String password) {
+		MemberVO member = new MemberVO();
+		member.setEmail(email);
+		member.setPassword(bcrypt.encode(password));
+		mapper.alter_password(member);
 	}
 
 }

@@ -40,6 +40,9 @@
 	top:45px;
 	right: 350px;
 }
+.flagImg img{
+	width: 100%;
+}
 
 .showing{
 	opacity: 1;

@@ -21,6 +21,9 @@ import com.doh.test.cpTest;
 import com.doh.domain.CCriteria;
 import com.doh.domain.CustomUser;
 import com.doh.domain.EmailDTO;
+import com.doh.test.cpTest;
+import com.doh.domain.CCriteria;
+import com.doh.domain.CustomUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -44,9 +47,6 @@ public class CBoardController {
 		CCriteria cr = new CCriteria(pageNum, totalCount);
 		model.addAttribute("list", service.getList(cr));
 		model.addAttribute("cr", cr);
-	
-
-		
 		return "/Cboard/Cboard";
 	}
 	@RequestMapping("/content")
@@ -112,9 +112,7 @@ public class CBoardController {
 		cpTest test = new cpTest();
 		 test.saveJava(code);
 		 model.addAttribute("list",service.read(c_no));
-		
 		model.addAttribute("result", test.saveJava(code));
-		
 		return "/Cboard/content";
 		
 	}
@@ -172,8 +170,7 @@ public class CBoardController {
 						"카테고리 : "+Kategorie+'\n'+
 						"메세지 : "+message);
 		System.out.println("##셋팅후의 디티오값---:"+dto);
-		
-		
+
 		emailService.sendMail(dto);
 		model.addAttribute("message", "메일 발송");
 		

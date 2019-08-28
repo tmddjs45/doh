@@ -133,7 +133,6 @@ html,body{
 #btnReply:hover{
 	background-color: white;
 	color:black;
-	
 	text-decoration: underline;
     text-underline-position: under;
 }

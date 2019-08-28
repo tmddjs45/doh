@@ -18,15 +18,15 @@
 				<ul>		
 				<c:forEach items="${lectureList}" var="list">
 							<li><a class="sideBtn" href="${path}/lecture/content?lecture_no=${list.lecture_no}&lecture_name=lecture_js">${list.lecture_title}</a></li><!-- 이 부분을 강좌마다 바꾸면 됩니다 -->						
-				</c:forEach>	
+				</c:forEach>
+				<sec:authorize access="hasRole('ROLE_ADMIN')"><li><a class="plusBtn" href="javascript:makeLecture();">+</a></li></sec:authorize>
 				</ul>
-				<a class="plusBtn" href="javascript:makeLecture();">+</a>
 				<form name="lectureBar">
 					<input type="hidden" name="command"/>
 					<input type="hidden" name="lecture_name"/> 
 				</form>
 			</div>
-			
+	
 			<div id="main">
 				<c:choose>
 					<c:when test="${command != null }">
@@ -51,12 +51,11 @@
 												<iframe id="viewer"></iframe>
 											</div>
 										</div>
-									</div>				
-								
-								<div class="btn-area">
-									<button class="btn2" type="button" onclick="window.history.go(-1); return false;">취소</button>
-									<button class="btn2" type="button" onclick="writeButton('new')">등록</button>
-								</div>
+									</div>							
+									<div class="btn-area">
+										<button class="btn2" type="button" onclick="window.history.go(-1); return false;">취소</button>
+										<button class="btn2" type="button" onclick="writeButton('new')">등록</button>
+									</div>
 							</form>
 						</div>
 						</c:if>
@@ -95,14 +94,16 @@
 					
 					<c:otherwise>
 						<c:if test="${oneContent != null}">
-							<div class="btn-area">
-								<form name="changeForm" action="${path}/lecture/delete" method="post">
-									<input type="hidden" name="lecture_name" value="lecture_js">	<!--  강좌마다 이 부분 바꿔주면 됩니다-->
-									<input type="hidden" name="lecture_no" value="${oneContent.lecture_no}">
-									<button class="btn2" onclick="modifyButton()">수정</button>
-									<button class="btn2">삭제</button>
-								</form>
-							</div>
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<div class="btn-area">
+									<form name="changeForm" action="${path}/lecture/delete" method="post">
+										<input type="hidden" name="lecture_name" value="lecture_js">	<!--  강좌마다 이 부분 바꿔주면 됩니다-->
+										<input type="hidden" name="lecture_no" value="${oneContent.lecture_no}">
+										<button class="btn2" onclick="modifyButton()">수정</button>
+										<button class="btn2" onclick="deleteButton()">삭제</button>
+									</form>
+								</div>
+							</sec:authorize>
 							
 							<div class="lectureContentArea">
 								<h1>${oneContent.lecture_title}</h1>
@@ -122,13 +123,11 @@
 										<iframe id="viewer"></iframe>
 									</div>
 								</div>
-							</div>		
-										
+							</div>							
 						</c:if>
 					</c:otherwise>
 				</c:choose>
 			</div>
-			
 			</div>
 			<%@include file= "../includes/footer.jsp" %>
 			
@@ -140,21 +139,34 @@
     <script src="${path}/codemirror/addon/edit/closetag.js"></script>
 	<script>
 		$(document).ready(function(){
+			
 			var prevScrollpos = window.pageYOffset;
+
 			window.onscroll = function(){
 				var currentScrollpos = window.pageYOffset;
+				
 				if(prevScrollpos > currentScrollpos){
 					document.querySelector(".bar").style.top = "0px";
 					document.querySelector(".sideMenubar").style.top = "91px";
-				} else{
+				
+			    }else if($(window).height() - $(window).scrollTop() < window.innerHeight+1){
+		               document.querySelector(".sideMenubar").style.height = "629px";
+				}else{
 					document.querySelector(".bar").style.top = "-92px";
 					document.querySelector(".sideMenubar").style.top = "0px";
+					 document.querySelector(".sideMenubar").style.height = "721px";	
 				}
 				
 				prevScrollpos = currentScrollpos;
 			}
+			
+			var lectureTitle = '<c:out value="${oneContent.lecture_title}"/>';
+	         if(lectureTitle != ""){
+	            $("a.sideBtn:contains("+lectureTitle+")").css("backgroundColor", "#2E2E2E").css("color", "white");
+	         }
 		});
-	
+		
+		
 		function makeLecture(){
 			var sideMenuForm = document.lectureBar;
 			sideMenuForm.command.value = "make";
@@ -194,6 +206,15 @@
 			changeForm.submit();
 		}
 		
+		 function deleteButton(){
+	         var changeForm = document.changeForm;
+	         var againCheck =  prompt('정말 삭제하시려면 삭제하겠습니다.를 입력하십시오','');
+	         if(againCheck == '삭제하겠습니다.'){
+	            changeForm.submit();
+	         }
+	      }
+
+		
 		$(function(){
             var textContent = $('pre.CodeMirror-line > span').text();
             document.getElementById('viewer').srcdoc = textContent;
@@ -204,7 +225,8 @@
             mode: "xml",
             theme: "darcula",
             lineNumbers: true,
-            autoCloseTags: true
+            autoCloseTags: true,
+            lineWrapping : true
         });
         editor.setSize("100%", "700");
         

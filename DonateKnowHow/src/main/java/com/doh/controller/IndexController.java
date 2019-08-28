@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.doh.domain.CustomUser;
 import com.doh.domain.MemberVO;
 import com.doh.service.MemberService;
+import com.doh.service.UserMailSendService;
 
 import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
@@ -42,27 +45,19 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class IndexController {
+	
+	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private UserMailSendService mailsender;
 	
 	@RequestMapping(value = "/")
 	public String index() {
 		return "index";
 	}
-	@RequestMapping("/frame") // 기본프레임으로 접속합니다.
-	public String frame() {
-		
-		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		CustomUser customUser = (CustomUser)pricipal;
-	
-		
-		log.info("## Email : "+customUser.getMember().getEmail());
-		log.info("## Nick : "+customUser.getMember().getNickname());
-		log.info("## M_no : "+customUser.getMember().getM_no());
 
-		return "frame";
-	}
-	
 	@RequestMapping("/ask")
 	public String ask_email(){
 		return "/member/ask";
@@ -124,17 +119,61 @@ public class IndexController {
 	public String memberinfo(Model model) {
 		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomUser customUser = (CustomUser)pricipal;
-		
 		log.info("## 멤버 넘버 : "+customUser.getMember().getM_no());
 		ArrayList<Integer> count = service.countinfo(customUser.getMember().getM_no());
 		model.addAttribute("count",count);
-		
 		return "member/memberinfo";
 	}
 	
 	@RequestMapping("/loginfail")
 	public String loginfail() {
 		return "member/loginfailMsg";
+	}
+	
+	@RequestMapping("/profile_update")
+	public String profile_update(Model model){
+		Object pricipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUser customUser = (CustomUser)pricipal;
+		model.addAttribute("profile",customUser);
+		return "/member/profile_update";
+	}
+	
+	@PostMapping("/profile_update")
+	public String profile_update(Model model, String nickname, String password, String currentPassword){
+		boolean result = service.profile_update(nickname,password,currentPassword);
+		model.addAttribute("update_result",result);
+		return "/member/Profile_Update_Msg";
+	}
+	
+	@RequestMapping("/find_password")
+	public String find_pwd_form() {
+		return "/member/find_password";
+	}
+	
+	@PostMapping("/find_password")
+	public String find_pwd(String find_email, HttpServletRequest request) {
+		log.info("## find_email : "+find_email);
+		mailsender.mailSendWithUserKey(find_email, request);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/alter_password")
+	public String alter_pwd(String email, String key, Model model) {
+		model.addAttribute("compare",service.compareKey(email,key));
+		model.addAttribute("email",email);
+		return "/member/alter_password";
+	}
+	
+	@PostMapping("/alter_password")
+	public String alter_pwd(Model model,boolean alter_compare, String alter_email, String alter_password) {
+		
+		if(alter_compare) {
+			service.alter_password(alter_email,alter_password);
+			model.addAttribute("alter_result", 1);
+		}else {
+			model.addAttribute("alter_result", 2);
+		}
+		return "/member/alterMsg";
 	}
 	
 }

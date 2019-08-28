@@ -1,7 +1,6 @@
 .container{
 	display:grid;
 	grid-template-columns : 13vw auto;
-	border-bottom:1px solid #d8d8d8;
 	box-sizing: border-box;
 }
 
@@ -17,13 +16,18 @@
 }
 .sideMenubar{
 	position:fixed;
+	display:block;
 	width:13vw;
-	height:100%;
+	height: 100%;
+	height: 629px;
+	overflow: auto;
 	transition:.5s;
 	z-index:1;
+	font-family: 'Russo One', sans-serif; 
 }
 
 .sideMenubar ul {
+	overflow-y: auto;
 	margin:0px;
 	padding:0px;
 } 
@@ -34,12 +38,12 @@
 
 .sideMenubar ul li a{
 	text-decoration: none;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 900;
 	display: block;
 	background-color: white;
 	color: black;
-	padding: 10px 10px 10px 15px;
+	padding: 13px 10px 13px 15px;
 }
 
 .sideMenubar ul li a:hover, .plusBtn:hover{
@@ -59,9 +63,10 @@
 
 #main{
 	grid-column-start: 2;
-	padding: 20px 105px 20px 93px;
+	padding: 20px 100px 20px 93px;
 	width:85%;
 	border-left: 1px solid #BDBDBD;
+	
 }
 
 #main form{

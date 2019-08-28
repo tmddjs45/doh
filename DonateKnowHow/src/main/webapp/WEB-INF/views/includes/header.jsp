@@ -43,7 +43,6 @@
                 			<li><a href="/memberinfo">Info</a></li>
                 			<li><a href="/cboard/emailw">Ask</a></li>
                 			<li><a href="/logout">Logout</a></li>
-                			
                 		</ul>
                 	</li>
                 </sec:authorize>
@@ -76,7 +75,7 @@
 				<div class="member-join">
 					<ul>
 						<li><a id="signupBtn">회원가입</a></li>&nbsp;|&nbsp;
-						<li><a>비밀번호 찾기</a></li>
+						<li><a href="/find_password">비밀번호 찾기</a></li>
 					</ul>
 				</div>
 				
@@ -221,7 +220,7 @@
 						passwordFlag=false;
 					}	
 				}
-			},1500);
+			},1000);
 		});
 		
 		/* ---- #  Debouncing Password Check END  # ---- */
@@ -244,7 +243,6 @@
 							type: "POST",
 							data: { email: $(".signup-email").val()},
 							success: function(responseData){
-								console.log("아라라ㅏ안안앙 실행은 된당!");
 								if(responseData=="true"){
 									$('#email-check').text('사용 가능한 Email 입니다.').css('color','green');
 									emailFlag = true;
@@ -277,10 +275,10 @@
 				
 				if($('.signup-nickname').val().length==0){
 					$('#nickname-check').text('빈칸이네요 :( 입력해주세요.').css('color','red');
-					emailFlag = false;
+					nicknameFlag = false;
 				}else if($('.signup-nickname').val().length > 28){
 					$('#nickname-check').text('너무 길어요 :( 다시 입력해주세요.').css('color','red');
-					emailFlag = false;
+					nicknameFlag = false;
 				}else{
 					$.ajax({
 						url: "./nickcheck",
