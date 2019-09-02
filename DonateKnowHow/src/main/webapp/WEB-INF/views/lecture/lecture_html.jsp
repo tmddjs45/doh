@@ -150,11 +150,11 @@
 					document.querySelector(".sideMenubar").style.top = "91px";
 				
 			    }else if($(window).height() - $(window).scrollTop() < window.innerHeight+1){
-		               document.querySelector(".sideMenubar").style.height = "629px";
+		               document.querySelector(".sideMenubar").style.height = "85.5vh";
 				}else{
 					document.querySelector(".bar").style.top = "-92px";
 					document.querySelector(".sideMenubar").style.top = "0px";
-					 document.querySelector(".sideMenubar").style.height = "721px";	
+					 document.querySelector(".sideMenubar").style.height = "100vh";	
 				}
 				
 				prevScrollpos = currentScrollpos;

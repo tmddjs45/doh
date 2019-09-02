@@ -15,7 +15,7 @@
 	
 	.find_pwd_div{
 		margin: 0px auto;
-		padding: 50px 40px;
+		padding: 75px 40px;
 		text-align: center;
 		width:30%;
 		
@@ -49,26 +49,30 @@
 	}
 	
 	.find_btn{
-	
 		padding: 15px 30px;
 		outline: none;
 		border-radius: 10px;
 		font-size: 15px;
 		border: none;
 		background-color: gold;
+		color:#000;
 		margin:30px;
-		text-align: center;	
+		text-align: center;
+		font-weight:300;
+		transition:.3s;	
 	}
 	
 	.find_btn:hover{
-		background-color: yellow;
+		background-color: #000;
+		color: gold;
+		cursor: pointer;
 	}
 		
 </style>
 </head>
 <body>
 <%@include file="../includes/header.jsp"%>
-<div>
+<div style="height: 74vh;"> 
 	<div class="find_pwd_div">
 		<form name="find_form" action="find_password" method="POST">
 			<div>비밀번호 찾기</div>

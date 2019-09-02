@@ -3,7 +3,6 @@ package com.doh.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.doh.domain.QBoardVO;
@@ -39,6 +38,12 @@ public class QBoardServiceImpl implements QBoardService {
 	}
 	
 	@Override
+	public void deleteAImpl(int q_no) {
+		mapper.deleteA(q_no);
+	}
+	
+	
+	@Override
 	public QBoardVO updateGetImpl(int q_no) {
 		return mapper.updateGet(q_no);
 	}
@@ -57,4 +62,27 @@ public class QBoardServiceImpl implements QBoardService {
 	public int listCountImpl() {
 		return mapper.listCount();
 	}
+	
+	@Override	// 검색
+	public List<QBoardVO> getListSearchImpl(QCriteria cr){
+		return mapper.listSearch(cr);
+	}
+	
+	@Override
+	public int searchCountImpl(QCriteria cr) {
+		cr.setTotal(mapper.searchCount(cr));
+		int getTotal = cr.getTotal();
+		return getTotal;
+	}
+	
+	@Override
+	public int cookieImpl(int q_no) {
+		return mapper.cookie(q_no);
+	}
+	
+	@Override
+	public int checkListImpl(int q_no) {
+		return mapper.checkList(q_no);
+	}
+	
 }

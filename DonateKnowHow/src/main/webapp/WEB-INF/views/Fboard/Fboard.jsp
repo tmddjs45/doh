@@ -60,7 +60,9 @@
 <!-- 					<input type="submit" value="Submit"/> -->
 					<button class="searchBtn" type="button" onclick="fboardSearchBtn()"></button>
 				
-					<a class="write" href="${path}/fboard/write">✎ 쓰기</a>
+					<sec:authorize access="isAuthenticated()">
+	                  <a class="write" href="${path}/fboard/write">✎ 쓰기</a>
+	                </sec:authorize>
 					<input type="hidden" name="pageNum" value=1>
 				</form>
 			</div>

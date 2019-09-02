@@ -3,47 +3,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>input</title>
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/qboard/qboardList.css"/>
+<link href="${path}/codemirror/lib/codemirror.css" rel="stylesheet"/>
+<link href="${path}/codemirror/lib/codemirror.css" rel="stylesheet"/>
+<link href="${path}/codemirror/theme/darcula.css" rel="stylesheet"/>
+<link href="${path}/resources/css/lecture/lecture.css" rel="stylesheet"></link>
 </head>
-<body onload="input.name.focus()">
+<body>
 	<%@include file= "../includes/header.jsp" %>
-	<center>
-	   <hr width="600" size="2" noshade>
-	   <h2>QnA INPUT</h2>
-	   <hr width="600" size="2" noshade>
-	</center>
 	
 	<form role="form" name="input" method="post">
 		<input type="hidden" name="num" value="${cr.num}">
 		<input type="hidden" name="pageView" value="${cr.pageView}">
+		<input type="hidden" name="m_no" value='<sec:authentication property="principal.member.m_no"/>'>
+		<div class="input-form">
+			<div class='div-in-title'><input class="in-title" type="text" name="q_title" /></div>
+			<div><textarea id="editor1" name="q_content"></textarea></div>
+			<div><textarea id="editor" name="q_codecontent"></textarea></div>
+			<div class="btnLine">
+				<button class="backBtn" type="button" onclick="backBtn()">back</button>
+				<button class="writeBtn" onclick="writeBtn()">Write</button>
+			</div>
+		</div>
 		
-	   <table border="1" width="600" align="center"  cellpadding="3" cellspacing="1">
-		  <tr>
-		     <td align="center">NICKNAME</td>
-			 <td align="center"><input type="text" name="nickname" size="60"></td>
-		  </tr>
-		  
-          <tr>
-		     <td align="center">TITLE</td>
-			 <td align="center"><input type="text" name="q_title" size="60"></td>
-		  </tr>
-
-		  <tr>
-		     <td align="center">CONTENT</td>
-			 <td align="center"><textarea wrap='hard' name="q_content" rows="5" cols="53"></textarea></td>
-		  </tr>
-		  <tr>
-		     <td colspan="2" align="center">
-			    <input type="submit" value="SAVE">
-				<input type="reset" value="RESET">
-				<a href='list'>LIST</a>
-			 </td>
-		  </tr>
-	   </table>
-	   <br>
-	   <hr width="600" size="2" noshade>
-	</form>
+	</form>	
+	
 	<%@include file="../includes/footer.jsp" %>
+	<script src="${path}/codemirror/lib/codemirror.js"></script>
+    <script src="${path}/codemirror/mode/xml/xml.js"></script>
+    <script src="${path}/codemirror/addon/edit/closetag.js"></script>
+	<script src="../ckeditor/ckeditor.js"></script>
+	<script>
+		CKEDITOR.replace('editor1',{
+		});
+		function backBtn(){
+			history.back();
+		}
+		function writeBtn(){
+			console.log("success");
+		}
+	
+		var editor = CodeMirror.fromTextArea
+			(document.getElementById('editor'),{
+				mode: "xml",
+	     	    theme: "darcula",	
+				autoCloseTags: true,
+				lineNumbers: true,
+				lineWrapping: true,
+	     });
+	</script>
 </body>
 </html>

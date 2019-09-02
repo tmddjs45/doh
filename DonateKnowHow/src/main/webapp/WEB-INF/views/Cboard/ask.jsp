@@ -19,27 +19,26 @@
 			<div class="ask-board">
 			
 				<div class="ask-form">
-					<div><p class="title"><img class="img" src="${path}/resources/img/ema.png"></p>
+
+					<div class="title"><img class="img" src="${path}/resources/img/ema.png"></div>
 					
 				<!--  	<form  method="post" action="${path}/cboard/emailsend"> -->
-					<p>	<form  method="post" onsubmit="alertshow()" action="${path}/cboard/emailsend">
-						<select style="width:150px; height:39px;color:gray;" class="b" name = "Kategorie">
-							<option value="카테고리선택안함">-KATEGORIE-</option>
-							<option value="report" >신고합니다</option>
-							<option value="request">요청합니다</option>
-							<option value="question">문의합니다</option>
-						</select>
-						<input style="width:250px; height:35px;"  class="b"name="subject" placeholder="SUBJECT"></p><br>
-						 <p><textarea class="b" style="width:400px;" rows="14" cols="53" name="message" placeholder="------문의 내용은 가입시 적은 이메일로 회신됩니다------&#13;&#10;         --------------MESSAGE--------------"></textarea></p>
-						<p><input class="btn"type="submit" value="전송"></p>
+					<form  method="post" onsubmit="alertshow()" action="${path}/cboard/emailsend">
+						<div>
+							<select style="width:150px; height:39px;color:gray;" class="b" name = "Kategorie">
+								<option value="카테고리선택안함"> KATEGORIE </option>
+								<option value="report" >신고합니다</option>
+								<option value="request">요청합니다</option>
+								<option value="question">문의합니다</option>
+							</select>
+							<input style="width:250px; height:35px;"  class="b" name="subject" placeholder="SUBJECT">
+						</div><br>
+						<textarea class="bc" style="width:415px;" rows="14" cols="53" name="message" placeholder="---- 문의 내용은 가입시 적은 이메일로 회신됩니다 ----&#13;&#10;&#13;&#10;---- MESSAGE ----"></textarea>
+						<div><input class="btn"type="submit" value="전송"></div>
 					</form>
-					
 					</div>
-				</div>
-				
+				</div>		
 			</div>
-		</div>
-		
 		<div class="empty"></div>
 	</div>
 	

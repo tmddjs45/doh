@@ -65,7 +65,7 @@ body{
    background-color: #fff;
    text-align: left;
    width:150px;
-   padding: 20px 20px;
+   padding: 15px 15px;
    border-radius: 10px;
    margin:0px;
 }
@@ -116,7 +116,8 @@ body{
 
 .login-form h1{
 	text-align: center;
-	margin-bottom: 60px;
+	margin-bottom: 50px;
+	font-family: 'Russo One', sans-serif; 
 }
 
 .txtb{
@@ -166,26 +167,33 @@ body{
 }
 
 .logbtn, .cls{
+	
+	color: black;
+    font-size: 20px;
 	display: block;
 	width: 100%;
 	height: 50px;
 	border: none;
-	margin-top:10px;
+	margin-top:18px;
 	border-radius: 8px;
-	color: #fff;
-	background: linear-gradient(120deg, #ff9f1a,#fff200,#ff9f1a);
-	background-size: 200%;
+	background-color: gold;
+/* 	background: linear-gradient(120deg, #ff9f1a,#fff200,#ff9f1a); */
+/* 	background-size: 200%; */
 	outline: none;
 	cursor: pointer;
-	transition: .5s;
+	transition: .3s;
 }
 
 .logbtn:hover{
-	background-position: right;
+	color:gold;
+	background-color: #000;
+/* 	background-position: right; */
 }
 
 .cls:hover{
-	background-position: right;
+	color:gold;
+	background-color: #000;
+/* 	background-position: right; */
 }
 
 .member-join{
@@ -247,8 +255,11 @@ body{
 	background-color: white;
 	padding:2% 2%;
 	border-radius:10px;
-	width: 375px;
+	width: 400px;
 	z-index: 99;
+}
+.signup-modal-content h1{
+	font-family: 'Russo One', sans-serif; 
 }
 
 .signup-input input{
@@ -263,28 +274,32 @@ body{
 .access-text{
 	width:90%;
 	text-align:right;
-	font-size: 9px;
+	font-size: 11px;
 }
 
 .submitBtn, .signupCls{
 	margin-top: 18px;
+	font-size: 24px;
 	border: none;
 	outline: none;
 	width: 80%;
 	border-radius: 10px;
 	height: 50px;
-	background: linear-gradient(120deg, #ff9f1a,#fff200,#ff9f1a);
-	background-size: 200%;
-	color:white;
+	background-color:gold;
+/* 	background: linear-gradient(120deg, #ff9f1a,#fff200,#ff9f1a); */
+/* 	background-size: 200%; */
+	color:black;
 	transition: 0.5s;
 }
 
 .submitBtn:hover{
-	background-position: right;
+	background-color: #000;
+	color:gold;
 }
 
 .signupCls:hover{
-	background-position: right;
+	background-color: #000;
+	color:gold;
 }
 
 .hidden{
