@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Allura&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #81c644;
+
+}
+
+.wrapper{
+    margin-top: 5%;
+}
+
+.wrapper h1{
+    font-size: 72px;
+    margin-bottom: 150px;
+    text-align: center;
+    font-family: 'Allura', cursive;
+}
+
+.team{
+    display: flex;
+    text-align: center;
+    width:auto;
+    justify-content: center;
+    flex-wrap: nowrap;
+
+}
+
+.team .team_member{
+    background: #fff;
+    margin: 10px 20px 50px 20px;
+    width: 20%;
+    padding: 20px;
+    line-height: 20px;
+    color:#8e8b8b;
+    position: relative;
+}
+
+.team .team_member h3{
+    color: #81c644;
+    font-size: 26px;
+    margin-top: 110px;
+
+}
+
+.team .team_member p.role{
+    color:#ccc;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin:20px 0;
+
+}
+
+.team .team_member .team_img{
+    width:180px;
+    height: 180px;
+    border-radius: 50%;
+    position: absolute;
+    top:-90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+
+
+}
+
+.team .team_member .team_img img{
+    width: 180px;
+    height: 180px;
+    padding: 10px;
+    border-radius: 50%;
+
+}

@@ -6,22 +6,24 @@
 </head>
 <body>
  	<%@include file= "includes/header.jsp" %>
- 	
-	<div class="slider">
-		<div class="slider_item">
-			<span class="mainLec"><img src="${path}/resources/img/mainLecture.png"/></span>
+ 	<div class="slider-wrapper">
+		<div class="slider">
+			<div class="slider_item">
+				<img style="margin:0px; padding:0px; width:1920px;" src="${path}/resources/img/main.png"/>
+			</div>
+			<div class="slider_item">
+				<img src="${path}/resources/img/maincode.png"/>
+			</div>
+			<div class="slider_item">
+				<img src="${path}/resources/img/maincowork.png"/>
+			</div>
+			<div class="slider_item">
+				<img src="${path}/resources/img/mainjs.png"/>
+			</div>
 		</div>
-		<div class="slider_item">
-			<span class="mainQA"><img src="${path}/resources/img/mainQA.png"/></span>
-		</div>
-		<div class="slider_item"><span class="flagImg"><img src="${path}/resources/img/flag.png"/></span></div>
-		<div class="slider_item"><span class="donate"><img src="${path}/resources/img/donate.png"/></span></div>
-
-	
+		<div class="slider_line"></div>		
 	</div>
 	
-	<div style="background-color: gold; margin:0; text-align: center; width:100%; height: 150px;">
-	</div>
 	
 	<%@include file="includes/footer.jsp" %>
 	
@@ -47,7 +49,7 @@
 		}
 	}
 	slide();
-	setInterval(slide, 3100);
+	setInterval(slide, 3000);
 	
 </script>
 </html>

@@ -41,7 +41,7 @@
                 	<li><a style="color:gold;">${nickname}</a>
                 		<ul>
                 			<li><a href="/memberinfo">Info</a></li>
-                			<li><a href="/ask">Ask</a></li>
+                			<li><a href="/cboard/emailw">Ask</a></li>
                 			<li><a href="/logout">Logout</a></li>
                 		</ul>
                 	</li>

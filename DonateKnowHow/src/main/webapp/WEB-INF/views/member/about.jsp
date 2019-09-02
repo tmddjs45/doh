@@ -61,7 +61,7 @@
     		<img src="${path}/resources/img/boat.png">
     	</div>
     	
-    	<p>그럼 다 같이 기부에 동참 해 볼까요?</p>
+    	<p style="margin-bottom:50px;">그럼 다 같이 기부에 동참 해 볼까요?</p>
     	
 	</div><!-- wrapper End -->  
 	<div class="empty_right"></div>

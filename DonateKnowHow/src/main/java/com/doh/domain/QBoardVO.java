@@ -12,6 +12,8 @@ public class QBoardVO {
 	private String email;
 	private String q_title;
 	private String q_content;
+	private String q_codecontent;
 	private Date q_rdate;
-	private int q_count;	//조회
+	private int q_readnum;	//조회
+	private int checknum;	//댓글채택유무
 }
