@@ -216,7 +216,7 @@
 
 		
 		$(function(){
-            var textContent = $('pre.CodeMirror-line > span').text();
+			var textContent = editor.getValue();
             document.getElementById('viewer').srcdoc = textContent;
         });
 	
@@ -231,7 +231,7 @@
         editor.setSize("100%", "700");
         
         function refresh(){
-            var textContent = $('pre.CodeMirror-line > span').text();
+        	var textContent = editor.getValue();
             document.getElementById('viewer').srcdoc = textContent;
         }
 	</script>

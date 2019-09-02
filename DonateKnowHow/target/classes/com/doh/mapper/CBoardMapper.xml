@@ -33,7 +33,7 @@
 	</update>
 	
 
-	<select id="totalCount" resultType="Integer">
+	<select id="totalCount" resultType="int">
 
 		<![CDATA[ select count(*) from cboard ]]>
 	</select>
