@@ -23,7 +23,11 @@ html, body{
 	outline:none;
 	width:24px;
 	height: 24px;
-	
+	cursor: pointer;
+}
+
+.content{
+    min-height: 970px;
 }
 
 .boardList{

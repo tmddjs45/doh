@@ -36,12 +36,14 @@
 }
 
 .clsBtn:hover{
-	background-color: #ffff00;
+	background-color: black;
+	color:yellow;
 	cursor: pointer;
 	
 }
 .updateBtn:hover{
-	background-color: #ffff00;
+	background-color: black;
+	color:yellow;
 	cursor:pointer;
 }
 

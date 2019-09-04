@@ -9,7 +9,7 @@
  	<div class="slider-wrapper">
 		<div class="slider">
 			<div class="slider_item">
-				<img style="margin:0px; padding:0px; width:1920px;" src="${path}/resources/img/main.png"/>
+				<img src="${path}/resources/img/main.png"/>
 			</div>
 			<div class="slider_item">
 				<img src="${path}/resources/img/maincode.png"/>

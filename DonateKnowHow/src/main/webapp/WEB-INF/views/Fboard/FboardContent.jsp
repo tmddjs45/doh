@@ -830,31 +830,25 @@
 								}
 							}
 							$("#replyPagePlace").html(outPage); //완성된 문자열을 id가 replyPagePlace인 영역에 html코드로 보냅니다
-							if (num == 1) {
-								var nowBtn = $(".btn.white.num:contains('"
-										+ num + "')");
-								$(nowBtn).css('color', 'white');
-								$(nowBtn).css('background-color', 'black');
-								var tenBtn = $(".btn.white.num:contains('10')");
-								$(tenBtn).css('color', 'black');
-								$(tenBtn).css('background-color', 'white');
-								$(tenBtn).hover(
-										function() {
-											$(tenBtn).css('color', 'white');
-											$(tenBtn).css('background-color',
-													'#2E2E2E');
-										},
-										function() {
-											$(tenBtn).css('color', 'black');
-											$(tenBtn).css('background-color',
-													'white');
-										});
-							} else {
-								var nowBtn = $(".btn.white.num:contains('"
-										+ num + "')");
-								$(nowBtn).css('color', 'white');
-								$(nowBtn).css('background-color', 'black');
-							}
+							if(num == 1){
+				                  var nowBtn = $(".btn.white.num:contains('"+num+"')");
+				                  $(nowBtn).css( 'color', 'black' );
+				                  $(nowBtn).css( 'background-color', 'white' );
+				                  var tenBtn = $(".btn.white.num:contains('10')");
+				                  $(tenBtn).css( 'color', 'white' );
+				                  $(tenBtn).css( 'background-color', '#2E2E2E' );
+				                  $(tenBtn).hover(function() {
+				                     $(tenBtn).css( 'color', '#2E2E2E' );
+				                     $(tenBtn).css( 'background-color', 'white' );
+				                  }, function(){
+				                     $(tenBtn).css( 'color', 'white' );
+				                     $(tenBtn).css( 'background-color', '#2E2E2E' );
+				                  });
+				               }else{
+				                  var nowBtn = $(".btn.white.num:contains('"+num+"')");
+				                  $(nowBtn).css( 'color', 'black' );
+				                  $(nowBtn).css( 'background-color', 'white' );
+				               }
 						}
 					});
 		}

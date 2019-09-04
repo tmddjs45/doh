@@ -13,6 +13,7 @@ import com.doh.domain.EmailDTO;
 
 @Service
 public class EmailServiceImpl implements EmailService {
+	
 	@Inject
 	JavaMailSender mailSender;
 	@Override

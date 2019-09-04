@@ -73,7 +73,7 @@ body{
 .boardQA-content h3 a{
 	text-decoration: none;
 	font-size:20px;
-	font-weight: lighter;
+	font-weight: bold;
 	color: #8fca05;
 }
 .boardQA-content h3 a:hover{

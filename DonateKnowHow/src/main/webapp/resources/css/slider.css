@@ -9,11 +9,15 @@
 	width: 100%;
 	height: 65vh;
 	position: relative;
+	overflow: hidden;
 	
+}
+.slider_item img{
+   width:100%;
+   height:100%;
 }
 
 .slider_item{
-	
 	width: 100%;
 	height: 65vh;
 	display: flex;
