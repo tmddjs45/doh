@@ -71,7 +71,7 @@ public class UserMailSendService {
 				+"다음 하이퍼링크를 눌러 방문하시면 비밀번호를 다시 설정하실 수 있습니다.<br><br>"
 				+"<p> ** 보안을 이유로, 해당 링크를 통한 비밀번호 변경은 한번만 가능해요. 링크로 들어간 페이지를 나가시면 재설정 할 수 없어요.</p>"
 				+"<p> ** 유의해주세요!</p>"
-				+"<p><a style='font-size:30px;' href='http://localhost:8080/alter_password?key="+key+"&email="+email+"'> Donate Know How </a></p>";	
+				+"<p><a style='font-size:30px;' href='http://15.164.152.118:8080/alter_password?key="+key+"&email="+email+"'> Donate Know How </a></p>";	
 		try {
 			mail.setSubject("[D'oh] 비빌번호 찾기 이메일입니다.","utf-8");
 			mail.setText(htmlStr,"utf-8","html");
