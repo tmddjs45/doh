@@ -19,7 +19,6 @@
 	display:block;
 	width:13vw;
 	height: 100%;
-	height: 629px;
 	overflow: auto;
 	transition:.5s;
 	z-index:1;
@@ -43,7 +42,7 @@
 	display: block;
 	background-color: white;
 	color: black;
-	padding: 13px 10px 13px 15px;
+	padding: 20px 10px 20px 16px;
 }
 
 .sideMenubar ul li a:hover, .plusBtn:hover{
@@ -91,13 +90,13 @@
 }
 
 .edit_container_code{
-	width:670px;
+	width:43vw;
 }
 
 
 .edit_container_viewer{
-	width:430px;
-	height: 640px;
+	width:27.9vw;
+	height: 76vh;
 }
 #runBtn{
 	width:100%;

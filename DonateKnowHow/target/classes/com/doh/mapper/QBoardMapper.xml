@@ -4,36 +4,80 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.doh.mapper.QBoardMapper">
-	<select id="list" resultType="com.doh.domain.QBoardVO">
-		<![CDATA[ select * from QBOARD left join MEMBER on QBOARD.M_NO = MEMBER.M_NO order by q_no ]]>
+<!--	 검색	 -->
+	<select id='listSearch' resultType="com.doh.domain.QBoardVO">
+		select * from QBOARD left join MEMBER2 on QBOARD.M_NO = MEMBER2.M_NO  
+					<include refid="searchSelect"/>
+		order by q_no desc limit #{pageView} offset #{page}
 	</select>
 	
+<!--	전체 count -->
+	<select id='listCount' resultType="int">
+		select count(*) from QBOARD
+	</select>
+	
+<!--	검색조건에 맞는 count -->
+	<select id='searchCount' resultType="int">
+		select count(*) from QBOARD <include refid="searchSelect"/>
+	</select>
+
+<!-- 	검색sql -->
+	<sql id="searchSelect"> 
+		<if test="searchType != null" >
+			<if test="searchType == 'qTitle'.toString()">
+				where q_title like concat('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'qContent'.toString()">
+				where q_content like concat('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'qTitleContent'.toString()">
+				where concat(q_title, q_content) like concat('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'qNickname'.toString()">
+				where nickname like concat('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+	
 	<insert id="insert" parameterType="com.doh.domain.QBoardVO">
-		insert into qboard (q_title, q_content) values (#{q_title}, #{q_content})
+		insert into qboard (q_title, q_content, q_codecontent, m_no) values (#{q_title}, #{q_content}, #{q_codecontent}, #{m_no})
 	</insert>
 	
 	<select id="content" resultType="com.doh.domain.QBoardVO">
-		select * from QBOARD left join MEMBER on QBOARD.m_no = MEMBER.m_no where q_no=#{q_no}
+		select * from QBOARD left join MEMBER2 on QBOARD.m_no = MEMBER2.m_no where q_no=#{q_no}
 	</select>
 	
 	<delete id="delete">
 		delete from QBOARD where q_no=#{q_no}
 	</delete>
+	
+			<!-- reply까지삭제 -->
+	<delete id="deleteA">
+		DELETE FROM answer WHERE q_no=#{q_no}
+	</delete>
 
 	<select id="updateGet" resultType="com.doh.domain.QBoardVO">
-		select * from QBOARD left join MEMBER on QBOARD.m_no = MEMBER.m_no where q_no=#{q_no}
+		select * from QBOARD left join MEMBER2 on QBOARD.m_no = MEMBER2.m_no where q_no=#{q_no}
 	</select>
 
 	<update id="update">
-		update qboard set q_title=#{q_title}, q_content=#{q_content}, q_rdate=now() where q_no=#{q_no}
+		update qboard set q_title=#{q_title}, q_content=#{q_content}, q_codecontent=#{q_codecontent}, q_rdate=now() where q_no=#{q_no}
 	</update>
 	
-		<!-- 페이징 -->
+			<!-- 페이징 -->
 	<select id='paging' resultType="com.doh.domain.QBoardVO">
-		<![CDATA[ select * from QBOARD left join MEMBER on QBOARD.M_NO = MEMBER.M_NO 
+		<![CDATA[ select * from QBOARD left join MEMBER2 on QBOARD.M_NO = MEMBER2.M_NO 
 								order by q_no desc limit #{pageView} offset #{page} ]]>
 	</select>
-	<select id='listCount' resultType='Integer'>
-		<![CDATA[ select count(*) from QBOARD ]]>
+
+			<!-- 쿠키 -->
+	<update id='cookie'>
+		update qboard set q_readnum = IFNULL(q_readnum,0)+1 where q_no=#{q_no}
+	</update>
+	
+	<select id="checkList" resultType="int">
+		SELECT COUNT(*) FROM answer WHERE q_no=#{q_no} AND a_check = 1
 	</select>
+	
+
 </mapper>

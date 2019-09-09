@@ -4,4 +4,70 @@
 	margin: 0px auto;
 	text-align: center;
 	width:80%;
+	color:gray;
+	
+}
+.ask-form{
+	margin:0px auto;
+	padding:10px;
+	width:100%;
+	height:70vh;
+	vertical-align:middle;
+	white-space: nowrap;
+	position: relative;
+	
+}
+
+
+.btn{
+	margin: 35px 0px;
+	width:300px;
+	height:50px;
+	background: #2E2E2E;
+	border: 1px solid #D8D8D8;
+	color:white;
+	border:none;
+	border-radius:10px;
+	cursor: pointer;
+	transition: .3s;
+	outline: none;
+	
+}
+
+.btn:hover{
+	background-color: white;
+	border: 1px solid #2E2E2E;
+	color: black;
+
+}
+.b{
+	padding:0px 15px;
+	margin:0px auto;
+	border-radius: 5px;
+	border: 1px solid gray;
+	outline: none;
+	
+}
+.b::placeholder {
+	text-align: center;
+	font-family: 'Russo One', sans-serif; 
+}
+
+.bc{
+	padding:15px 10px;
+	margin:0px auto;
+	border-radius: 5px;
+	border: 1px solid gray;
+	outline: none;
+	
+}
+.bc::placeholder {
+	text-align: center;
+	font-family: 'Russo One', sans-serif; 
+}
+
+.img{
+	margin: 30px;
+	width:50px;
+	height:50px;
 }
